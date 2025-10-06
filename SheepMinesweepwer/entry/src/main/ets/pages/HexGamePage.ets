@@ -1,4 +1,4 @@
-import { HexGameViewModel } from '../viewModel/HexGameViewModel';
+import { HexGameViewModel } from './viewModel/HexGameViewModel';
 import { HexGameBoard } from './components/HexGameBoard';
 
 @Component

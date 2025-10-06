@@ -1,12 +1,13 @@
 import { adventureService } from '../services/AdventureService';
 import { Level } from '../model/Level';
+import { AdventureStage } from '../services/AdventureService';
 
 @Component
 export struct AdventureMapScreen {
-  @State stages: any[] = [];
+  @State stages: AdventureStage[] = [];
   @State currentStageIndex: number = 0;
-  onSelectLevel: (level: Level) => void;
-  onBack: () => void;
+  onSelectLevel: (level: Level) => void = () => {};
+  onBack: () => void = () => {};
 
   async aboutToAppear() {
     await adventureService.init();
@@ -22,7 +23,7 @@ export struct AdventureMapScreen {
         .margin(20);
 
       List({ space: 15 }) {
-        ForEach(this.stages, (stage, index) => {
+        ForEach(this.stages, (stage: AdventureStage, index: number) => {
           ListItem() {
             Column() {
               Text(`第 ${index + 1} 关`)

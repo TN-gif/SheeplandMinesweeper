@@ -5,7 +5,7 @@ import { achievementService } from '../services/AchievementService';
 @Component
 export struct AchievementsScreen {
   @State achievements: Achievement[] = [];
-  onBack: () => void;
+  onBack: () => void = () => {};
 
   aboutToAppear() {
     this.achievements = achievementService.getAchievements();
