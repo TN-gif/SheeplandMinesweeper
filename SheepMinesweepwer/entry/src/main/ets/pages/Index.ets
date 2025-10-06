@@ -36,8 +36,16 @@ struct Index {
     .width('100%').height('100%').justifyContent(FlexAlign.Center);
   }
 
-  // ... (GameView builder)
+  @Builder GameView() {
+    Column() {
+      // Assuming you have the game board and controls defined elsewhere
+      // Replace with your actual game view content
+      Text('Placeholder for Game View')
+    }
+  }
 
+
+  // The main build method that renders different screens based on gameState
   build() {
     Column() {
       if (this.gameState === 'menu') {
