@@ -1,0 +1,26 @@
+[
+  {
+    "id": "first_win",
+    "name": "草原新星",
+    "description": "首次赢得一场游戏",
+    "unlocked": false
+  },
+  {
+    "id": "ten_wins",
+    "name": "草原守护者",
+    "description": "累计赢得10场游戏",
+    "unlocked": false
+  },
+  {
+    "id": "flawless_victory",
+    "name": "完美闪避",
+    "description": "在不标记任何错误的情况下获胜",
+    "unlocked": false
+  },
+  {
+    "id": "quick_learner",
+    "name": "速战速决",
+    "description": "在60秒内赢得一场初级游戏",
+    "unlocked": false
+  }
+]
