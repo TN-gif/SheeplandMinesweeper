@@ -86,7 +86,7 @@ export class HexGameViewModel {
     if (cell.adjacentMines === 0) {
       // Flood fill for hex grid
       const neighbors = HexUtils.getNeighbors({ q, r });
-      neighbors.forEach(n => this.revealCell(n.q, n.r));
+      neighbors.forEach((n: AxialCoord): void => this.revealCell(n.q, n.r));
     }
     this.checkWinCondition();
   }

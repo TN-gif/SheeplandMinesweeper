@@ -1,8 +1,7 @@
 import { Achievement } from '../model/Achievement';
 import dataPreferences from '@ohos.data.preferences';
-import resourceManager from '@ohos.resourceManager';
 import { BusinessError } from '@ohos.base';
-import common from '@ohos.app.ability.common';
+import { getContext } from '@ohos.abilityAccessCtrl';
 
 const PREFS_FILE = 'achievement_data';
 const STATS_KEY = 'player_stats';
@@ -21,11 +20,11 @@ class AchievementService {
 
   async init(): Promise<void> {
     try {
-      const rawFile = await resourceManager.getRawFileContent('achievements.json');
+      const context = getContext(this);
+      const rawFile = await context.resourceManager.getRawFileContent('achievements.json');
       const jsonString = this.uint8ArrayToString(rawFile);
       this.achievements = JSON.parse(jsonString) as Achievement[];
 
-      const context = common.getAppContext();
       this.preferences = await dataPreferences.getPreferences(context, PREFS_FILE);
 
       await this.loadProgress();
@@ -37,15 +36,19 @@ class AchievementService {
   }
 
   private uint8ArrayToString(array: Uint8Array): string {
-    return String.fromCharCode.apply(null, array);
+    let result = "";
+    for (let i = 0; i < array.length; i++) {
+      result += String.fromCharCode(array[i]);
+    }
+    return result;
   }
 
   private async loadProgress(): Promise<void> {
     if (!this.preferences) return;
     try {
       const statsJson = await this.preferences.get(STATS_KEY, '{}') as string;
-      const savedStats = JSON.parse(statsJson) as Partial<PlayerStats>;
-      Object.assign(this.playerStats, savedStats);
+      const savedStats: Partial<PlayerStats> = JSON.parse(statsJson);
+      this.playerStats = { ...this.playerStats, ...savedStats };
 
       const unlockedJson = await this.preferences.get(ACHIEVEMENTS_KEY, '[]') as string;
       const unlockedIds: string[] = JSON.parse(unlockedJson);

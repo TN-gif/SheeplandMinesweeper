@@ -1,7 +1,7 @@
 import { Item } from '../model/Item';
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@ohos.base';
-import common from '@ohos.app.ability.common';
+import { getContext } from '@ohos.abilityAccessCtrl';
 
 const ITEM_PREFS_FILE = 'item_data';
 const INVENTORY_KEY = 'player_inventory';
@@ -15,7 +15,7 @@ class ItemService {
 
   async init(): Promise<void> {
     try {
-      const context = common.getAppContext();
+      const context = getContext(this);
       this.preferences = await dataPreferences.getPreferences(context, ITEM_PREFS_FILE);
       await this.loadInventory();
     } catch (e) {

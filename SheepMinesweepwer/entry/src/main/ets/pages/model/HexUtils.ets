@@ -4,6 +4,16 @@ export interface AxialCoord {
   r: number;
 }
 
+export interface Point {
+  x: number;
+  y: number;
+}
+
+interface FractionalAxialCoord {
+  q: number;
+  r: number;
+}
+
 export class HexCell {
   q: number;
   r: number;
@@ -31,7 +41,8 @@ export class HexUtils {
 
   static getNeighbor(hex: AxialCoord, direction: number): AxialCoord {
     const dir = HexUtils.directions[direction];
-    return { q: hex.q + dir.q, r: hex.r + dir.r };
+    const neighbor: AxialCoord = { q: hex.q + dir.q, r: hex.r + dir.r };
+    return neighbor;
   }
 
   static getNeighbors(hex: AxialCoord): AxialCoord[] {
@@ -46,12 +57,12 @@ export class HexUtils {
    * @param size The radius of a hexagon in pixels.
    * @param origin The center pixel of the hex grid's origin (0,0).
    */
-  static pixelToAxial(x: number, y: number, size: number, origin: { x: number, y: number }): AxialCoord {
-    const pt = { x: (x - origin.x) / size, y: (y - origin.y) / size };
+  static pixelToAxial(x: number, y: number, size: number, origin: Point): AxialCoord {
+    const pt: Point = { x: (x - origin.x) / size, y: (y - origin.y) / size };
     const q = (Math.sqrt(3) / 3) * pt.x - (1 / 3) * pt.y;
     const r = (2 / 3) * pt.y;
-
-    return this.axialRound({ q, r });
+    const frac: FractionalAxialCoord = { q, r };
+    return HexUtils.axialRound(frac);
   }
 
   /**
@@ -60,14 +71,15 @@ export class HexUtils {
    * @param size The radius of a hexagon in pixels.
    * @param origin The center pixel of the hex grid's origin (0,0).
    */
-  static axialToPixel(hex: AxialCoord, size: number, origin: { x: number, y: number }): { x: number, y: number } {
+  static axialToPixel(hex: AxialCoord, size: number, origin: Point): Point {
     const x = size * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r);
     const y = size * ((3 / 2) * hex.r);
-    return { x: x + origin.x, y: y + origin.y };
+    const pixel: Point = { x: x + origin.x, y: y + origin.y };
+    return pixel;
   }
 
   // Helper function to round floating-point axial coordinates to the nearest integer hex coordinate.
-  private static axialRound(frac: AxialCoord): AxialCoord {
+  private static axialRound(frac: FractionalAxialCoord): AxialCoord {
     const q = Math.round(frac.q);
     const r = Math.round(frac.r);
     const s = Math.round(-frac.q - frac.r);
@@ -76,12 +88,15 @@ export class HexUtils {
     const r_diff = Math.abs(r - frac.r);
     const s_diff = Math.abs(s - (-frac.q - frac.r));
 
+    let roundedQ = q;
+    let roundedR = r;
+
     if (q_diff > r_diff && q_diff > s_diff) {
-      return { q: -r - s, r };
+      roundedQ = -r - s;
     } else if (r_diff > s_diff) {
-      return { q, r: -q - s };
-    } else {
-      return { q, r };
+      roundedR = -q - s;
     }
+
+    return { q: roundedQ, r: roundedR };
   }
 }

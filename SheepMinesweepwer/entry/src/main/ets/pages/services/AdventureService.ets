@@ -2,15 +2,19 @@ import { BusinessError } from '@ohos.base';
 import dataPreferences from '@ohos.data.preferences';
 import resourceManager from '@ohos.resourceManager';
 import { Level } from '../model/Level';
-import common from '@ohos.app.ability.common';
+import { getContext } from '@ohos.abilityAccessCtrl';
 
 const ADVENTURE_PREFS_FILE = 'adventure_data';
 const CURRENT_STAGE_KEY = 'current_stage_index';
 
-interface AdventureStage {
+export interface AdventureStage {
   stageId: string;
   levelId: string;
   introText: string;
+}
+
+interface AdventureMap {
+  stages: AdventureStage[];
 }
 
 class AdventureService {
@@ -21,16 +25,16 @@ class AdventureService {
 
   async init(): Promise<void> {
     try {
-      const context = common.getAppContext();
+      const context = getContext(this);
       this.preferences = await dataPreferences.getPreferences(context, ADVENTURE_PREFS_FILE);
       this.currentStageIndex = await this.preferences.get(CURRENT_STAGE_KEY, 0) as number;
 
-      const mapRawFile = await resourceManager.getRawFileContent('adventure_map.json');
+      const mapRawFile = await context.resourceManager.getRawFileContent('adventure_map.json');
       const mapJsonString = this.uint8ArrayToString(mapRawFile);
-      const adventureMap: { stages: AdventureStage[] } = JSON.parse(mapJsonString);
+      const adventureMap: AdventureMap = JSON.parse(mapJsonString);
       this.stages = adventureMap.stages;
 
-      const levelsRawFile = await resourceManager.getRawFileContent('levels.json');
+      const levelsRawFile = await context.resourceManager.getRawFileContent('levels.json');
       const levelsJsonString = this.uint8ArrayToString(levelsRawFile);
       this.allLevels = JSON.parse(levelsJsonString);
     } catch (e) {
@@ -40,7 +44,11 @@ class AdventureService {
   }
 
   private uint8ArrayToString(array: Uint8Array): string {
-    return String.fromCharCode.apply(null, array);
+    let result = "";
+    for (let i = 0; i < array.length; i++) {
+      result += String.fromCharCode(array[i]);
+    }
+    return result;
   }
 
   public getCurrentStage(): AdventureStage | null {

@@ -4,6 +4,11 @@ import { adventureService } from '../services/AdventureService';
 import { itemService } from '../services/ItemService';
 import { achievementService } from '../services/AchievementService';
 
+interface Coordinate {
+  x: number;
+  y: number;
+}
+
 @Observed
 export class GameViewModel {
   rows: number = 10;
@@ -13,7 +18,7 @@ export class GameViewModel {
   gameOver: boolean = false;
   gameWon: boolean = false;
   selectedItem: 'magnifying_glass' | 'iron_fist' | null = null;
-  tempRevealedCell: { x: number, y: number } | null = null;
+  tempRevealedCell: Coordinate | null = null;
 
   constructor(level: Level | null = null) {
     if (level) {
@@ -69,7 +74,8 @@ export class GameViewModel {
     switch (this.selectedItem) {
       case 'magnifying_glass':
         cell.isRevealed = true;
-        this.tempRevealedCell = { x, y };
+        const tempCell: Coordinate = { x, y };
+        this.tempRevealedCell = tempCell;
         break;
 
       case 'iron_fist':

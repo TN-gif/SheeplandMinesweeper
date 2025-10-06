@@ -1,6 +1,6 @@
 import { Level } from '../model/Level';
-import resourceManager from '@ohos.resourceManager';
 import { BusinessError } from '@ohos.base';
+import { getContext } from '@ohos.abilityAccessCtrl';
 
 @Component
 export struct LevelSelectScreen {
@@ -10,8 +10,12 @@ export struct LevelSelectScreen {
 
   async aboutToAppear(): Promise<void> {
     try {
-      const rawFile = await resourceManager.getRawFileContent('levels.json');
-      const jsonString = String.fromCharCode.apply(null, Array.from(new Uint8Array(rawFile.buffer)));
+      const context = getContext(this);
+      const rawFile = await context.resourceManager.getRawFileContent('levels.json');
+      let jsonString = '';
+      for (let i = 0; i < rawFile.length; i++) {
+        jsonString += String.fromCharCode(rawFile[i]);
+      }
       this.levels = JSON.parse(jsonString) as Level[];
     } catch (e) {
       const error = e as BusinessError;
@@ -29,7 +33,7 @@ export struct LevelSelectScreen {
       List({ space: 10 }) {
         ForEach(this.levels, (level: Level) => {
           ListItem() {
-            Button(level.levelName)
+            Button(level.name)
               .width('100%')
               .fontSize(20)
               .padding(15)
