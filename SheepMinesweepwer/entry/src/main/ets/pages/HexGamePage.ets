@@ -1,10 +1,10 @@
 import { HexGameViewModel } from '../viewModel/HexGameViewModel';
-import { HexGameBoard } from './HexGameBoard';
+import { HexGameBoard } from './components/HexGameBoard';
 
 @Component
 export struct HexGamePage {
   @State viewModel: HexGameViewModel = new HexGameViewModel();
-  onBack: () => void;
+  onBack: () => void = () => {};
 
   build() {
     Column() {

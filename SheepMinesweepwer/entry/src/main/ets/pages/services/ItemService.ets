@@ -1,5 +1,7 @@
 import { Item } from '../model/Item';
 import dataPreferences from '@ohos.data.preferences';
+import { BusinessError } from '@ohos.base';
+import common from '@ohos.app.ability.common';
 
 const ITEM_PREFS_FILE = 'item_data';
 const INVENTORY_KEY = 'player_inventory';
@@ -11,30 +13,46 @@ class ItemService {
   ];
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init() {
-    const context = getContext(this);
-    this.preferences = await dataPreferences.getPreferences(context, ITEM_PREFS_FILE);
-    await this.loadInventory();
-  }
-
-  private async loadInventory() {
-    const savedInventoryJson = await this.preferences!.get(INVENTORY_KEY, '[]') as string;
-    const savedInventory = JSON.parse(savedInventoryJson);
-
-    if (savedInventory.length > 0) {
-      // If there is saved data, update the quantities
-      this.inventory.forEach(item => {
-        const savedItem = savedInventory.find(si => si.id === item.id);
-        if (savedItem) {
-          item.quantity = savedItem.quantity;
-        }
-      });
+  async init(): Promise<void> {
+    try {
+      const context = common.getAppContext();
+      this.preferences = await dataPreferences.getPreferences(context, ITEM_PREFS_FILE);
+      await this.loadInventory();
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to initialize ItemService: ${error.message}, code: ${error.code}`);
     }
   }
 
-  private async saveInventory() {
-    await this.preferences!.put(INVENTORY_KEY, JSON.stringify(this.inventory));
-    await this.preferences!.flush();
+  private async loadInventory(): Promise<void> {
+    if (!this.preferences) return;
+    try {
+      const savedInventoryJson = await this.preferences.get(INVENTORY_KEY, '[]') as string;
+      const savedInventory: Item[] = JSON.parse(savedInventoryJson);
+
+      if (savedInventory.length > 0) {
+        this.inventory.forEach(item => {
+          const savedItem = savedInventory.find(si => si.id === item.id);
+          if (savedItem) {
+            item.quantity = savedItem.quantity;
+          }
+        });
+      }
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to load inventory: ${error.message}, code: ${error.code}`);
+    }
+  }
+
+  private async saveInventory(): Promise<void> {
+    if (!this.preferences) return;
+    try {
+      await this.preferences.put(INVENTORY_KEY, JSON.stringify(this.inventory));
+      await this.preferences.flush();
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to save inventory: ${error.message}, code: ${error.code}`);
+    }
   }
 
   public getInventory(): Item[] {

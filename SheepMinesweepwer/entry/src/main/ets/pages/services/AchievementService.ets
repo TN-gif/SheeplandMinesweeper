@@ -1,6 +1,8 @@
 import { Achievement } from '../model/Achievement';
 import dataPreferences from '@ohos.data.preferences';
 import resourceManager from '@ohos.resourceManager';
+import { BusinessError } from '@ohos.base';
+import common from '@ohos.app.ability.common';
 
 const PREFS_FILE = 'achievement_data';
 const STATS_KEY = 'player_stats';
@@ -17,60 +19,75 @@ class AchievementService {
   private playerStats: PlayerStats = { wins: 0, fastestWin: 999, flawlessWins: 0 };
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init() {
-    // Load default achievements from raw file
-    const rawFile = await resourceManager.getRawFileContent('achievements.json');
-    const jsonString = String.fromCharCode(...new Uint8Array(rawFile.buffer));
-    this.achievements = JSON.parse(jsonString);
+  async init(): Promise<void> {
+    try {
+      const rawFile = await resourceManager.getRawFileContent('achievements.json');
+      const jsonString = this.uint8ArrayToString(rawFile);
+      this.achievements = JSON.parse(jsonString) as Achievement[];
 
-    // Get preferences instance
-    const context = getContext(this);
-    this.preferences = await dataPreferences.getPreferences(context, PREFS_FILE);
+      const context = common.getAppContext();
+      this.preferences = await dataPreferences.getPreferences(context, PREFS_FILE);
 
-    // Load saved stats and unlocked status
-    await this.loadProgress();
-
-    // Update achievements with loaded status
-    this.updateAchievementStatus();
+      await this.loadProgress();
+      this.updateAchievementStatus();
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to initialize AchievementService: ${error.message}, code: ${error.code}`);
+    }
   }
 
-  private async loadProgress() {
-    const statsJson = await this.preferences!.get(STATS_KEY, '{}') as string;
-    this.playerStats = { ...this.playerStats, ...JSON.parse(statsJson) };
-
-    const unlockedJson = await this.preferences!.get(ACHIEVEMENTS_KEY, '[]') as string;
-    const unlockedIds = JSON.parse(unlockedJson);
-    this.achievements.forEach(ach => {
-      if (unlockedIds.includes(ach.id)) {
-        ach.unlocked = true;
-      }
-    });
+  private uint8ArrayToString(array: Uint8Array): string {
+    return String.fromCharCode.apply(null, array);
   }
 
-  private async saveProgress() {
-    await this.preferences!.put(STATS_KEY, JSON.stringify(this.playerStats));
-    const unlockedIds = this.achievements.filter(a => a.unlocked).map(a => a.id);
-    await this.preferences!.put(ACHIEVEMENTS_KEY, JSON.stringify(unlockedIds));
-    await this.preferences!.flush();
+  private async loadProgress(): Promise<void> {
+    if (!this.preferences) return;
+    try {
+      const statsJson = await this.preferences.get(STATS_KEY, '{}') as string;
+      const savedStats = JSON.parse(statsJson) as Partial<PlayerStats>;
+      Object.assign(this.playerStats, savedStats);
+
+      const unlockedJson = await this.preferences.get(ACHIEVEMENTS_KEY, '[]') as string;
+      const unlockedIds: string[] = JSON.parse(unlockedJson);
+      this.achievements.forEach(ach => {
+        if (unlockedIds.includes(ach.id)) {
+          ach.unlocked = true;
+        }
+      });
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to load achievement progress: ${error.message}, code: ${error.code}`);
+    }
   }
 
-  private updateAchievementStatus() {
-    // Logic to check all achievements based on current stats
+  private async saveProgress(): Promise<void> {
+    if (!this.preferences) return;
+    try {
+      await this.preferences.put(STATS_KEY, JSON.stringify(this.playerStats));
+      const unlockedIds = this.achievements.filter(a => a.unlocked).map(a => a.id);
+      await this.preferences.put(ACHIEVEMENTS_KEY, JSON.stringify(unlockedIds));
+      await this.preferences.flush();
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to save achievement progress: ${error.message}, code: ${error.code}`);
+    }
+  }
+
+  private updateAchievementStatus(): void {
     this.checkAchievement('first_win', this.playerStats.wins >= 1);
     this.checkAchievement('ten_wins', this.playerStats.wins >= 10);
     this.checkAchievement('quick_learner', this.playerStats.fastestWin <= 60);
     this.checkAchievement('flawless_victory', this.playerStats.flawlessWins > 0);
   }
 
-  private checkAchievement(id: string, condition: boolean) {
+  private checkAchievement(id: string, condition: boolean): void {
     const achievement = this.achievements.find(a => a.id === id);
     if (achievement && !achievement.unlocked && condition) {
       achievement.unlocked = true;
-      // Here you could trigger a notification for the newly unlocked achievement
     }
   }
 
-  public async recordGameWin(time: number, flawless: boolean) {
+  public async recordGameWin(time: number, flawless: boolean): Promise<void> {
     this.playerStats.wins++;
     if (time < this.playerStats.fastestWin) {
       this.playerStats.fastestWin = time;
@@ -87,5 +104,4 @@ class AchievementService {
   }
 }
 
-// Create a single instance of the service to be used throughout the app
 export const achievementService = new AchievementService();

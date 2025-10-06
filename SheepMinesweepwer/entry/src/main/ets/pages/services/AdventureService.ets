@@ -1,6 +1,8 @@
+import { BusinessError } from '@ohos.base';
 import dataPreferences from '@ohos.data.preferences';
 import resourceManager from '@ohos.resourceManager';
 import { Level } from '../model/Level';
+import common from '@ohos.app.ability.common';
 
 const ADVENTURE_PREFS_FILE = 'adventure_data';
 const CURRENT_STAGE_KEY = 'current_stage_index';
@@ -17,22 +19,28 @@ class AdventureService {
   private currentStageIndex: number = 0;
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init() {
-    // Load adventure map
-    const mapRawFile = await resourceManager.getRawFileContent('adventure_map.json');
-    const mapJsonString = String.fromCharCode(...new Uint8Array(mapRawFile.buffer));
-    const adventureMap = JSON.parse(mapJsonString);
-    this.stages = adventureMap.stages;
+  async init(): Promise<void> {
+    try {
+      const context = common.getAppContext();
+      this.preferences = await dataPreferences.getPreferences(context, ADVENTURE_PREFS_FILE);
+      this.currentStageIndex = await this.preferences.get(CURRENT_STAGE_KEY, 0) as number;
 
-    // Load all levels so we can find them by id
-    const levelsRawFile = await resourceManager.getRawFileContent('levels.json');
-    const levelsJsonString = String.fromCharCode(...new Uint8Array(levelsRawFile.buffer));
-    this.allLevels = JSON.parse(levelsJsonString);
+      const mapRawFile = await resourceManager.getRawFileContent('adventure_map.json');
+      const mapJsonString = this.uint8ArrayToString(mapRawFile);
+      const adventureMap: { stages: AdventureStage[] } = JSON.parse(mapJsonString);
+      this.stages = adventureMap.stages;
 
-    // Load progress
-    const context = getContext(this);
-    this.preferences = await dataPreferences.getPreferences(context, ADVENTURE_PREFS_FILE);
-    this.currentStageIndex = await this.preferences.get(CURRENT_STAGE_KEY, 0) as number;
+      const levelsRawFile = await resourceManager.getRawFileContent('levels.json');
+      const levelsJsonString = this.uint8ArrayToString(levelsRawFile);
+      this.allLevels = JSON.parse(levelsJsonString);
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to initialize AdventureService: ${error.message}, code: ${error.code}`);
+    }
+  }
+
+  private uint8ArrayToString(array: Uint8Array): string {
+    return String.fromCharCode.apply(null, array);
   }
 
   public getCurrentStage(): AdventureStage | null {
@@ -46,11 +54,16 @@ class AdventureService {
     return this.allLevels.find(level => level.levelId === stage.levelId) || null;
   }
 
-  public async completeStage() {
-    if (this.currentStageIndex < this.stages.length - 1) {
+  public async completeStage(): Promise<void> {
+    if (this.currentStageIndex < this.stages.length - 1 && this.preferences) {
       this.currentStageIndex++;
-      await this.preferences!.put(CURRENT_STAGE_KEY, this.currentStageIndex);
-      await this.preferences!.flush();
+      try {
+        await this.preferences.put(CURRENT_STAGE_KEY, this.currentStageIndex);
+        await this.preferences.flush();
+      } catch (e) {
+        const error = e as BusinessError;
+        console.error(`Failed to save adventure progress: ${error.message}, code: ${error.code}`);
+      }
     }
   }
 

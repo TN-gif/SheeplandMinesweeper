@@ -1,19 +1,21 @@
 import { Level } from '../model/Level';
 import resourceManager from '@ohos.resourceManager';
+import { BusinessError } from '@ohos.base';
 
 @Component
 export struct LevelSelectScreen {
   @State levels: Level[] = [];
-  onSelectLevel: (level: Level) => void;
-  onBack: () => void; // To go back to the main menu
+  onSelectLevel: (level: Level) => void = () => {};
+  onBack: () => void = () => {};
 
-  async aboutToAppear() {
+  async aboutToAppear(): Promise<void> {
     try {
       const rawFile = await resourceManager.getRawFileContent('levels.json');
-      const jsonString = String.fromCharCode(...new Uint8Array(rawFile.buffer));
-      this.levels = JSON.parse(jsonString);
-    } catch (error) {
-      console.error('Failed to load levels:', error);
+      const jsonString = String.fromCharCode.apply(null, Array.from(new Uint8Array(rawFile.buffer)));
+      this.levels = JSON.parse(jsonString) as Level[];
+    } catch (e) {
+      const error = e as BusinessError;
+      console.error(`Failed to load levels: ${error.message}, code: ${error.code}`);
     }
   }
 

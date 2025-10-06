@@ -1,5 +1,6 @@
 import { GameViewModel } from '../viewModel/GameViewModel';
 import { CellComponent } from './CellComponent';
+import { Cell } from '../model/Cell';
 
 @Component
 export struct GameBoard {
@@ -7,13 +8,13 @@ export struct GameBoard {
 
   build() {
     Grid() {
-      ForEach(this.viewModel.board, (row) => {
-        ForEach(row, (cell) => {
+      ForEach(this.viewModel.board, (row: Cell[]) => {
+        ForEach(row, (cell: Cell) => {
           GridItem() {
             CellComponent({
               cell: cell,
-              onReveal: (x, y) => this.viewModel.revealCell(x, y),
-              onFlag: (x, y) => this.viewModel.flagCell(x, y)
+              onReveal: (x: number, y: number): void => this.viewModel.revealCell(x, y),
+              onFlag: (x: number, y: number): void => this.viewModel.flagCell(x, y)
             });
           }
         });
