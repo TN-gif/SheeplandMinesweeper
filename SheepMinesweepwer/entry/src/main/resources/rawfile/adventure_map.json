@@ -13,16 +13,6 @@
     {
       "stageId": "stage_3",
       "levelId": "adventure_level_3",
-      "introText": "灰太狼在森林里设置了更多陷阱，运用你的智慧破解它们！"
-    },
-    {
-      "stageId": "stage_4",
-      "levelId": "adventure_level_4",
-      "introText": "已经接近狼堡了！灰太狼设下了最难的陷阱阵！"
-    },
-    {
-      "stageId": "stage_5",
-      "levelId": "adventure_level_5",
       "introText": "最终决战！打败灰太狼，解救被困的小羊们！"
     }
   ]

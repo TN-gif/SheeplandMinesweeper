@@ -2,6 +2,7 @@ import { Achievement } from '../model/Achievement';
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
+import util from '@ohos.util';
 
 const PREFS_FILE = 'achievement_data';
 const STATS_KEY = 'player_stats';
@@ -46,11 +47,9 @@ class AchievementService {
   }
 
   private uint8ArrayToString(array: Uint8Array): string {
-    let result = "";
-    for (let i = 0; i < array.length; i++) {
-      result += String.fromCharCode(array[i]);
-    }
-    return result;
+    // 使用UTF-8解码器正确解析中文（使用新的API）
+    const textDecoder = util.TextDecoder.create('utf-8');
+    return textDecoder.decodeToString(array);
   }
 
   private async loadProgress(): Promise<void> {

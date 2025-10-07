@@ -7,6 +7,7 @@ export struct CellComponent {
   @ObjectLink provider: ThemeProvider;
   onReveal: (x: number, y: number) => void = () => {};
   onFlag: (x: number, y: number) => void = () => {};
+  onChord: (x: number, y: number) => void = () => {};
 
   build() {
     Stack() {
@@ -71,12 +72,22 @@ export struct CellComponent {
       }
     })
     .gesture(
-      LongPressGesture({ repeat: false })
-        .onAction(() => {
-          if (!this.cell.isRevealed) {
-            this.onFlag(this.cell.x, this.cell.y);
-          }
-        })
+      GestureGroup(GestureMode.Exclusive,
+        // 双击手势：用于和弦操作
+        TapGesture({ count: 2 })
+          .onAction(() => {
+            if (this.cell.isRevealed && this.cell.adjacentMines > 0) {
+              this.onChord(this.cell.x, this.cell.y);
+            }
+          }),
+        // 长按手势：用于插旗
+        LongPressGesture({ repeat: false })
+          .onAction(() => {
+            if (!this.cell.isRevealed) {
+              this.onFlag(this.cell.x, this.cell.y);
+            }
+          })
+      )
     )
     .scale({ 
       x: this.cell.isRevealed ? 0.95 : (this.cell.isFlagged ? 1.05 : 1), 

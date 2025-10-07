@@ -32,6 +32,9 @@ export class GameViewModel {
   startTime: number = 0;
   elapsedTime: number = 0;
   timerInterval: number | null = null;
+  
+  // 第一次点击保护
+  isFirstClick: boolean = true;
 
   constructor(level: Level | null = null, context?: common.UIAbilityContext) {
     if (level) {
@@ -53,9 +56,11 @@ export class GameViewModel {
     this.gameOver = false;
     this.gameWon = false;
     this.elapsedTime = 0;
+    this.startTime = 0;
+    this.isFirstClick = true;
     this.stopTimer();
     
-    // 创建空白棋盘
+    // 创建空白棋盘（不放置地雷，等待第一次点击）
     for (let i: number = 0; i < this.rows; i++) {
       const row: Cell[] = [];
       for (let j: number = 0; j < this.cols; j++) {
@@ -63,20 +68,18 @@ export class GameViewModel {
       }
       this.board.push(row);
     }
-    
-    // 随机放置地雷
-    this.placeMines();
-    // 计算每个格子周围的地雷数
-    this.calculateAdjacentMines();
   }
 
-  private placeMines(): void {
+  private placeMines(firstClickX: number, firstClickY: number): void {
     let minesPlaced: number = 0;
     while (minesPlaced < this.mineCount) {
       const x: number = Math.floor(Math.random() * this.rows);
       const y: number = Math.floor(Math.random() * this.cols);
       
-      if (!this.board[x][y].isMine) {
+      // 确保第一次点击的位置和周围8格不是地雷
+      const isSafeZone: boolean = Math.abs(x - firstClickX) <= 1 && Math.abs(y - firstClickY) <= 1;
+      
+      if (!this.board[x][y].isMine && !isSafeZone) {
         this.board[x][y].isMine = true;
         minesPlaced++;
       }
@@ -120,6 +123,15 @@ export class GameViewModel {
       return;
     }
 
+    // 第一次点击时生成地雷（确保第一次点击安全）
+    if (this.isFirstClick) {
+      this.isFirstClick = false;
+      this.placeMines(x, y);
+      this.calculateAdjacentMines();
+      // 开始计时器
+      this.startTimer();
+    }
+
     cell.isRevealed = true;
 
     // 如果是地雷，游戏失败
@@ -138,10 +150,6 @@ export class GameViewModel {
     if (!isAutoReveal) {
       audioManager.playSound('click');
       HapticFeedbackUtils.vibrate('click');
-      // 开始计时器（第一次点击时）
-      if (this.startTime === 0) {
-        this.startTimer();
-      }
     }
 
     // 如果周围没有地雷，递归翻开周围的格子
@@ -207,6 +215,47 @@ export class GameViewModel {
       if (cell.isFlagged) {
         audioManager.playSound('flag');
         HapticFeedbackUtils.vibrate('flag');
+      }
+    }
+  }
+
+  // 和弦操作：当周围已插旗数等于数字时，自动翻开周围所有未插旗的格子
+  chordCell(x: number, y: number): void {
+    if (!this.isValid(x, y) || this.gameOver) {
+      return;
+    }
+
+    const cell: Cell = this.board[x][y];
+    
+    // 只对已翻开且有数字的格子有效
+    if (!cell.isRevealed || cell.isMine || cell.adjacentMines === 0) {
+      return;
+    }
+
+    // 计算周围已插旗的数量
+    let flagCount: number = 0;
+    for (let i: number = -1; i <= 1; i++) {
+      for (let j: number = -1; j <= 1; j++) {
+        if (i === 0 && j === 0) continue;
+        const newX: number = x + i;
+        const newY: number = y + j;
+        if (this.isValid(newX, newY) && this.board[newX][newY].isFlagged) {
+          flagCount++;
+        }
+      }
+    }
+
+    // 如果周围旗子数量等于数字，翻开周围所有未插旗的格子
+    if (flagCount === cell.adjacentMines) {
+      for (let i: number = -1; i <= 1; i++) {
+        for (let j: number = -1; j <= 1; j++) {
+          if (i === 0 && j === 0) continue;
+          const newX: number = x + i;
+          const newY: number = y + j;
+          if (this.isValid(newX, newY) && !this.board[newX][newY].isFlagged) {
+            this.revealCell(newX, newY);
+          }
+        }
       }
     }
   }

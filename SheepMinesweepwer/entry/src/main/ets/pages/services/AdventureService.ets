@@ -3,6 +3,7 @@ import dataPreferences from '@ohos.data.preferences';
 import resourceManager from '@ohos.resourceManager';
 import { Level } from '../model/Level';
 import common from '@ohos.app.ability.common';
+import util from '@ohos.util';
 
 const ADVENTURE_PREFS_FILE = 'adventure_data';
 const CURRENT_STAGE_KEY = 'current_stage_index';
@@ -58,11 +59,9 @@ class AdventureService {
   }
 
   private uint8ArrayToString(array: Uint8Array): string {
-    let result = "";
-    for (let i = 0; i < array.length; i++) {
-      result += String.fromCharCode(array[i]);
-    }
-    return result;
+    // 使用UTF-8解码器正确解析中文（使用新的API）
+    const textDecoder = util.TextDecoder.create('utf-8');
+    return textDecoder.decodeToString(array);
   }
 
   public getCurrentStage(): AdventureStage | null {

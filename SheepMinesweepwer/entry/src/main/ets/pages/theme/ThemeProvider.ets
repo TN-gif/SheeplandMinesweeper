@@ -14,13 +14,13 @@ export interface ThemeColors {
 }
 
 export interface ThemeAssets {
-  avatar: string;         // 角色头像
-  mineIcon: string;       // 地雷图标（灰太狼）
-  flagIcon: string;       // 旗帜图标（捕狼夹）
-  grassIcon: string;      // 草地图标
-  landIcon: string;       // 土地图标
-  signIcon: string;       // 路牌图标
-  background: string;     // 背景图片
+  avatar: Resource;       // 角色头像
+  mineIcon: Resource;     // 地雷图标（灰太狼）
+  flagIcon: Resource;     // 旗帜图标（捕狼夹）
+  grassIcon: Resource;    // 草地图标
+  landIcon: Resource;     // 土地图标
+  signIcon: Resource;     // 路牌图标
+  background: Resource;   // 背景图片
 }
 
 export interface ThemeAudio {
@@ -65,20 +65,20 @@ export const THEMES: Theme[] = [
       textSecondary: '#5A7D6E',
     },
     assets: {
-      avatar: 'images/avatar/喜羊羊.jpg',
-      mineIcon: 'images/icon/灰太狼.jpg',
-      flagIcon: 'images/icon/捕兽夹.png',
-      grassIcon: 'images/icon/草地.png',
-      landIcon: 'images/icon/土地.png',
-      signIcon: 'images/icon/路牌.png',
-      background: 'images/background/背景1.jpg',
+      avatar: $rawfile('images/avatar/喜羊羊.jpg'),
+      mineIcon: $rawfile('images/icon/灰太狼.jpg'),
+      flagIcon: $rawfile('images/icon/捕兽夹.png'),
+      grassIcon: $rawfile('images/icon/草地.png'),
+      landIcon: $rawfile('images/icon/土地.png'),
+      signIcon: $rawfile('images/icon/路牌.png'),
+      background: $rawfile('images/background/背景1.jpg'),
     },
     audio: {
-      bgm: 'music/Background/主页面背景音乐.mp3',
-      clickSound: 'music/Sound_Effects/羊叫声.mp3',
-      flagSound: 'music/Sound_Effects/插旗声.mp3',
-      winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      bgm: 'rawfile/music/Background/主页面背景音乐.mp3',
+      clickSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
+      flagSound: 'rawfile/music/Sound_Effects/插旗声.mp3',
+      winSound: 'rawfile/music/Sound_Effects/欢呼声.mp3',
+      loseSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
     },
   },
   {
@@ -94,20 +94,20 @@ export const THEMES: Theme[] = [
       textSecondary: '#8B5A7D',
     },
     assets: {
-      avatar: 'images/avatar/美羊羊.jpg',
-      mineIcon: 'images/icon/灰太狼.jpg',
-      flagIcon: 'images/icon/捕兽夹.png',
-      grassIcon: 'images/icon/草地.png',
-      landIcon: 'images/icon/土地.png',
-      signIcon: 'images/icon/路牌.png',
-      background: 'images/background/背景2.jpg',
+      avatar: $rawfile('images/avatar/美羊羊.jpg'),
+      mineIcon: $rawfile('images/icon/灰太狼.jpg'),
+      flagIcon: $rawfile('images/icon/捕兽夹.png'),
+      grassIcon: $rawfile('images/icon/草地.png'),
+      landIcon: $rawfile('images/icon/土地.png'),
+      signIcon: $rawfile('images/icon/路牌.png'),
+      background: $rawfile('images/background/背景2.jpg'),
     },
     audio: {
-      bgm: 'music/Background/主页面背景音乐.mp3',
-      clickSound: 'music/Sound_Effects/羊叫声.mp3',
-      flagSound: 'music/Sound_Effects/插旗声.mp3',
-      winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      bgm: 'rawfile/music/Background/主页面背景音乐.mp3',
+      clickSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
+      flagSound: 'rawfile/music/Sound_Effects/插旗声.mp3',
+      winSound: 'rawfile/music/Sound_Effects/欢呼声.mp3',
+      loseSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
     },
   },
   {
@@ -123,20 +123,20 @@ export const THEMES: Theme[] = [
       textSecondary: '#7D6A4D',
     },
     assets: {
-      avatar: 'images/avatar/懒羊羊.jpg',
-      mineIcon: 'images/icon/灰太狼.jpg',
-      flagIcon: 'images/icon/捕兽夹.png',
-      grassIcon: 'images/icon/草地.png',
-      landIcon: 'images/icon/土地.png',
-      signIcon: 'images/icon/路牌.png',
-      background: 'images/background/背景3.jpg',
+      avatar: $rawfile('images/avatar/懒羊羊.jpg'),
+      mineIcon: $rawfile('images/icon/灰太狼.jpg'),
+      flagIcon: $rawfile('images/icon/捕兽夹.png'),
+      grassIcon: $rawfile('images/icon/草地.png'),
+      landIcon: $rawfile('images/icon/土地.png'),
+      signIcon: $rawfile('images/icon/路牌.png'),
+      background: $rawfile('images/background/背景3.jpg'),
     },
     audio: {
-      bgm: 'music/Background/主页面背景音乐.mp3',
-      clickSound: 'music/Sound_Effects/羊叫声.mp3',
-      flagSound: 'music/Sound_Effects/插旗声.mp3',
-      winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      bgm: 'rawfile/music/Background/主页面背景音乐.mp3',
+      clickSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
+      flagSound: 'rawfile/music/Sound_Effects/插旗声.mp3',
+      winSound: 'rawfile/music/Sound_Effects/欢呼声.mp3',
+      loseSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
     },
   },
   {
@@ -152,20 +152,20 @@ export const THEMES: Theme[] = [
       textSecondary: '#5A4D3D',
     },
     assets: {
-      avatar: 'images/avatar/沸羊羊.jpg',
-      mineIcon: 'images/icon/灰太狼.jpg',
-      flagIcon: 'images/icon/捕兽夹.png',
-      grassIcon: 'images/icon/草地.png',
-      landIcon: 'images/icon/土地.png',
-      signIcon: 'images/icon/路牌.png',
-      background: 'images/background/背景4.jpg',
+      avatar: $rawfile('images/avatar/沸羊羊.jpg'),
+      mineIcon: $rawfile('images/icon/灰太狼.jpg'),
+      flagIcon: $rawfile('images/icon/捕兽夹.png'),
+      grassIcon: $rawfile('images/icon/草地.png'),
+      landIcon: $rawfile('images/icon/土地.png'),
+      signIcon: $rawfile('images/icon/路牌.png'),
+      background: $rawfile('images/background/背景4.jpg'),
     },
     audio: {
-      bgm: 'music/Background/主页面背景音乐.mp3',
-      clickSound: 'music/Sound_Effects/羊叫声.mp3',
-      flagSound: 'music/Sound_Effects/插旗声.mp3',
-      winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      bgm: 'rawfile/music/Background/主页面背景音乐.mp3',
+      clickSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
+      flagSound: 'rawfile/music/Sound_Effects/插旗声.mp3',
+      winSound: 'rawfile/music/Sound_Effects/欢呼声.mp3',
+      loseSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
     },
   },
   {
@@ -181,20 +181,20 @@ export const THEMES: Theme[] = [
       textSecondary: '#8B4D6A',
     },
     assets: {
-      avatar: 'images/avatar/暖羊羊.jpg',
-      mineIcon: 'images/icon/灰太狼.jpg',
-      flagIcon: 'images/icon/捕兽夹.png',
-      grassIcon: 'images/icon/草地.png',
-      landIcon: 'images/icon/土地.png',
-      signIcon: 'images/icon/路牌.png',
-      background: 'images/background/背景5.jpg',
+      avatar: $rawfile('images/avatar/暖羊羊.jpg'),
+      mineIcon: $rawfile('images/icon/灰太狼.jpg'),
+      flagIcon: $rawfile('images/icon/捕兽夹.png'),
+      grassIcon: $rawfile('images/icon/草地.png'),
+      landIcon: $rawfile('images/icon/土地.png'),
+      signIcon: $rawfile('images/icon/路牌.png'),
+      background: $rawfile('images/background/背景5.jpg'),
     },
     audio: {
-      bgm: 'music/Background/主页面背景音乐.mp3',
-      clickSound: 'music/Sound_Effects/羊叫声.mp3',
-      flagSound: 'music/Sound_Effects/插旗声.mp3',
-      winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      bgm: 'rawfile/music/Background/主页面背景音乐.mp3',
+      clickSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
+      flagSound: 'rawfile/music/Sound_Effects/插旗声.mp3',
+      winSound: 'rawfile/music/Sound_Effects/欢呼声.mp3',
+      loseSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
     },
   },
   {
@@ -210,20 +210,20 @@ export const THEMES: Theme[] = [
       textSecondary: '#5A6D5E',
     },
     assets: {
-      avatar: 'images/avatar/慢羊羊.jpg',
-      mineIcon: 'images/icon/灰太狼.jpg',
-      flagIcon: 'images/icon/捕兽夹.png',
-      grassIcon: 'images/icon/草地.png',
-      landIcon: 'images/icon/土地.png',
-      signIcon: 'images/icon/路牌.png',
-      background: 'images/background/背景6.jpg',
+      avatar: $rawfile('images/avatar/慢羊羊.jpg'),
+      mineIcon: $rawfile('images/icon/灰太狼.jpg'),
+      flagIcon: $rawfile('images/icon/捕兽夹.png'),
+      grassIcon: $rawfile('images/icon/草地.png'),
+      landIcon: $rawfile('images/icon/土地.png'),
+      signIcon: $rawfile('images/icon/路牌.png'),
+      background: $rawfile('images/background/背景6.jpg'),
     },
     audio: {
-      bgm: 'music/Background/主页面背景音乐.mp3',
-      clickSound: 'music/Sound_Effects/羊叫声.mp3',
-      flagSound: 'music/Sound_Effects/插旗声.mp3',
-      winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      bgm: 'rawfile/music/Background/主页面背景音乐.mp3',
+      clickSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
+      flagSound: 'rawfile/music/Sound_Effects/插旗声.mp3',
+      winSound: 'rawfile/music/Sound_Effects/欢呼声.mp3',
+      loseSound: 'rawfile/music/Sound_Effects/羊叫声.mp3',
     },
   },
 ];

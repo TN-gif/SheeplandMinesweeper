@@ -18,7 +18,8 @@ export struct GameBoard {
                 cell: cell,
                 provider: this.provider,
                 onReveal: (x: number, y: number): void => this.viewModel.revealCell(x, y),
-                onFlag: (x: number, y: number): void => this.viewModel.flagCell(x, y)
+                onFlag: (x: number, y: number): void => this.viewModel.flagCell(x, y),
+                onChord: (x: number, y: number): void => this.viewModel.chordCell(x, y)
               });
             }
             .padding(2);

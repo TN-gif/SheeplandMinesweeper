@@ -74,16 +74,16 @@ export class AudioManager {
       let soundPath: string = '';
       switch (soundType) {
         case 'click':
-          soundPath = 'music/Sound_Effects/羊叫声.mp3';
+          soundPath = 'rawfile/music/Sound_Effects/羊叫声.mp3';
           break;
         case 'flag':
-          soundPath = 'music/Sound_Effects/插旗声.mp3';
+          soundPath = 'rawfile/music/Sound_Effects/插旗声.mp3';
           break;
         case 'win':
-          soundPath = 'music/Sound_Effects/欢呼声.mp3';
+          soundPath = 'rawfile/music/Sound_Effects/欢呼声.mp3';
           break;
         case 'lose':
-          soundPath = 'music/Sound_Effects/羊叫声.mp3';
+          soundPath = 'rawfile/music/Sound_Effects/羊叫声.mp3';
           break;
       }
       
