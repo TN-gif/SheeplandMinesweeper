@@ -1,7 +1,7 @@
 import { Item } from '../model/Item';
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@ohos.base';
-import { getContext } from '@ohos.abilityAccessCtrl';
+import common from '@ohos.app.ability.common';
 
 const ITEM_PREFS_FILE = 'item_data';
 const INVENTORY_KEY = 'player_inventory';
@@ -13,9 +13,8 @@ class ItemService {
   ];
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init(): Promise<void> {
+  async init(context: common.UIAbilityContext): Promise<void> {
     try {
-      const context = getContext(this);
       this.preferences = await dataPreferences.getPreferences(context, ITEM_PREFS_FILE);
       await this.loadInventory();
     } catch (e) {

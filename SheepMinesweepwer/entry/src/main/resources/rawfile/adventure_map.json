@@ -1,15 +1,29 @@
 {
-  "title": "拯救小羊行动",
   "stages": [
     {
       "stageId": "stage_1",
-      "levelId": "challenge_01",
-      "introText": "灰太狼在草原上设下了第一个陷阱！快去解决它，这是“羊羊的考验”！"
+      "levelId": "adventure_level_1",
+      "introText": "灰太狼在羊村周围设下了陷阱，快去帮助喜羊羊找出它们！"
     },
     {
       "stageId": "stage_2",
-      "levelId": "challenge_02",
-      "introText": "太棒了！我们离狼堡更近了一步，但要小心“狼堡的陷阱”！"
+      "levelId": "adventure_level_2",
+      "introText": "灰太狼的陷阱越来越狡猾了，小心翼翼地前进吧！"
+    },
+    {
+      "stageId": "stage_3",
+      "levelId": "adventure_level_3",
+      "introText": "灰太狼在森林里设置了更多陷阱，运用你的智慧破解它们！"
+    },
+    {
+      "stageId": "stage_4",
+      "levelId": "adventure_level_4",
+      "introText": "已经接近狼堡了！灰太狼设下了最难的陷阱阵！"
+    },
+    {
+      "stageId": "stage_5",
+      "levelId": "adventure_level_5",
+      "introText": "最终决战！打败灰太狼，解救被困的小羊们！"
     }
   ]
 }

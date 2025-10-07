@@ -40,15 +40,15 @@ export struct CellComponent {
     .animation(this.cell.shake ? { duration: 100, curve: Curve.EaseInOut, iterations: 4, playMode: PlayMode.Normal } : { duration: 0 });
   }
 
-  getNumberColor(mines: number): Color {
+  getNumberColor(mines: number): string {
     switch (mines) {
-      case 1: return Color.Blue;
-      case 2: return Color.Green;
-      case 3: return Color.Red;
-      case 4: return Color.Purple;
-      case 5: return Color.Brown;
-      case 6: return Color.Orange;
-      default: return Color.Black;
+      case 1: return '#0000FF'; // 蓝色
+      case 2: return '#008000'; // 绿色
+      case 3: return '#FF0000'; // 红色
+      case 4: return '#800080'; // 紫色
+      case 5: return '#8B4513'; // 棕色
+      case 6: return '#FFA500'; // 橙色
+      default: return '#000000'; // 黑色
     }
   }
 }

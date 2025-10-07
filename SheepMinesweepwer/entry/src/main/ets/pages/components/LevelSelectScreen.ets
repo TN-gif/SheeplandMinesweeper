@@ -1,19 +1,23 @@
 import { Level } from '../model/Level';
 import { BusinessError } from '@ohos.base';
-import { getContext } from '@ohos.abilityAccessCtrl';
+import common from '@ohos.app.ability.common';
 
 @Component
 export struct LevelSelectScreen {
   @State levels: Level[] = [];
   onSelectLevel: (level: Level) => void = () => {};
   onBack: () => void = () => {};
+  context?: common.UIAbilityContext;
 
   async aboutToAppear(): Promise<void> {
+    if (!this.context) {
+      console.error('Context is not provided to LevelSelectScreen');
+      return;
+    }
     try {
-      const context = getContext(this);
-      const rawFile = await context.resourceManager.getRawFileContent('levels.json');
-      let jsonString = '';
-      for (let i = 0; i < rawFile.length; i++) {
+      const rawFile: Uint8Array = await this.context.resourceManager.getRawFileContent('levels.json');
+      let jsonString: string = '';
+      for (let i: number = 0; i < rawFile.length; i++) {
         jsonString += String.fromCharCode(rawFile[i]);
       }
       this.levels = JSON.parse(jsonString) as Level[];

@@ -2,7 +2,7 @@ import { BusinessError } from '@ohos.base';
 import dataPreferences from '@ohos.data.preferences';
 import resourceManager from '@ohos.resourceManager';
 import { Level } from '../model/Level';
-import { getContext } from '@ohos.abilityAccessCtrl';
+import common from '@ohos.app.ability.common';
 
 const ADVENTURE_PREFS_FILE = 'adventure_data';
 const CURRENT_STAGE_KEY = 'current_stage_index';
@@ -23,19 +23,18 @@ class AdventureService {
   private currentStageIndex: number = 0;
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init(): Promise<void> {
+  async init(context: common.UIAbilityContext): Promise<void> {
     try {
-      const context = getContext(this);
       this.preferences = await dataPreferences.getPreferences(context, ADVENTURE_PREFS_FILE);
-      this.currentStageIndex = await this.preferences.get(CURRENT_STAGE_KEY, 0) as number;
+      this.currentStageIndex = (await this.preferences.get(CURRENT_STAGE_KEY, 0)) as number;
 
-      const mapRawFile = await context.resourceManager.getRawFileContent('adventure_map.json');
-      const mapJsonString = this.uint8ArrayToString(mapRawFile);
+      const mapRawFile: Uint8Array = await context.resourceManager.getRawFileContent('adventure_map.json');
+      const mapJsonString: string = this.uint8ArrayToString(mapRawFile);
       const adventureMap: AdventureMap = JSON.parse(mapJsonString);
       this.stages = adventureMap.stages;
 
-      const levelsRawFile = await context.resourceManager.getRawFileContent('levels.json');
-      const levelsJsonString = this.uint8ArrayToString(levelsRawFile);
+      const levelsRawFile: Uint8Array = await context.resourceManager.getRawFileContent('levels.json');
+      const levelsJsonString: string = this.uint8ArrayToString(levelsRawFile);
       this.allLevels = JSON.parse(levelsJsonString);
     } catch (e) {
       const error = e as BusinessError;

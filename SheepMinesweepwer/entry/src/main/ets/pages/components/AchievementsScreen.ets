@@ -34,7 +34,7 @@ export struct AchievementsScreen {
                   .fontColor(ach.unlocked ? Color.Black : Color.Gray);
                 Text(ach.description)
                   .fontSize(16)
-                  .fontColor(ach.unlocked ? Color.Gray : Color.Silver);
+                  .fontColor(ach.unlocked ? Color.Gray : '#C0C0C0'); // 银色
               }
               .alignItems(HorizontalAlign.Start)
               .layoutWeight(1);

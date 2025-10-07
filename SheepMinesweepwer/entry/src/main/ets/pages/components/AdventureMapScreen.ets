@@ -1,6 +1,7 @@
 import { adventureService } from '../services/AdventureService';
 import { Level } from '../model/Level';
 import { AdventureStage } from '../services/AdventureService';
+import common from '@ohos.app.ability.common';
 
 @Component
 export struct AdventureMapScreen {
@@ -8,9 +9,10 @@ export struct AdventureMapScreen {
   @State currentStageIndex: number = 0;
   onSelectLevel: (level: Level) => void = () => {};
   onBack: () => void = () => {};
+  context?: common.UIAbilityContext;
 
-  async aboutToAppear() {
-    await adventureService.init();
+  async aboutToAppear(): Promise<void> {
+    // 服务已在主页面初始化，这里只需获取数据
     this.stages = adventureService.getStages();
     this.currentStageIndex = adventureService.getCurrentStageIndex();
   }
@@ -34,7 +36,7 @@ export struct AdventureMapScreen {
               Text(stage.introText)
                 .fontSize(16)
                 .margin({ top: 5 })
-                .fontColor(index <= this.currentStageIndex ? Color.Gray : Color.Silver);
+                .fontColor(index <= this.currentStageIndex ? Color.Gray : '#C0C0C0'); // 银色
 
               Button('开始挑战')
                 .onClick(() => {

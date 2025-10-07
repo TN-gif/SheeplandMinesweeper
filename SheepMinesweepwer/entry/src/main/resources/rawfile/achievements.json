@@ -1,26 +1,38 @@
 [
   {
     "id": "first_win",
-    "name": "草原新星",
-    "description": "首次赢得一场游戏",
+    "name": "初出茅庐",
+    "description": "首次通关游戏",
     "unlocked": false
   },
   {
     "id": "ten_wins",
-    "name": "草原守护者",
-    "description": "累计赢得10场游戏",
-    "unlocked": false
-  },
-  {
-    "id": "flawless_victory",
-    "name": "完美闪避",
-    "description": "在不标记任何错误的情况下获胜",
+    "name": "羊村守护者",
+    "description": "累计通关10次",
     "unlocked": false
   },
   {
     "id": "quick_learner",
     "name": "速战速决",
-    "description": "在60秒内赢得一场初级游戏",
+    "description": "60秒内完成一局游戏",
+    "unlocked": false
+  },
+  {
+    "id": "flawless_victory",
+    "name": "完美胜利",
+    "description": "无误操作完成一局游戏",
+    "unlocked": false
+  },
+  {
+    "id": "wolf_hunter",
+    "name": "狼族克星",
+    "description": "累计找出100个灰太狼",
+    "unlocked": false
+  },
+  {
+    "id": "master_player",
+    "name": "扫雷大师",
+    "description": "完成所有挑战关卡",
     "unlocked": false
   }
 ]

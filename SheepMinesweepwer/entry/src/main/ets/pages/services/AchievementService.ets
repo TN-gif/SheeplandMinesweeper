@@ -1,7 +1,7 @@
 import { Achievement } from '../model/Achievement';
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@ohos.base';
-import { getContext } from '@ohos.abilityAccessCtrl';
+import common from '@ohos.app.ability.common';
 
 const PREFS_FILE = 'achievement_data';
 const STATS_KEY = 'player_stats';
@@ -18,11 +18,10 @@ class AchievementService {
   private playerStats: PlayerStats = { wins: 0, fastestWin: 999, flawlessWins: 0 };
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init(): Promise<void> {
+  async init(context: common.UIAbilityContext): Promise<void> {
     try {
-      const context = getContext(this);
-      const rawFile = await context.resourceManager.getRawFileContent('achievements.json');
-      const jsonString = this.uint8ArrayToString(rawFile);
+      const rawFile: Uint8Array = await context.resourceManager.getRawFileContent('achievements.json');
+      const jsonString: string = this.uint8ArrayToString(rawFile);
       this.achievements = JSON.parse(jsonString) as Achievement[];
 
       this.preferences = await dataPreferences.getPreferences(context, PREFS_FILE);
@@ -46,13 +45,22 @@ class AchievementService {
   private async loadProgress(): Promise<void> {
     if (!this.preferences) return;
     try {
-      const statsJson = await this.preferences.get(STATS_KEY, '{}') as string;
+      const statsJson = (await this.preferences.get(STATS_KEY, '{}')) as string;
       const savedStats: Partial<PlayerStats> = JSON.parse(statsJson);
-      this.playerStats = { ...this.playerStats, ...savedStats };
+      // Manually merge properties instead of using spread operator
+      if (savedStats.wins !== undefined) {
+        this.playerStats.wins = savedStats.wins;
+      }
+      if (savedStats.fastestWin !== undefined) {
+        this.playerStats.fastestWin = savedStats.fastestWin;
+      }
+      if (savedStats.flawlessWins !== undefined) {
+        this.playerStats.flawlessWins = savedStats.flawlessWins;
+      }
 
-      const unlockedJson = await this.preferences.get(ACHIEVEMENTS_KEY, '[]') as string;
+      const unlockedJson = (await this.preferences.get(ACHIEVEMENTS_KEY, '[]')) as string;
       const unlockedIds: string[] = JSON.parse(unlockedJson);
-      this.achievements.forEach(ach => {
+      this.achievements.forEach((ach: Achievement) => {
         if (unlockedIds.includes(ach.id)) {
           ach.unlocked = true;
         }

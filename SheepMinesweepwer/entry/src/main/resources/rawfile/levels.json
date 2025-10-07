@@ -1,35 +1,79 @@
 [
   {
-    "levelId": "challenge_01",
-    "levelName": "羊羊的考验",
+    "levelId": "adventure_level_1",
+    "name": "羊村郊外",
     "rows": 8,
     "cols": 8,
-    "mineLayout": [
-      { "row": 0, "col": 0 },
-      { "row": 1, "col": 2 },
-      { "row": 3, "col": 5 },
-      { "row": 5, "col": 1 },
-      { "row": 7, "col": 7 }
-    ],
-    "winConditions": [
-      { "type": "time", "limit": 45 }
-    ]
+    "mines": 10,
+    "timeLimit": 120,
+    "isUnlocked": true
   },
   {
-    "levelId": "challenge_02",
-    "levelName": "狼堡的陷阱",
+    "levelId": "adventure_level_2",
+    "name": "青青草原",
     "rows": 10,
     "cols": 10,
-    "mineLayout": [
-      { "row": 1, "col": 1 },
-      { "row": 1, "col": 8 },
-      { "row": 8, "col": 1 },
-      { "row": 8, "col": 8 },
-      { "row": 4, "col": 4 },
-      { "row": 5, "col": 5 }
-    ],
-    "winConditions": [
-      { "type": "noErrors", "value": true }
-    ]
+    "mines": 15,
+    "timeLimit": 180,
+    "isUnlocked": false
+  },
+  {
+    "levelId": "adventure_level_3",
+    "name": "神秘森林",
+    "rows": 12,
+    "cols": 12,
+    "mines": 20,
+    "timeLimit": 240,
+    "isUnlocked": false
+  },
+  {
+    "levelId": "adventure_level_4",
+    "name": "狼堡外围",
+    "rows": 14,
+    "cols": 14,
+    "mines": 30,
+    "timeLimit": 300,
+    "isUnlocked": false
+  },
+  {
+    "levelId": "adventure_level_5",
+    "name": "狼堡决战",
+    "rows": 16,
+    "cols": 16,
+    "mines": 40,
+    "timeLimit": 360,
+    "isUnlocked": false
+  },
+  {
+    "levelId": "challenge_easy",
+    "name": "初级挑战",
+    "rows": 9,
+    "cols": 9,
+    "mines": 10,
+    "isUnlocked": true
+  },
+  {
+    "levelId": "challenge_medium",
+    "name": "中级挑战",
+    "rows": 16,
+    "cols": 16,
+    "mines": 40,
+    "isUnlocked": true
+  },
+  {
+    "levelId": "challenge_hard",
+    "name": "高级挑战",
+    "rows": 16,
+    "cols": 30,
+    "mines": 99,
+    "isUnlocked": true
+  },
+  {
+    "levelId": "challenge_expert",
+    "name": "专家挑战",
+    "rows": 20,
+    "cols": 24,
+    "mines": 130,
+    "isUnlocked": true
   }
 ]
