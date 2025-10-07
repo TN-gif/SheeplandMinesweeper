@@ -1,17 +1,32 @@
 // Using Axial Coordinates as the primary logical representation for hexagons
-export interface AxialCoord {
+export class AxialCoord {
   q: number;
   r: number;
+
+  constructor(q: number, r: number) {
+    this.q = q;
+    this.r = r;
+  }
 }
 
-export interface Point {
+export class Point {
   x: number;
   y: number;
+
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
-interface FractionalAxialCoord {
+class FractionalAxialCoord {
   q: number;
   r: number;
+
+  constructor(q: number, r: number) {
+    this.q = q;
+    this.r = r;
+  }
 }
 
 export class HexCell {
@@ -35,18 +50,26 @@ export class HexCell {
 export class HexUtils {
   // Directions in axial coordinates
   private static directions: AxialCoord[] = [
-    { q: 1, r: 0 }, { q: 1, r: -1 }, { q: 0, r: -1 },
-    { q: -1, r: 0 }, { q: -1, r: 1 }, { q: 0, r: 1 }
+    new AxialCoord(1, 0),
+    new AxialCoord(1, -1),
+    new AxialCoord(0, -1),
+    new AxialCoord(-1, 0),
+    new AxialCoord(-1, 1),
+    new AxialCoord(0, 1)
   ];
 
   static getNeighbor(hex: AxialCoord, direction: number): AxialCoord {
-    const dir = HexUtils.directions[direction];
-    const neighbor: AxialCoord = { q: hex.q + dir.q, r: hex.r + dir.r };
+    const dir: AxialCoord = HexUtils.directions[direction];
+    const neighbor: AxialCoord = new AxialCoord(hex.q + dir.q, hex.r + dir.r);
     return neighbor;
   }
 
   static getNeighbors(hex: AxialCoord): AxialCoord[] {
-    return HexUtils.directions.map((dir, i) => HexUtils.getNeighbor(hex, i));
+    const neighbors: AxialCoord[] = [];
+    for (let i: number = 0; i < HexUtils.directions.length; i++) {
+      neighbors.push(HexUtils.getNeighbor(hex, i));
+    }
+    return neighbors;
   }
 
   /**
@@ -58,10 +81,10 @@ export class HexUtils {
    * @param origin The center pixel of the hex grid's origin (0,0).
    */
   static pixelToAxial(x: number, y: number, size: number, origin: Point): AxialCoord {
-    const pt: Point = { x: (x - origin.x) / size, y: (y - origin.y) / size };
-    const q = (Math.sqrt(3) / 3) * pt.x - (1 / 3) * pt.y;
-    const r = (2 / 3) * pt.y;
-    const frac: FractionalAxialCoord = { q, r };
+    const pt: Point = new Point((x - origin.x) / size, (y - origin.y) / size);
+    const q: number = (Math.sqrt(3) / 3) * pt.x - (1 / 3) * pt.y;
+    const r: number = (2 / 3) * pt.y;
+    const frac: FractionalAxialCoord = new FractionalAxialCoord(q, r);
     return HexUtils.axialRound(frac);
   }
 
@@ -72,24 +95,24 @@ export class HexUtils {
    * @param origin The center pixel of the hex grid's origin (0,0).
    */
   static axialToPixel(hex: AxialCoord, size: number, origin: Point): Point {
-    const x = size * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r);
-    const y = size * ((3 / 2) * hex.r);
-    const pixel: Point = { x: x + origin.x, y: y + origin.y };
+    const x: number = size * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r);
+    const y: number = size * ((3 / 2) * hex.r);
+    const pixel: Point = new Point(x + origin.x, y + origin.y);
     return pixel;
   }
 
   // Helper function to round floating-point axial coordinates to the nearest integer hex coordinate.
   private static axialRound(frac: FractionalAxialCoord): AxialCoord {
-    const q = Math.round(frac.q);
-    const r = Math.round(frac.r);
-    const s = Math.round(-frac.q - frac.r);
+    const q: number = Math.round(frac.q);
+    const r: number = Math.round(frac.r);
+    const s: number = Math.round(-frac.q - frac.r);
 
-    const q_diff = Math.abs(q - frac.q);
-    const r_diff = Math.abs(r - frac.r);
-    const s_diff = Math.abs(s - (-frac.q - frac.r));
+    const q_diff: number = Math.abs(q - frac.q);
+    const r_diff: number = Math.abs(r - frac.r);
+    const s_diff: number = Math.abs(s - (-frac.q - frac.r));
 
-    let roundedQ = q;
-    let roundedR = r;
+    let roundedQ: number = q;
+    let roundedR: number = r;
 
     if (q_diff > r_diff && q_diff > s_diff) {
       roundedQ = -r - s;
@@ -97,6 +120,6 @@ export class HexUtils {
       roundedR = -q - s;
     }
 
-    return { q: roundedQ, r: roundedR };
+    return new AxialCoord(roundedQ, roundedR);
   }
 }

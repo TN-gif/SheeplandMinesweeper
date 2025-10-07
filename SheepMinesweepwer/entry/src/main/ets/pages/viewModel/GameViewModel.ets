@@ -5,9 +5,14 @@ import { itemService } from '../services/ItemService';
 import { achievementService } from '../services/AchievementService';
 import common from '@ohos.app.ability.common';
 
-interface Coordinate {
+class Coordinate {
   x: number;
   y: number;
+
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
 @Observed
@@ -186,8 +191,7 @@ export class GameViewModel {
     switch (this.selectedItem) {
       case 'magnifying_glass':
         cell.isRevealed = true;
-        const tempCell: Coordinate = { x, y };
-        this.tempRevealedCell = tempCell;
+        this.tempRevealedCell = new Coordinate(x, y);
         break;
 
       case 'iron_fist':

@@ -1,41 +1,37 @@
 import { HexGameViewModel } from '../viewModel/HexGameViewModel';
-import { HexUtils, AxialCoord, HexCell } from '../model/HexUtils';
+import { HexUtils, AxialCoord, HexCell, Point } from '../model/HexUtils';
 
-interface CanvasSize {
-  width: number;
-  height: number;
-}
-
-interface HexOrigin {
-  x: number;
-  y: number;
+class CanvasSize {
+  width: number = 0;
+  height: number = 0;
 }
 
 @Component
 export struct HexGameBoard {
   @ObjectLink viewModel: HexGameViewModel;
   private canvasContext: CanvasRenderingContext2D | null = null;
-  private canvasSize: CanvasSize = { width: 0, height: 0 };
+  private canvasSize: CanvasSize = new CanvasSize();
   private hexSize: number = 25; // Radius of a hexagon in pixels
-  private origin: HexOrigin = { x: 0, y: 0 };
+  private origin: Point = new Point(0, 0);
 
   private onReady() {
     this.draw();
   }
 
-  private draw() {
+  private draw(): void {
     if (!this.canvasContext) return;
-    const ctx = this.canvasContext;
+    const ctx: CanvasRenderingContext2D = this.canvasContext;
     ctx.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
 
-    this.viewModel.board.forEach(cell => {
-      const center = HexUtils.axialToPixel({ q: cell.q, r: cell.r }, this.hexSize, this.origin);
+    this.viewModel.board.forEach((cell: HexCell) => {
+      const cellCoord: AxialCoord = new AxialCoord(cell.q, cell.r);
+      const center: Point = HexUtils.axialToPixel(cellCoord, this.hexSize, this.origin);
       this.drawHex(ctx, center);
       this.drawHexContent(ctx, center, cell);
     });
   }
 
-  private drawHex(ctx: CanvasRenderingContext2D, center: HexOrigin): void {
+  private drawHex(ctx: CanvasRenderingContext2D, center: Point): void {
     ctx.beginPath();
     for (let i: number = 0; i < 6; i++) {
       const angle: number = (Math.PI / 180) * (60 * i);
@@ -54,7 +50,7 @@ export struct HexGameBoard {
     ctx.stroke();
   }
 
-  private drawHexContent(ctx: CanvasRenderingContext2D, center: HexOrigin, cell: HexCell): void {
+  private drawHexContent(ctx: CanvasRenderingContext2D, center: Point, cell: HexCell): void {
     ctx.fillStyle = 'black';
     ctx.font = '16px sans-serif';
     ctx.textAlign = 'center';
@@ -91,7 +87,7 @@ export struct HexGameBoard {
       .onAreaChange((oldValue: Area, newValue: Area) => {
         this.canvasSize.width = newValue.width as number;
         this.canvasSize.height = newValue.height as number;
-        this.origin = { x: this.canvasSize.width / 2, y: this.canvasSize.height / 2 };
+        this.origin = new Point(this.canvasSize.width / 2, this.canvasSize.height / 2);
         this.draw();
       });
   }

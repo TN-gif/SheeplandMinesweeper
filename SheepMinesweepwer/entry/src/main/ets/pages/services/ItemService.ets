@@ -8,8 +8,8 @@ const INVENTORY_KEY = 'player_inventory';
 
 class ItemService {
   private inventory: Item[] = [
-    { id: 'magnifying_glass', name: '慢羊羊的放大镜', description: '探测一个格子是否安全', quantity: 3 },
-    { id: 'iron_fist', name: '沸羊羊的铁拳', description: '安全地砸开一个格子', quantity: 1 }
+    new Item('magnifying_glass', '慢羊羊的放大镜', '探测一个格子是否安全', 3),
+    new Item('iron_fist', '沸羊羊的铁拳', '安全地砸开一个格子', 1)
   ];
   private preferences: dataPreferences.Preferences | null = null;
 

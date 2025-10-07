@@ -19,17 +19,18 @@ export class HexGameViewModel {
     return `${coord.q},${coord.r}`;
   }
 
-  initGame() {
+  initGame(): void {
     this.board.clear();
     this.gameOver = false;
     this.gameWon = false;
 
     // Create a hexagonal map shape
-    for (let q = -this.mapRadius; q <= this.mapRadius; q++) {
-      for (let r = -this.mapRadius; r <= this.mapRadius; r++) {
-        const s = -q - r;
+    for (let q: number = -this.mapRadius; q <= this.mapRadius; q++) {
+      for (let r: number = -this.mapRadius; r <= this.mapRadius; r++) {
+        const s: number = -q - r;
         if (s >= -this.mapRadius && s <= this.mapRadius) {
-          const key = this.coordToKey({ q, r });
+          const coord: AxialCoord = new AxialCoord(q, r);
+          const key: string = this.coordToKey(coord);
           this.board.set(key, new HexCell(q, r));
         }
       }
@@ -39,29 +40,31 @@ export class HexGameViewModel {
     this.calculateAdjacentMines();
   }
 
-  placeMines() {
-    const keys = Array.from(this.board.keys());
-    let minesPlaced = 0;
+  placeMines(): void {
+    const keys: string[] = Array.from(this.board.keys());
+    let minesPlaced: number = 0;
     while (minesPlaced < this.mineCount) {
-      const randomIndex = Math.floor(Math.random() * keys.length);
-      const randomKey = keys[randomIndex];
-      const cell = this.board.get(randomKey)!;
+      const randomIndex: number = Math.floor(Math.random() * keys.length);
+      const randomKey: string = keys[randomIndex];
+      const cell: HexCell | undefined = this.board.get(randomKey);
 
-      if (!cell.isMine) {
+      if (cell && !cell.isMine) {
         cell.isMine = true;
         minesPlaced++;
       }
     }
   }
 
-  calculateAdjacentMines() {
+  calculateAdjacentMines(): void {
     for (const cell of this.board.values()) {
       if (cell.isMine) continue;
-      const neighbors = HexUtils.getNeighbors({ q: cell.q, r: cell.r });
-      let mineCount = 0;
+      const cellCoord: AxialCoord = new AxialCoord(cell.q, cell.r);
+      const neighbors: AxialCoord[] = HexUtils.getNeighbors(cellCoord);
+      let mineCount: number = 0;
       for (const neighborCoord of neighbors) {
-        const neighborKey = this.coordToKey(neighborCoord);
-        if (this.board.has(neighborKey) && this.board.get(neighborKey)!.isMine) {
+        const neighborKey: string = this.coordToKey(neighborCoord);
+        const neighborCell: HexCell | undefined = this.board.get(neighborKey);
+        if (neighborCell && neighborCell.isMine) {
           mineCount++;
         }
       }
@@ -69,12 +72,13 @@ export class HexGameViewModel {
     }
   }
 
-  revealCell(q: number, r: number) {
-    const key = this.coordToKey({ q, r });
+  revealCell(q: number, r: number): void {
+    const coord: AxialCoord = new AxialCoord(q, r);
+    const key: string = this.coordToKey(coord);
     if (!this.board.has(key)) return;
 
-    const cell = this.board.get(key)!;
-    if (cell.isRevealed || cell.isFlagged || this.gameOver) return;
+    const cell: HexCell | undefined = this.board.get(key);
+    if (!cell || cell.isRevealed || cell.isFlagged || this.gameOver) return;
 
     cell.isRevealed = true;
 
@@ -85,23 +89,24 @@ export class HexGameViewModel {
 
     if (cell.adjacentMines === 0) {
       // Flood fill for hex grid
-      const neighbors = HexUtils.getNeighbors({ q, r });
+      const neighbors: AxialCoord[] = HexUtils.getNeighbors(coord);
       neighbors.forEach((n: AxialCoord): void => this.revealCell(n.q, n.r));
     }
     this.checkWinCondition();
   }
 
-  flagCell(q: number, r: number) {
-    const key = this.coordToKey({ q, r });
-    if (!this.board.has(key) || this.board.get(key)!.isRevealed) return;
-    const cell = this.board.get(key)!;
+  flagCell(q: number, r: number): void {
+    const coord: AxialCoord = new AxialCoord(q, r);
+    const key: string = this.coordToKey(coord);
+    const cell: HexCell | undefined = this.board.get(key);
+    if (!cell || cell.isRevealed) return;
     cell.isFlagged = !cell.isFlagged;
   }
 
-  checkWinCondition() {
-    const totalCells = this.board.size;
-    let revealedCount = 0;
-    this.board.forEach(cell => {
+  checkWinCondition(): void {
+    const totalCells: number = this.board.size;
+    let revealedCount: number = 0;
+    this.board.forEach((cell: HexCell) => {
       if (cell.isRevealed) {
         revealedCount++;
       }

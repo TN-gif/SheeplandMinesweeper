@@ -7,15 +7,21 @@ const PREFS_FILE = 'achievement_data';
 const STATS_KEY = 'player_stats';
 const ACHIEVEMENTS_KEY = 'unlocked_achievements';
 
-export interface PlayerStats {
+export class PlayerStats {
   wins: number;
   fastestWin: number; // in seconds
   flawlessWins: number;
+
+  constructor(wins: number = 0, fastestWin: number = 999, flawlessWins: number = 0) {
+    this.wins = wins;
+    this.fastestWin = fastestWin;
+    this.flawlessWins = flawlessWins;
+  }
 }
 
 class AchievementService {
   private achievements: Achievement[] = [];
-  private playerStats: PlayerStats = { wins: 0, fastestWin: 999, flawlessWins: 0 };
+  private playerStats: PlayerStats = new PlayerStats();
   private preferences: dataPreferences.Preferences | null = null;
 
   async init(context: common.UIAbilityContext): Promise<void> {

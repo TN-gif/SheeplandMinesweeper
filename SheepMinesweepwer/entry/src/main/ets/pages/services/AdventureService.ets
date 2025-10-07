@@ -7,14 +7,24 @@ import common from '@ohos.app.ability.common';
 const ADVENTURE_PREFS_FILE = 'adventure_data';
 const CURRENT_STAGE_KEY = 'current_stage_index';
 
-export interface AdventureStage {
+export class AdventureStage {
   stageId: string;
   levelId: string;
   introText: string;
+
+  constructor(stageId: string, levelId: string, introText: string) {
+    this.stageId = stageId;
+    this.levelId = levelId;
+    this.introText = introText;
+  }
 }
 
-interface AdventureMap {
+class AdventureMap {
   stages: AdventureStage[];
+
+  constructor(stages: AdventureStage[]) {
+    this.stages = stages;
+  }
 }
 
 class AdventureService {
