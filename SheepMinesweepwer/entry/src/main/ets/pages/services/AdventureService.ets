@@ -33,7 +33,12 @@ class AdventureService {
   private currentStageIndex: number = 0;
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init(context: common.UIAbilityContext): Promise<void> {
+  async init(context: common.UIAbilityContext | undefined): Promise<void> {
+    if (!context) {
+      console.error('AdventureService init failed: context is undefined');
+      return;
+    }
+    
     try {
       this.preferences = await dataPreferences.getPreferences(context, ADVENTURE_PREFS_FILE);
       this.currentStageIndex = (await this.preferences.get(CURRENT_STAGE_KEY, 0)) as number;
@@ -90,6 +95,13 @@ class AdventureService {
 
   public getCurrentStageIndex(): number {
     return this.currentStageIndex;
+  }
+
+  // 清理资源
+  destroy(): void {
+    this.preferences = null;
+    this.stages = [];
+    this.allLevels = [];
   }
 }
 

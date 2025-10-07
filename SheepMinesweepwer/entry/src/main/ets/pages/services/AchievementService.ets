@@ -24,7 +24,12 @@ class AchievementService {
   private playerStats: PlayerStats = new PlayerStats();
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init(context: common.UIAbilityContext): Promise<void> {
+  async init(context: common.UIAbilityContext | undefined): Promise<void> {
+    if (!context) {
+      console.error('AchievementService init failed: context is undefined');
+      return;
+    }
+    
     try {
       const rawFile: Uint8Array = await context.resourceManager.getRawFileContent('achievements.json');
       const jsonString: string = this.uint8ArrayToString(rawFile);
@@ -118,6 +123,13 @@ class AchievementService {
 
   public getAchievements(): Achievement[] {
     return this.achievements;
+  }
+
+  // 清理资源
+  destroy(): void {
+    this.preferences = null;
+    this.achievements = [];
+    this.playerStats = new PlayerStats();
   }
 }
 

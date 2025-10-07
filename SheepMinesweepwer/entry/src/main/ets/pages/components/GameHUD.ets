@@ -27,17 +27,19 @@ export struct GameHUD {
 
       // Bottom section with item bar
       Row({ space: 15 }) {
-        ForEach(this.inventory, (item: Item) => {
-          Button() {
-            Text(`${item.name} x${item.quantity}`)
-              .fontSize(16);
+        ForEach(this.inventory || [], (item: Item) => {
+          if (item) {
+            Button() {
+              Text(`${item.name} x${item.quantity}`)
+                .fontSize(16);
+            }
+            .onClick(() => {
+              this.viewModel.selectItem(item.id);
+            })
+            .backgroundColor(this.viewModel.selectedItem === item.id ? '#FFD700' : '#FFFFFF')
+            .fontColor(Color.Black)
+            .enabled(item.quantity > 0);
           }
-          .onClick(() => {
-            this.viewModel.selectItem(item.id);
-          })
-          .backgroundColor(this.viewModel.selectedItem === item.id ? '#FFD700' : '#FFFFFF')
-          .fontColor(Color.Black)
-          .enabled(item.quantity > 0);
         });
       }
       .width('100%')

@@ -68,8 +68,12 @@ export struct HexGameBoard {
   }
 
   private handleTouch(event: TouchEvent): void {
+    if (!event || !event.touches) {
+      return;
+    }
+    
     const touches: TouchObject[] = event.touches;
-    if (touches.length > 0) {
+    if (touches.length > 0 && touches[0]) {
       const touchX: number = touches[0].x;
       const touchY: number = touches[0].y;
       const tappedHex: AxialCoord = HexUtils.pixelToAxial(touchX, touchY, this.hexSize, this.origin);
@@ -85,10 +89,12 @@ export struct HexGameBoard {
       .onReady(() => this.onReady())
       .onTouch((event: TouchEvent) => this.handleTouch(event))
       .onAreaChange((oldValue: Area, newValue: Area) => {
-        this.canvasSize.width = newValue.width as number;
-        this.canvasSize.height = newValue.height as number;
-        this.origin = new Point(this.canvasSize.width / 2, this.canvasSize.height / 2);
-        this.draw();
+        if (newValue && newValue.width && newValue.height) {
+          this.canvasSize.width = newValue.width as number;
+          this.canvasSize.height = newValue.height as number;
+          this.origin = new Point(this.canvasSize.width / 2, this.canvasSize.height / 2);
+          this.draw();
+        }
       });
   }
 }

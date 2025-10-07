@@ -3,6 +3,8 @@ import { Level } from '../model/Level';
 import { adventureService } from '../services/AdventureService';
 import { itemService } from '../services/ItemService';
 import { achievementService } from '../services/AchievementService';
+import { audioManager } from '../services/AudioManager';
+import { HapticFeedbackUtils } from '../utils/HapticFeedbackUtils';
 import common from '@ohos.app.ability.common';
 
 class Coordinate {
@@ -25,6 +27,11 @@ export class GameViewModel {
   gameWon: boolean = false;
   selectedItem: 'magnifying_glass' | 'iron_fist' | null = null;
   tempRevealedCell: Coordinate | null = null;
+  
+  // 计时器相关
+  startTime: number = 0;
+  elapsedTime: number = 0;
+  timerInterval: number | null = null;
 
   constructor(level: Level | null = null, context?: common.UIAbilityContext) {
     if (level) {
@@ -45,6 +52,8 @@ export class GameViewModel {
     this.board = [];
     this.gameOver = false;
     this.gameWon = false;
+    this.elapsedTime = 0;
+    this.stopTimer();
     
     // 创建空白棋盘
     for (let i: number = 0; i < this.rows; i++) {
@@ -117,8 +126,22 @@ export class GameViewModel {
     if (cell.isMine) {
       this.gameOver = true;
       this.gameWon = false;
+      this.stopTimer();
       this.revealAllMines();
+      // 播放失败音效和触觉反馈
+      audioManager.playSound('lose');
+      HapticFeedbackUtils.vibrate('failure');
       return;
+    }
+
+    // 播放点击音效和触觉反馈
+    if (!isAutoReveal) {
+      audioManager.playSound('click');
+      HapticFeedbackUtils.vibrate('click');
+      // 开始计时器（第一次点击时）
+      if (this.startTime === 0) {
+        this.startTimer();
+      }
     }
 
     // 如果周围没有地雷，递归翻开周围的格子
@@ -162,8 +185,12 @@ export class GameViewModel {
     if (revealedCount === totalCells - this.mineCount) {
       this.gameOver = true;
       this.gameWon = true;
+      this.stopTimer();
+      // 播放胜利音效和触觉反馈
+      audioManager.playSound('win');
+      HapticFeedbackUtils.vibrate('success');
       // 记录胜利
-      achievementService.recordGameWin(60, true); // 简化版，实际应该记录真实时间和是否完美
+      achievementService.recordGameWin(this.elapsedTime, true);
     }
   }
 
@@ -176,6 +203,11 @@ export class GameViewModel {
     
     if (!cell.isRevealed) {
       cell.isFlagged = !cell.isFlagged;
+      // 播放插旗音效和触觉反馈
+      if (cell.isFlagged) {
+        audioManager.playSound('flag');
+        HapticFeedbackUtils.vibrate('flag');
+      }
     }
   }
 
@@ -244,5 +276,33 @@ export class GameViewModel {
       }
     }
     cell.adjacentMines = count;
+  }
+
+  // 计时器方法
+  private startTimer(): void {
+    this.startTime = Date.now();
+    this.timerInterval = setInterval(() => {
+      this.elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);
+    }, 1000);
+  }
+
+  private stopTimer(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+  }
+
+  getFormattedTime(): string {
+    const minutes = Math.floor(this.elapsedTime / 60);
+    const seconds = this.elapsedTime % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // 清理资源
+  destroy(): void {
+    this.stopTimer();
+    this.selectedItem = null;
+    this.tempRevealedCell = null;
   }
 }

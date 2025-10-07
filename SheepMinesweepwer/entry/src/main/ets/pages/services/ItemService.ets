@@ -13,7 +13,12 @@ class ItemService {
   ];
   private preferences: dataPreferences.Preferences | null = null;
 
-  async init(context: common.UIAbilityContext): Promise<void> {
+  async init(context: common.UIAbilityContext | undefined): Promise<void> {
+    if (!context) {
+      console.error('ItemService init failed: context is undefined');
+      return;
+    }
+    
     try {
       this.preferences = await dataPreferences.getPreferences(context, ITEM_PREFS_FILE);
       await this.loadInventory();
@@ -66,6 +71,12 @@ class ItemService {
       return true; // Item was used successfully
     }
     return false; // Not enough items
+  }
+
+  // 清理资源
+  destroy(): void {
+    this.preferences = null;
+    this.inventory = [];
   }
 }
 

@@ -117,4 +117,11 @@ export class HexGameViewModel {
       this.gameOver = true;
     }
   }
+
+  // 清理资源
+  destroy(): void {
+    this.board.clear();
+    this.gameOver = false;
+    this.gameWon = false;
+  }
 }
