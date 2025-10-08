@@ -1,6 +1,5 @@
 import { Cell } from '../model/Cell';
 import { Level } from '../model/Level';
-import { adventureService } from '../services/AdventureService';
 import { itemService } from '../services/ItemService';
 import { achievementService } from '../services/AchievementService';
 import { audioManager } from '../services/AudioManager';
@@ -46,7 +45,6 @@ export class GameViewModel {
     // Services will be initialized from the main page with context
     if (context) {
       achievementService.init(context);
-      adventureService.init(context);
       itemService.init(context);
     }
   }
@@ -262,26 +260,41 @@ export class GameViewModel {
 
 
   private useSelectedItem(x: number, y: number): void {
-    if (!this.selectedItem || !itemService.useItem(this.selectedItem)) {
-      this.selectedItem = null;
+    if (!this.selectedItem) {
       return;
     }
 
     const cell = this.board[x][y];
+    
+    if (cell.isRevealed) {
+      // 已翻开的格子不能使用道具
+      this.selectedItem = null;
+      return;
+    }
 
     switch (this.selectedItem) {
       case 'magnifying_glass':
+        // 放大镜：临时显示格子状态1.5秒
         cell.isRevealed = true;
         this.tempRevealedCell = new Coordinate(x, y);
+        setTimeout(() => {
+          if (this.tempRevealedCell) {
+            this.board[this.tempRevealedCell.x][this.tempRevealedCell.y].isRevealed = false;
+            this.tempRevealedCell = null;
+          }
+        }, 1500);
+        audioManager.playSound('click');
         break;
 
       case 'iron_fist':
+        // 铁拳：强制安全翻开，移除地雷
         if (cell.isMine) {
           cell.isMine = false;
           this.mineCount--;
           this.recalculateAdjacentMinesAround(x, y);
         }
         this.revealCell(x, y, true);
+        audioManager.playSound('flag');
         break;
     }
     this.selectedItem = null;

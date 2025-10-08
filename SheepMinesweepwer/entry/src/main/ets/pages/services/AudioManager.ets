@@ -3,6 +3,7 @@
  * 负责播放背景音乐和音效
  */
 import media from '@ohos.multimedia.media';
+import common from '@ohos.app.ability.common';
 
 export class AudioManager {
   private static instance: AudioManager;
@@ -12,6 +13,7 @@ export class AudioManager {
   private soundVolume: number = 0.7;
   private bgmEnabled: boolean = true;
   private soundEnabled: boolean = true;
+  private context?: common.UIAbilityContext;
 
   private constructor() {}
 
@@ -23,10 +25,20 @@ export class AudioManager {
   }
 
   /**
+   * 设置Context（必须在使用前调用）
+   */
+  setContext(context: common.UIAbilityContext): void {
+    this.context = context;
+  }
+
+  /**
    * 播放背景音乐
    */
   async playBGM(resourcePath: string): Promise<void> {
-    if (!this.bgmEnabled) return;
+    if (!this.bgmEnabled || !this.context) {
+      console.log('BGM disabled or no context');
+      return;
+    }
 
     try {
       // 停止当前BGM
@@ -38,15 +50,24 @@ export class AudioManager {
 
       // 创建新的播放器
       this.bgmPlayer = await media.createAVPlayer();
-      // 使用资源路径而不是文件描述符
-      this.bgmPlayer.url = resourcePath;
+      
+      // 使用文件描述符方式加载资源
+      const fd = await this.context.resourceManager.getRawFd(resourcePath);
+      this.bgmPlayer.fdSrc = {
+        fd: fd.fd,
+        offset: fd.offset,
+        length: fd.length
+      };
       this.bgmPlayer.loop = true;
-      // 注意: AVPlayer 不直接支持 volume 属性，音量通过系统音量控制
       
       this.bgmPlayer.on('stateChange', (state: string) => {
         if (state === 'prepared') {
           this.bgmPlayer?.play();
         }
+      });
+
+      this.bgmPlayer.on('error', (err: Error) => {
+        console.error('BGM播放错误:', err.message);
       });
 
       await this.bgmPlayer.prepare();
@@ -60,7 +81,7 @@ export class AudioManager {
    * 播放音效
    */
   async playSound(soundType: 'click' | 'flag' | 'win' | 'lose'): Promise<void> {
-    if (!this.soundEnabled) return;
+    if (!this.soundEnabled || !this.context) return;
 
     try {
       if (this.soundPlayer) {
@@ -70,30 +91,40 @@ export class AudioManager {
       }
 
       this.soundPlayer = await media.createAVPlayer();
+      
       // 根据音效类型设置资源路径
       let soundPath: string = '';
       switch (soundType) {
         case 'click':
-          soundPath = 'rawfile/music/Sound_Effects/羊叫声.mp3';
+          soundPath = 'music/Sound_Effects/羊叫声.mp3';
           break;
         case 'flag':
-          soundPath = 'rawfile/music/Sound_Effects/插旗声.mp3';
+          soundPath = 'music/Sound_Effects/插旗声.mp3';
           break;
         case 'win':
-          soundPath = 'rawfile/music/Sound_Effects/欢呼声.mp3';
+          soundPath = 'music/Sound_Effects/欢呼声.mp3';
           break;
         case 'lose':
-          soundPath = 'rawfile/music/Sound_Effects/羊叫声.mp3';
+          soundPath = 'music/Sound_Effects/羊叫声.mp3';
           break;
       }
       
-      this.soundPlayer.url = soundPath;
-      // 注意: AVPlayer 不直接支持 volume 属性，音量通过系统音量控制
+      // 使用文件描述符方式加载资源
+      const fd = await this.context.resourceManager.getRawFd(soundPath);
+      this.soundPlayer.fdSrc = {
+        fd: fd.fd,
+        offset: fd.offset,
+        length: fd.length
+      };
       
       this.soundPlayer.on('stateChange', (state: string) => {
         if (state === 'prepared') {
           this.soundPlayer?.play();
         }
+      });
+
+      this.soundPlayer.on('error', (err: Error) => {
+        console.error('音效播放错误:', err.message);
       });
 
       await this.soundPlayer.prepare();

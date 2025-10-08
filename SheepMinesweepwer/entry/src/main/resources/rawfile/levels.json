@@ -1,32 +1,5 @@
 [
   {
-    "levelId": "adventure_level_1",
-    "name": "羊村郊外",
-    "rows": 8,
-    "cols": 8,
-    "mines": 10,
-    "timeLimit": 180,
-    "isUnlocked": true
-  },
-  {
-    "levelId": "adventure_level_2",
-    "name": "青青草原",
-    "rows": 12,
-    "cols": 12,
-    "mines": 20,
-    "timeLimit": 240,
-    "isUnlocked": false
-  },
-  {
-    "levelId": "adventure_level_3",
-    "name": "狼堡决战",
-    "rows": 16,
-    "cols": 16,
-    "mines": 40,
-    "timeLimit": 360,
-    "isUnlocked": false
-  },
-  {
     "levelId": "challenge_easy",
     "name": "初级挑战",
     "rows": 9,

@@ -2,19 +2,16 @@ import { GameViewModel } from './viewModel/GameViewModel';
 import { GameBoard } from './components/GameBoard';
 import { LevelSelectScreen } from './components/LevelSelectScreen';
 import { AchievementsScreen } from './components/AchievementsScreen';
-import { AdventureMapScreen } from './components/AdventureMapScreen';
-import { HexGamePage } from './HexGamePage';
 import { CharacterSelectScreen } from './components/CharacterSelectScreen';
 import { SettingsScreen } from './components/SettingsScreen';
 import { Level } from './model/Level';
 import common from '@ohos.app.ability.common';
 import { achievementService } from './services/AchievementService';
-import { adventureService } from './services/AdventureService';
 import { itemService } from './services/ItemService';
 import { ThemeProvider, themeProvider } from './theme/ThemeProvider';
 import { audioManager } from './services/AudioManager';
 
-type GameState = 'character_select' | 'menu' | 'classic' | 'challenge_select' | 'challenge_game' | 'achievements' | 'adventure_map' | 'adventure_game' | 'hex_game' | 'settings';
+type GameState = 'character_select' | 'menu' | 'classic' | 'challenge_select' | 'challenge_game' | 'achievements' | 'settings';
 
 @Entry
 @Component
@@ -46,6 +43,9 @@ struct Index {
   private async initializeServices(): Promise<void> {
     // 初始化所有服务
     if (this.context) {
+      // 设置AudioManager的context
+      audioManager.setContext(this.context);
+      
       try {
         await achievementService.init(this.context);
       } catch (error) {
@@ -53,23 +53,17 @@ struct Index {
       }
       
       try {
-        await adventureService.init(this.context);
-      } catch (error) {
-        console.error('Failed to init AdventureService:', error);
-      }
-      
-      try {
         await itemService.init(this.context);
       } catch (error) {
         console.error('Failed to init ItemService:', error);
       }
-    }
-    
-    // 播放背景音乐
-    try {
-      await audioManager.playBGM(this.provider.currentTheme.audio.bgm);
-    } catch (error) {
-      console.error('Failed to play BGM:', error);
+      
+      // 播放背景音乐
+      try {
+        await audioManager.playBGM(this.provider.currentTheme.audio.bgm);
+      } catch (error) {
+        console.error('Failed to play BGM:', error);
+      }
     }
   }
 
@@ -83,7 +77,6 @@ struct Index {
     
     // 清理所有服务
     achievementService.destroy();
-    adventureService.destroy();
     itemService.destroy();
   }
 
@@ -138,14 +131,6 @@ struct Index {
             this.gameState = 'challenge_select';
           });
 
-          this.MenuButton('冒险模式', this.provider.currentTheme.colors.secondary, () => {
-            this.gameState = 'adventure_map';
-          });
-
-          this.MenuButton('六边形模式', this.provider.currentTheme.colors.primary, () => {
-            this.gameState = 'hex_game';
-          });
-
           this.MenuButton('成就殿堂', this.provider.currentTheme.colors.accent, () => {
             this.gameState = 'achievements';
           });
@@ -172,29 +157,44 @@ struct Index {
   }
 
   @Builder MenuButton(text: string, bgColor: string, onClick: () => void) {
-    Button(text)
-      .width('100%')
-      .height(65)
-      .fontSize(22)
-      .fontWeight(FontWeight.Medium)
-      .backgroundColor(bgColor)
-      .borderRadius(16)
-      .shadow({
-        radius: 10,
-        color: '#00000030',
-        offsetX: 0,
-        offsetY: 5
-      })
-      .onClick(onClick)
-      .stateStyles({
-        pressed: {
-          .scale({ x: 0.95, y: 0.95 })
-        },
-        normal: {
-          .scale({ x: 1, y: 1 })
-        }
-      })
-      .animation({ duration: 200, curve: Curve.EaseInOut });
+    Stack() {
+      // 半透明背景层
+      Column()
+        .width('100%')
+        .height('100%')
+        .backgroundColor(bgColor)
+        .borderRadius(16)
+        .opacity(0.85);
+      
+      // 按钮文字
+      Button(text)
+        .width('100%')
+        .height(65)
+        .fontSize(22)
+        .fontWeight(FontWeight.Medium)
+        .backgroundColor('rgba(255, 255, 255, 0.15)')
+        .borderRadius(16)
+        .fontColor('#FFFFFF')
+        .border({ width: 2, color: '#FFFFFFAA' })
+        .onClick(onClick)
+        .stateStyles({
+          pressed: {
+            .scale({ x: 0.95, y: 0.95 })
+          },
+          normal: {
+            .scale({ x: 1, y: 1 })
+          }
+        })
+        .animation({ duration: 200, curve: Curve.EaseInOut });
+    }
+    .width('100%')
+    .height(65)
+    .shadow({
+      radius: 12,
+      color: '#00000040',
+      offsetX: 0,
+      offsetY: 6
+    });
   }
 
   @Builder GameView() {
@@ -265,76 +265,79 @@ struct Index {
       .justifyContent(FlexAlign.SpaceBetween);
 
       // 道具栏
-      Row({ space: 10 }) {
-        // 放大镜道具
-        Column() {
-          Text('🔍')
-            .fontSize(24)
-            .margin({ bottom: 3 });
-          Text('放大镜')
-            .fontSize(14)
-            .fontColor(this.provider.currentTheme.colors.textPrimary)
-            .margin({ bottom: 2 });
-          Text('x3')
-            .fontSize(12)
-            .fontColor(this.provider.currentTheme.colors.textSecondary);
-        }
-        .width(80)
-        .height(70)
-        .backgroundColor(this.viewModel.selectedItem === 'magnifying_glass' ? 
-          this.provider.currentTheme.colors.primary : 
-          this.provider.currentTheme.colors.cardBg)
-        .borderRadius(12)
-        .justifyContent(FlexAlign.Center)
-        .border({
-          width: this.viewModel.selectedItem === 'magnifying_glass' ? 3 : 0,
-          color: this.provider.currentTheme.colors.primary
-        })
-        .shadow({ radius: 6, color: '#00000015', offsetX: 0, offsetY: 3 })
-        .onClick(() => {
-          this.viewModel.selectItem('magnifying_glass');
-        });
+      Column() {
+        Row({ space: 15 }) {
+          // 放大镜道具
+          Column() {
+            Text('🔍')
+              .fontSize(28)
+              .margin({ bottom: 5 });
+            Text('探测')
+              .fontSize(14)
+              .fontWeight(FontWeight.Medium)
+              .fontColor(this.viewModel.selectedItem === 'magnifying_glass' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary);
+          }
+          .width(90)
+          .height(80)
+          .backgroundColor(this.viewModel.selectedItem === 'magnifying_glass' ? 
+            this.provider.currentTheme.colors.primary : 
+            this.provider.currentTheme.colors.cardBg)
+          .borderRadius(15)
+          .justifyContent(FlexAlign.Center)
+          .border({
+            width: this.viewModel.selectedItem === 'magnifying_glass' ? 3 : 1.5,
+            color: this.viewModel.selectedItem === 'magnifying_glass' ? this.provider.currentTheme.colors.primary : '#E0E0E0'
+          })
+          .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 })
+          .onClick(() => {
+            this.viewModel.selectItem('magnifying_glass');
+          });
 
-        // 铁拳道具
-        Column() {
-          Text('👊')
-            .fontSize(24)
-            .margin({ bottom: 3 });
-          Text('铁拳')
-            .fontSize(14)
-            .fontColor(this.provider.currentTheme.colors.textPrimary)
-            .margin({ bottom: 2 });
-          Text('x1')
-            .fontSize(12)
-            .fontColor(this.provider.currentTheme.colors.textSecondary);
+          // 铁拳道具
+          Column() {
+            Text('👊')
+              .fontSize(28)
+              .margin({ bottom: 5 });
+            Text('强拆')
+              .fontSize(14)
+              .fontWeight(FontWeight.Medium)
+              .fontColor(this.viewModel.selectedItem === 'iron_fist' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary);
+          }
+          .width(90)
+          .height(80)
+          .backgroundColor(this.viewModel.selectedItem === 'iron_fist' ? 
+            this.provider.currentTheme.colors.primary : 
+            this.provider.currentTheme.colors.cardBg)
+          .borderRadius(15)
+          .justifyContent(FlexAlign.Center)
+          .border({
+            width: this.viewModel.selectedItem === 'iron_fist' ? 3 : 1.5,
+            color: this.viewModel.selectedItem === 'iron_fist' ? this.provider.currentTheme.colors.primary : '#E0E0E0'
+          })
+          .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 })
+          .onClick(() => {
+            this.viewModel.selectItem('iron_fist');
+          });
         }
-        .width(80)
-        .height(70)
-        .backgroundColor(this.viewModel.selectedItem === 'iron_fist' ? 
-          this.provider.currentTheme.colors.primary : 
-          this.provider.currentTheme.colors.cardBg)
-        .borderRadius(12)
-        .justifyContent(FlexAlign.Center)
-        .border({
-          width: this.viewModel.selectedItem === 'iron_fist' ? 3 : 0,
-          color: this.provider.currentTheme.colors.primary
-        })
-        .shadow({ radius: 6, color: '#00000015', offsetX: 0, offsetY: 3 })
-        .onClick(() => {
-          this.viewModel.selectItem('iron_fist');
-        });
+        .justifyContent(FlexAlign.Center);
 
-        // 提示文本
+        // 功能提示（在道具下方）
         if (this.viewModel.selectedItem) {
-          Text('点击格子使用')
+          Text(this.viewModel.selectedItem === 'magnifying_glass' ? 
+            '🔍 探测功能：点击任意格子，查看是否安全' : 
+            '👊 强拆功能：点击任意格子，无论是否地雷都直接翻开')
             .fontSize(14)
-            .fontColor(this.provider.currentTheme.colors.textPrimary)
-            .margin({ left: 10 });
+            .fontColor(this.provider.currentTheme.colors.primary)
+            .fontWeight(FontWeight.Medium)
+            .textAlign(TextAlign.Center)
+            .margin({ top: 10 })
+            .padding({ left: 15, right: 15, top: 8, bottom: 8 })
+            .backgroundColor(this.provider.currentTheme.colors.primary + '20')
+            .borderRadius(10);
         }
       }
-      .width('95%')
-      .padding({ left: 10, right: 10, bottom: 10 })
-      .justifyContent(FlexAlign.Start);
+      .width('100%')
+      .padding({ left: 10, right: 10, bottom: 15 });
 
       // 游戏棋盘容器 - 居中显示
       Column() {
@@ -401,16 +404,6 @@ struct Index {
         });
       } else if (this.gameState === 'menu') {
         this.MainMenu();
-      } else if (this.gameState === 'hex_game') {
-        HexGamePage({ 
-          provider: this.provider,
-          onBack: () => this.gameState = 'menu' 
-        });
-      } else if (this.gameState === 'adventure_map') {
-        AdventureMapScreen({ 
-          provider: this.provider,
-          onBack: () => this.gameState = 'menu' 
-        });
       } else if (this.gameState === 'achievements') {
         AchievementsScreen({ 
           provider: this.provider,

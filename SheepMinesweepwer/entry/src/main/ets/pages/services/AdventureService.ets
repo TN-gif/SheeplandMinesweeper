@@ -8,6 +8,23 @@ import util from '@ohos.util';
 const ADVENTURE_PREFS_FILE = 'adventure_data';
 const CURRENT_STAGE_KEY = 'current_stage_index';
 
+// 定义JSON数据接口（符合ArkTS规范）
+interface StageJsonData {
+  stageId: string;
+  levelId: string;
+  introText: string;
+}
+
+interface LevelJsonData {
+  levelId: string;
+  name: string;
+  rows: number;
+  cols: number;
+  mines: number;
+  isUnlocked: boolean;
+  timeLimit?: number;
+}
+
 export class AdventureStage {
   stageId: string;
   levelId: string;
@@ -46,12 +63,31 @@ class AdventureService {
 
       const mapRawFile: Uint8Array = await context.resourceManager.getRawFileContent('adventure_map.json');
       const mapJsonString: string = this.uint8ArrayToString(mapRawFile);
-      const adventureMap: AdventureMap = JSON.parse(mapJsonString);
-      this.stages = adventureMap.stages;
+      const mapData = JSON.parse(mapJsonString) as Record<string, StageJsonData[]>;
+      // 将JSON对象转换为AdventureStage实例
+      this.stages = mapData['stages'].map((data: StageJsonData) => {
+        return new AdventureStage(
+          data.stageId,
+          data.levelId,
+          data.introText
+        );
+      });
 
       const levelsRawFile: Uint8Array = await context.resourceManager.getRawFileContent('levels.json');
       const levelsJsonString: string = this.uint8ArrayToString(levelsRawFile);
-      this.allLevels = JSON.parse(levelsJsonString);
+      const levelsData = JSON.parse(levelsJsonString) as LevelJsonData[];
+      // 将JSON对象转换为Level实例
+      this.allLevels = levelsData.map((data: LevelJsonData) => {
+        return new Level(
+          data.levelId,
+          data.name,
+          data.rows,
+          data.cols,
+          data.mines,
+          data.isUnlocked,
+          data.timeLimit
+        );
+      });
     } catch (e) {
       const error = e as BusinessError;
       console.error(`Failed to initialize AdventureService: ${error.message}, code: ${error.code}`);

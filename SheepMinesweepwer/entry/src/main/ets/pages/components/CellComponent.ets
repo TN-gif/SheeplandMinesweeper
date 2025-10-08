@@ -11,17 +11,45 @@ export struct CellComponent {
 
   build() {
     Stack() {
-      // 背景层
-      Image(this.cell.isRevealed ? 
-        this.provider.currentTheme.assets.grassIcon : 
-        this.provider.currentTheme.assets.landIcon)
-        .width('100%')
-        .height('100%')
-        .objectFit(ImageFit.Cover)
-        .borderRadius(4)
-        .onError(() => {
-          console.error('Failed to load cell background image');
-        });
+      // 背景层 - 只有在未翻开或翻开且无数字时才显示图片
+      if (!this.cell.isRevealed) {
+        // 未翻开时显示土地
+        Image(this.provider.currentTheme.assets.landIcon)
+          .width('100%')
+          .height('100%')
+          .objectFit(ImageFit.Cover)
+          .borderRadius(4)
+          .onError(() => {
+            console.error('Failed to load cell background image');
+          });
+      } else if (this.cell.isRevealed && this.cell.adjacentMines === 0 && !this.cell.isMine) {
+        // 翻开且无数字时显示草地
+        Image(this.provider.currentTheme.assets.grassIcon)
+          .width('100%')
+          .height('100%')
+          .objectFit(ImageFit.Cover)
+          .borderRadius(4)
+          .onError(() => {
+            console.error('Failed to load cell background image');
+          });
+      } else if (this.cell.isRevealed && this.cell.adjacentMines > 0) {
+        // 有数字时显示纯色背景
+        Column()
+          .width('100%')
+          .height('100%')
+          .backgroundColor('#F5F5DC')
+          .borderRadius(4);
+      } else if (this.cell.isRevealed && this.cell.isMine) {
+        // 地雷时显示草地背景
+        Image(this.provider.currentTheme.assets.grassIcon)
+          .width('100%')
+          .height('100%')
+          .objectFit(ImageFit.Cover)
+          .borderRadius(4)
+          .onError(() => {
+            console.error('Failed to load cell background image');
+          });
+      }
 
       // 内容层
       if (this.cell.isRevealed) {
@@ -35,12 +63,12 @@ export struct CellComponent {
               console.error('Failed to load mine icon');
             });
         } else if (this.cell.adjacentMines > 0) {
-          // 数字显示
+          // 数字显示（在纯色背景上更清晰）
           Text(this.cell.adjacentMines.toString())
-            .fontSize(24)
+            .fontSize(28)
             .fontWeight(FontWeight.Bold)
             .fontColor(this.getNumberColor(this.cell.adjacentMines))
-            .textShadow({ radius: 2, color: '#FFFFFF80', offsetX: 0, offsetY: 0 });
+            .textShadow({ radius: 1, color: '#FFFFFF', offsetX: 1, offsetY: 1 });
         }
       } else if (this.cell.isFlagged) {
         // 捕狼夹图标
@@ -66,51 +94,40 @@ export struct CellComponent {
       offsetX: 0,
       offsetY: this.cell.isRevealed ? 1 : 3
     })
-    .onClick(() => {
-      if (!this.cell.isRevealed) {
-        this.onReveal(this.cell.x, this.cell.y);
-      }
-    })
     .gesture(
       GestureGroup(GestureMode.Exclusive,
-        // 双击手势：用于和弦操作
+        // 双击手势：用于和弦操作（优先级最高）
         TapGesture({ count: 2 })
           .onAction(() => {
             if (this.cell.isRevealed && this.cell.adjacentMines > 0) {
               this.onChord(this.cell.x, this.cell.y);
             }
           }),
-        // 长按手势：用于插旗
-        LongPressGesture({ repeat: false })
+        // 长按手势：用于插旗（优先级次之）
+        LongPressGesture({ repeat: false, duration: 500 })
           .onAction(() => {
             if (!this.cell.isRevealed) {
               this.onFlag(this.cell.x, this.cell.y);
+            }
+          }),
+        // 单击手势：用于翻开（优先级最低）
+        TapGesture({ count: 1 })
+          .onAction(() => {
+            if (!this.cell.isRevealed) {
+              this.onReveal(this.cell.x, this.cell.y);
             }
           })
       )
     )
     .scale({ 
-      x: this.cell.isRevealed ? 0.95 : (this.cell.isFlagged ? 1.05 : 1), 
-      y: this.cell.isRevealed ? 0.95 : (this.cell.isFlagged ? 1.05 : 1)
-    })
-    .rotate({ 
-      x: 1, 
-      y: 0, 
-      z: 0, 
-      angle: this.cell.isRevealed ? 10 : 0,
-      centerX: '50%',
-      centerY: '50%'
-    })
-    .translate({ 
-      x: this.cell.shake ? (Math.random() > 0.5 ? 5 : -5) : 0,
-      y: this.cell.shake ? (Math.random() > 0.5 ? 5 : -5) : 0
+      x: this.cell.isRevealed ? 0.98 : (this.cell.isFlagged ? 1.03 : 1), 
+      y: this.cell.isRevealed ? 0.98 : (this.cell.isFlagged ? 1.03 : 1)
     })
     .animation({ 
-      duration: 300, 
-      curve: Curve.EaseInOut,
-      iterations: this.cell.shake ? 5 : 1
+      duration: 250, 
+      curve: Curve.EaseInOut
     })
-    .opacity(this.cell.isRevealed ? 0.9 : 1);
+    .opacity(this.cell.isRevealed ? 1 : 1);
   }
 
   getNumberColor(mines: number): string {

@@ -68,61 +68,92 @@ export struct CharacterSelectScreen {
     }
     .width('100%')
     .height('100%')
-    .backgroundImage('images/background/背景7.jpg')
+    .backgroundImage($rawfile('images/background/背景7.jpg'))
     .backgroundImageSize(ImageSize.Cover)
     .justifyContent(FlexAlign.Start);
   }
 
   @Builder
   CharacterCard(theme: Theme) {
-    Column() {
-      // 角色头像
-      Image(theme.assets.avatar)
-        .width(80)
-        .height(80)
-        .borderRadius(40)
+    Stack() {
+      // 卡片背景（渐变效果）
+      Column()
+        .width('100%')
+        .height('100%')
+        .borderRadius(20)
+        .linearGradient({
+          angle: 135,
+          colors: this.selectedThemeId === theme.id ? 
+            [[theme.colors.primary + '20', 0.0], ['#FFFFFFEE', 0.5], ['#FFFFFFEE', 1.0]] : 
+            [['#FFFFFFAA', 0.0], ['#FFFFFFCC', 1.0]]
+        })
         .border({
-          width: this.selectedThemeId === theme.id ? 4 : 2,
+          width: this.selectedThemeId === theme.id ? 3 : 1.5,
           color: this.selectedThemeId === theme.id ? theme.colors.primary : '#FFFFFF'
         })
-        .shadow({
-          radius: this.selectedThemeId === theme.id ? 12 : 6,
-          color: this.selectedThemeId === theme.id ? theme.colors.primary + '60' : '#00000020',
-          offsetX: 0,
-          offsetY: 4
-        })
-        .margin({ bottom: 10 })
-        .onError(() => {
-          console.error('Failed to load character avatar');
-        });
+        .borderRadius(20);
 
-      // 角色名称
-      Text(theme.name)
-        .fontSize(18)
-        .fontWeight(this.selectedThemeId === theme.id ? FontWeight.Bold : FontWeight.Medium)
-        .fontColor(this.selectedThemeId === theme.id ? theme.colors.primary : '#2D5645')
-        .margin({ bottom: 5 });
+      Column() {
+        // 角色头像（更大、更精致的圆形头像）
+        Image(theme.assets.avatar)
+          .width(90)
+          .height(90)
+          .borderRadius(45)
+          .border({
+            width: this.selectedThemeId === theme.id ? 4 : 3,
+            color: this.selectedThemeId === theme.id ? theme.colors.primary : '#FFFFFF'
+          })
+          .shadow({
+            radius: this.selectedThemeId === theme.id ? 15 : 8,
+            color: this.selectedThemeId === theme.id ? theme.colors.primary + '80' : '#00000030',
+            offsetX: 0,
+            offsetY: this.selectedThemeId === theme.id ? 6 : 4
+          })
+          .margin({ bottom: 12 })
+          .onError(() => {
+            console.error('Failed to load character avatar');
+          });
 
-      // 选中标记
-      if (this.selectedThemeId === theme.id) {
-        Text('✓')
-          .fontSize(24)
-          .fontColor(theme.colors.primary)
-          .fontWeight(FontWeight.Bold);
+        // 角色名称
+        Text(theme.name)
+          .fontSize(20)
+          .fontWeight(this.selectedThemeId === theme.id ? FontWeight.Bold : FontWeight.Medium)
+          .fontColor(this.selectedThemeId === theme.id ? theme.colors.primary : '#2D5645')
+          .textShadow({ 
+            radius: 2, 
+            color: '#FFFFFF', 
+            offsetX: 1, 
+            offsetY: 1 
+          })
+          .margin({ bottom: 5 });
+
+        // 选中标记
+        if (this.selectedThemeId === theme.id) {
+          Text('✓')
+            .fontSize(28)
+            .fontColor(theme.colors.primary)
+            .fontWeight(FontWeight.Bold)
+            .textShadow({ 
+              radius: 3, 
+              color: '#FFFFFF', 
+              offsetX: 0, 
+              offsetY: 0 
+            });
+        }
       }
+      .width('100%')
+      .height('100%')
+      .padding(15)
+      .justifyContent(FlexAlign.Center);
     }
     .width('100%')
     .height('100%')
-    .padding(15)
-    .backgroundColor(this.selectedThemeId === theme.id ? '#FFFFFF' : '#FFFFFFCC')
-    .borderRadius(20)
     .shadow({
-      radius: this.selectedThemeId === theme.id ? 15 : 8,
-      color: '#00000030',
+      radius: this.selectedThemeId === theme.id ? 20 : 10,
+      color: '#00000040',
       offsetX: 0,
-      offsetY: this.selectedThemeId === theme.id ? 6 : 3
+      offsetY: this.selectedThemeId === theme.id ? 8 : 4
     })
-    .justifyContent(FlexAlign.Center)
     .onClick(() => {
       this.selectedThemeId = theme.id;
     })
@@ -131,8 +162,8 @@ export struct CharacterSelectScreen {
       curve: Curve.EaseInOut
     })
     .scale({
-      x: this.selectedThemeId === theme.id ? 1.05 : 1,
-      y: this.selectedThemeId === theme.id ? 1.05 : 1
+      x: this.selectedThemeId === theme.id ? 1.08 : 1,
+      y: this.selectedThemeId === theme.id ? 1.08 : 1
     });
   }
 }

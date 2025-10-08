@@ -7,6 +7,10 @@ import { ThemeProvider, themeProvider } from '../theme/ThemeProvider';
 export struct GameBoard {
   @ObjectLink viewModel: GameViewModel;
   @ObjectLink provider: ThemeProvider;
+  @State boardScale: number = 1.0;
+  @State boardOffsetX: number = 0;
+  @State boardOffsetY: number = 0;
+  private panOption: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.All });
 
   build() {
     Grid() {
@@ -39,6 +43,39 @@ export struct GameBoard {
       color: '#00000030',
       offsetX: 0,
       offsetY: 10
-    });
+    })
+    .scale({ x: this.boardScale, y: this.boardScale })
+    .translate({ x: this.boardOffsetX, y: this.boardOffsetY })
+    .gesture(
+      GestureGroup(GestureMode.Parallel,
+        // 双指缩放手势
+        PinchGesture()
+          .onActionStart((event: GestureEvent) => {
+            console.log('Pinch start');
+          })
+          .onActionUpdate((event: GestureEvent) => {
+            if (event && event.scale) {
+              this.boardScale = Math.max(0.5, Math.min(3.0, event.scale));
+            }
+          })
+          .onActionEnd((event: GestureEvent) => {
+            console.log('Pinch end: boardScale = ' + this.boardScale);
+          }),
+        // 拖拽手势
+        PanGesture(this.panOption)
+          .onActionStart((event: GestureEvent) => {
+            console.log('Pan start');
+          })
+          .onActionUpdate((event: GestureEvent) => {
+            if (event) {
+              this.boardOffsetX = event.offsetX;
+              this.boardOffsetY = event.offsetY;
+            }
+          })
+          .onActionEnd((event: GestureEvent) => {
+            console.log('Pan end');
+          })
+      )
+    );
   }
 }

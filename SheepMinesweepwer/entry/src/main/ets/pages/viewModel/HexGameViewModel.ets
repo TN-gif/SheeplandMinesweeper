@@ -1,4 +1,6 @@
 import { HexCell, HexUtils, AxialCoord } from '../model/HexUtils';
+import { audioManager } from '../services/AudioManager';
+import { HapticFeedbackUtils } from '../utils/HapticFeedbackUtils';
 
 @Observed
 export class HexGameViewModel {
@@ -6,9 +8,10 @@ export class HexGameViewModel {
   board: Map<string, HexCell> = new Map();
   // The radius of the hexagonal map (number of rings from the center)
   mapRadius: number = 4;
-  mineCount: number = 10;
+  mineCount: number = 12;
   gameOver: boolean = false;
   gameWon: boolean = false;
+  isFirstClick: boolean = true;
 
   constructor() {
     this.initGame();
@@ -23,6 +26,7 @@ export class HexGameViewModel {
     this.board.clear();
     this.gameOver = false;
     this.gameWon = false;
+    this.isFirstClick = true;
 
     // Create a hexagonal map shape
     for (let q: number = -this.mapRadius; q <= this.mapRadius; q++) {
@@ -36,19 +40,28 @@ export class HexGameViewModel {
       }
     }
 
-    this.placeMines();
-    this.calculateAdjacentMines();
+    // 不立即放置地雷，等待第一次点击
   }
 
-  placeMines(): void {
+  placeMines(firstClickQ: number, firstClickR: number): void {
     const keys: string[] = Array.from(this.board.keys());
+    const firstClickCoord: AxialCoord = new AxialCoord(firstClickQ, firstClickR);
+    const safeZone: Set<string> = new Set();
+    
+    // 第一次点击位置及其周围都是安全区
+    safeZone.add(this.coordToKey(firstClickCoord));
+    const neighbors: AxialCoord[] = HexUtils.getNeighbors(firstClickCoord);
+    neighbors.forEach((neighbor: AxialCoord) => {
+      safeZone.add(this.coordToKey(neighbor));
+    });
+    
     let minesPlaced: number = 0;
     while (minesPlaced < this.mineCount) {
       const randomIndex: number = Math.floor(Math.random() * keys.length);
       const randomKey: string = keys[randomIndex];
       const cell: HexCell | undefined = this.board.get(randomKey);
 
-      if (cell && !cell.isMine) {
+      if (cell && !cell.isMine && !safeZone.has(randomKey)) {
         cell.isMine = true;
         minesPlaced++;
       }
@@ -73,6 +86,13 @@ export class HexGameViewModel {
   }
 
   revealCell(q: number, r: number): void {
+    // 第一次点击时才放置地雷
+    if (this.isFirstClick) {
+      this.placeMines(q, r);
+      this.calculateAdjacentMines();
+      this.isFirstClick = false;
+    }
+
     const coord: AxialCoord = new AxialCoord(q, r);
     const key: string = this.coordToKey(coord);
     if (!this.board.has(key)) return;
@@ -84,6 +104,10 @@ export class HexGameViewModel {
 
     if (cell.isMine) {
       this.gameOver = true;
+      audioManager.playSound('lose');
+      HapticFeedbackUtils.vibrate('failure');
+      // 显示所有地雷
+      this.revealAllMines();
       return;
     }
 
@@ -95,6 +119,14 @@ export class HexGameViewModel {
     this.checkWinCondition();
   }
 
+  private revealAllMines(): void {
+    this.board.forEach((cell: HexCell) => {
+      if (cell.isMine) {
+        cell.isRevealed = true;
+      }
+    });
+  }
+
   flagCell(q: number, r: number): void {
     const coord: AxialCoord = new AxialCoord(q, r);
     const key: string = this.coordToKey(coord);
@@ -104,6 +136,8 @@ export class HexGameViewModel {
   }
 
   checkWinCondition(): void {
+    if (this.isFirstClick) return; // 第一次点击前不检查胜利条件
+    
     const totalCells: number = this.board.size;
     let revealedCount: number = 0;
     this.board.forEach((cell: HexCell) => {
@@ -115,6 +149,8 @@ export class HexGameViewModel {
     if (revealedCount === totalCells - this.mineCount) {
       this.gameWon = true;
       this.gameOver = true;
+      audioManager.playSound('win');
+      HapticFeedbackUtils.vibrate('success');
     }
   }
 

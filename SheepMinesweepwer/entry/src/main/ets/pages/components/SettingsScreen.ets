@@ -119,8 +119,11 @@ export struct SettingsScreen {
         .backgroundColor(isEnabled ? 
           this.provider.currentTheme.colors.primary : 
           '#D0D0D0')
+        .fontColor('#FFFFFF')
         .borderRadius(20)
-        .onClick(onToggle);
+        .onClick(() => {
+          onToggle();
+        });
     }
     .width('100%')
     .padding(20)
@@ -147,17 +150,20 @@ export struct SettingsScreen {
       .width('100%');
 
       Slider({
-        value: value,
+        value: value * 100,
         min: 0,
-        max: 1,
-        step: 0.1,
+        max: 100,
+        step: 10,
         style: SliderStyle.OutSet
       })
         .trackColor('#E0E0E0')
         .selectedColor(this.provider.currentTheme.colors.primary)
         .blockColor(this.provider.currentTheme.colors.primary)
-        .onChange((value: number) => {
-          onValueChange(value);
+        .width('100%')
+        .onChange((value: number, mode: SliderChangeMode) => {
+          if (mode === SliderChangeMode.End || mode === SliderChangeMode.Moving) {
+            onValueChange(value / 100);
+          }
         });
     }
     .width('100%')
