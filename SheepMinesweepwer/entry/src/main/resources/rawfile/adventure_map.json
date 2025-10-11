@@ -1,3 +1,19 @@
 {
-  "stages": []
+  "stages": [
+    {
+      "stageId": "stage_1",
+      "levelId": "adventure_level_1",
+      "introText": "灰太狼在羊村周围设下了陷阱，快去帮助喜羊羊找出它们！"
+    },
+    {
+      "stageId": "stage_2",
+      "levelId": "adventure_level_2",
+      "introText": "灰太狼的陷阱越来越狡猾了，小心翼翼地前进吧！"
+    },
+    {
+      "stageId": "stage_3",
+      "levelId": "adventure_level_3",
+      "introText": "最终决战！打败灰太狼，解救被困的小羊们！"
+    }
+  ]
 }

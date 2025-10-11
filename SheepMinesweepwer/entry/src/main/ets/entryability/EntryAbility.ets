@@ -1,7 +1,8 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import { window, font } from '@kit.ArkUI';
 import { BusinessError } from '@ohos.base';
+import { FontManager } from '../pages/utils/FontManager';
 
 const DOMAIN = 0x0000;
 
@@ -31,6 +32,20 @@ export default class EntryAbility extends UIAbility {
         hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
         return;
       }
+      
+      // 在 loadContent 回调中注册字体（使用同步方式）
+      try {
+        font.registerFont({
+          familyName: FontManager.CUSTOM_FONT_FAMILY,
+          familySrc: $rawfile(FontManager.CUSTOM_FONT_PATH)
+        });
+        hilog.info(DOMAIN, 'testTag', '字体注册成功: %{public}s', FontManager.CUSTOM_FONT_FAMILY);
+      } catch (error) {
+        let err = error as BusinessError;
+        hilog.error(DOMAIN, 'testTag', '字体注册失败 code:%{public}d msg:%{public}s', 
+          err.code, err.message);
+      }
+      
       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
     });
   }

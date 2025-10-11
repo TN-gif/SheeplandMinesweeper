@@ -2,16 +2,18 @@ import { GameViewModel } from './viewModel/GameViewModel';
 import { GameBoard } from './components/GameBoard';
 import { LevelSelectScreen } from './components/LevelSelectScreen';
 import { AchievementsScreen } from './components/AchievementsScreen';
+import { AdventureMapScreen } from './components/AdventureMapScreen';
 import { CharacterSelectScreen } from './components/CharacterSelectScreen';
 import { SettingsScreen } from './components/SettingsScreen';
 import { Level } from './model/Level';
 import common from '@ohos.app.ability.common';
 import { achievementService } from './services/AchievementService';
+import { adventureService } from './services/AdventureService';
 import { itemService } from './services/ItemService';
 import { ThemeProvider, themeProvider } from './theme/ThemeProvider';
 import { audioManager } from './services/AudioManager';
 
-type GameState = 'character_select' | 'menu' | 'classic' | 'challenge_select' | 'challenge_game' | 'achievements' | 'settings';
+type GameState = 'character_select' | 'menu' | 'classic' | 'challenge_select' | 'challenge_game' | 'achievements' | 'adventure_map' | 'adventure_game' | 'settings';
 
 @Entry
 @Component
@@ -53,6 +55,12 @@ struct Index {
       }
       
       try {
+        await adventureService.init(this.context);
+      } catch (error) {
+        console.error('Failed to init AdventureService:', error);
+      }
+      
+      try {
         await itemService.init(this.context);
       } catch (error) {
         console.error('Failed to init ItemService:', error);
@@ -77,6 +85,7 @@ struct Index {
     
     // 清理所有服务
     achievementService.destroy();
+    adventureService.destroy();
     itemService.destroy();
   }
 
@@ -129,6 +138,10 @@ struct Index {
         Column({ space: 20 }) {
           this.MenuButton('挑战模式', this.provider.currentTheme.colors.primary, () => {
             this.gameState = 'challenge_select';
+          });
+
+          this.MenuButton('冒险模式', this.provider.currentTheme.colors.secondary, () => {
+            this.gameState = 'adventure_map';
           });
 
           this.MenuButton('成就殿堂', this.provider.currentTheme.colors.accent, () => {
@@ -374,6 +387,10 @@ struct Index {
           .borderRadius(15)
           .shadow({ radius: 8, color: '#00000030', offsetX: 0, offsetY: 4 })
           .onClick(() => {
+            // 如果是冒险模式且游戏胜利，解锁下一关
+            if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
+              adventureService.completeStage();
+            }
             this.gameState = this.previousGameState;
           });
       }
@@ -404,6 +421,17 @@ struct Index {
         });
       } else if (this.gameState === 'menu') {
         this.MainMenu();
+      } else if (this.gameState === 'adventure_map') {
+        AdventureMapScreen({ 
+          provider: this.provider,
+          onBack: () => this.gameState = 'menu',
+          onSelectLevel: (level: Level) => {
+            this.selectedLevel = level;
+            this.viewModel = new GameViewModel(level, this.context);
+            this.previousGameState = 'adventure_map';
+            this.gameState = 'adventure_game';
+          }
+        });
       } else if (this.gameState === 'achievements') {
         AchievementsScreen({ 
           provider: this.provider,

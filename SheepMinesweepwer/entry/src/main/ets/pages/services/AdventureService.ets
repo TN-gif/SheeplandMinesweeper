@@ -73,7 +73,8 @@ class AdventureService {
         );
       });
 
-      const levelsRawFile: Uint8Array = await context.resourceManager.getRawFileContent('levels.json');
+      // 从 adventure_levels.json 加载冒险模式的关卡
+      const levelsRawFile: Uint8Array = await context.resourceManager.getRawFileContent('adventure_levels.json');
       const levelsJsonString: string = this.uint8ArrayToString(levelsRawFile);
       const levelsData = JSON.parse(levelsJsonString) as LevelJsonData[];
       // 将JSON对象转换为Level实例

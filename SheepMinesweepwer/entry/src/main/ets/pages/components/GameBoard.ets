@@ -11,6 +11,20 @@ export struct GameBoard {
   @State boardOffsetX: number = 0;
   @State boardOffsetY: number = 0;
   private panOption: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.All });
+  
+  // 固定格子大小（9x9模式下的标准大小）
+  private readonly CELL_SIZE: number = 38;
+  private readonly CELL_PADDING: number = 2;
+  private readonly BOARD_PADDING: number = 10;
+
+  // 计算棋盘实际宽度和高度
+  private getBoardWidth(): number {
+    return this.viewModel.cols * (this.CELL_SIZE + this.CELL_PADDING * 2) + this.BOARD_PADDING * 2;
+  }
+
+  private getBoardHeight(): number {
+    return this.viewModel.rows * (this.CELL_SIZE + this.CELL_PADDING * 2) + this.BOARD_PADDING * 2;
+  }
 
   build() {
     Grid() {
@@ -26,18 +40,20 @@ export struct GameBoard {
                 onChord: (x: number, y: number): void => this.viewModel.chordCell(x, y)
               });
             }
-            .padding(2);
+            .width(this.CELL_SIZE)
+            .height(this.CELL_SIZE)
+            .padding(this.CELL_PADDING);
           }
         });
       });
     }
     .columnsTemplate('1fr '.repeat(this.viewModel.cols))
     .rowsTemplate('1fr '.repeat(this.viewModel.rows))
-    .width('95%')
-    .aspectRatio(1)
+    .width(this.getBoardWidth())
+    .height(this.getBoardHeight())
     .backgroundColor(this.provider.currentTheme.colors.background + 'CC')
     .borderRadius(20)
-    .padding(10)
+    .padding(this.BOARD_PADDING)
     .shadow({
       radius: 20,
       color: '#00000030',

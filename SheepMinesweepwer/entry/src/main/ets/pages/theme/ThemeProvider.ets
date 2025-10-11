@@ -71,7 +71,7 @@ export const THEMES: Theme[] = [
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
       signIcon: $rawfile('images/icon/路牌.png'),
-      background: $rawfile('images/background/背景1.jpg'),
+      background: $rawfile('images/background/喜羊羊.jpg'),
     },
     audio: {
       bgm: 'music/Background/主页面背景音乐.mp3',
@@ -100,7 +100,7 @@ export const THEMES: Theme[] = [
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
       signIcon: $rawfile('images/icon/路牌.png'),
-      background: $rawfile('images/background/背景2.jpg'),
+      background: $rawfile('images/background/美羊羊.jpg'),
     },
     audio: {
       bgm: 'music/Background/主页面背景音乐.mp3',
@@ -129,7 +129,7 @@ export const THEMES: Theme[] = [
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
       signIcon: $rawfile('images/icon/路牌.png'),
-      background: $rawfile('images/background/背景3.jpg'),
+      background: $rawfile('images/background/懒羊羊.jpg'),
     },
     audio: {
       bgm: 'music/Background/主页面背景音乐.mp3',
@@ -158,7 +158,7 @@ export const THEMES: Theme[] = [
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
       signIcon: $rawfile('images/icon/路牌.png'),
-      background: $rawfile('images/background/背景4.jpg'),
+      background: $rawfile('images/background/沸羊羊.jpg'),
     },
     audio: {
       bgm: 'music/Background/主页面背景音乐.mp3',
@@ -187,7 +187,7 @@ export const THEMES: Theme[] = [
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
       signIcon: $rawfile('images/icon/路牌.png'),
-      background: $rawfile('images/background/背景5.jpg'),
+      background: $rawfile('images/background/暖羊羊.jpg'),
     },
     audio: {
       bgm: 'music/Background/主页面背景音乐.mp3',
@@ -216,7 +216,7 @@ export const THEMES: Theme[] = [
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
       signIcon: $rawfile('images/icon/路牌.png'),
-      background: $rawfile('images/background/背景6.jpg'),
+      background: $rawfile('images/background/慢羊羊.jpg'),
     },
     audio: {
       bgm: 'music/Background/主页面背景音乐.mp3',

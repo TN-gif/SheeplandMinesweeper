@@ -1,5 +1,6 @@
 import { Cell } from '../model/Cell';
 import { Level } from '../model/Level';
+import { adventureService } from '../services/AdventureService';
 import { itemService } from '../services/ItemService';
 import { achievementService } from '../services/AchievementService';
 import { audioManager } from '../services/AudioManager';
@@ -45,6 +46,7 @@ export class GameViewModel {
     // Services will be initialized from the main page with context
     if (context) {
       achievementService.init(context);
+      adventureService.init(context);
       itemService.init(context);
     }
   }
@@ -272,7 +274,11 @@ export class GameViewModel {
       return;
     }
 
-    switch (this.selectedItem) {
+    // 保存道具类型，然后立即清空，避免递归调用
+    const itemType = this.selectedItem;
+    this.selectedItem = null;
+
+    switch (itemType) {
       case 'magnifying_glass':
         // 放大镜：临时显示格子状态1.5秒
         cell.isRevealed = true;
@@ -297,7 +303,6 @@ export class GameViewModel {
         audioManager.playSound('flag');
         break;
     }
-    this.selectedItem = null;
   }
 
   private recalculateAdjacentMinesAround(x: number, y: number): void {

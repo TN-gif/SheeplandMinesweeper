@@ -1,0 +1,45 @@
+字体文件说明
+==================
+
+当前使用字体：
+---------
+文件名：Muyao-Softbrush.ttf
+实际字体：沐瑶软笔体（Muyao-Softbrush Regular）
+来源：用户提供的原始字体文件
+位置：从项目根目录 "Muyao-Softbrush Regular" 文件夹复制
+
+说明：
+---------
+本字体为设计文档中指定的"沐瑶软笔体"（Muyao-Softbrush）原始字体。
+已从用户提供的文件夹中复制到项目资源目录。
+
+字体特点：
+- 优美的手写软笔风格
+- 适合标题和装饰性文字
+- 符合"小羊扫雷"游戏的可爱风格
+- 完整的中文简体字符支持
+
+使用位置：
+---------
+- 选取小羊页面标题："请选择\n你的小羊"
+- 选取小羊页面按钮："确认选择"
+
+技术说明：
+---------
+在 HarmonyOS 中，字体通过 Resource 对象引用：
+  .fontFamily($rawfile('fonts/Muyao-Softbrush.ttf'))
+
+或通过 FontManager 工具类：
+  .fontFamily(FontManager.getCustomFont())
+
+系统会自动识别 rawfile 目录中的字体文件，无需显式注册。
+
+如需更换字体：
+---------
+1. 将新的字体文件（TTF或OTF格式）重命名为：Muyao-Softbrush.ttf
+2. 替换本目录下的同名文件即可
+3. 重新编译运行应用
+
+字体文件来源：
+---------
+原始文件：项目根目录/Muyao-Softbrush Regular/Muyao-Softbrush Regular.ttf
