@@ -303,204 +303,250 @@ struct Index {
   }
 
   @Builder GameView() {
-    Column() {
-      // 顶部状态栏
-      Row() {
-        // 地雷计数卡片
-        Column() {
-          Image(this.provider.currentTheme.assets.mineIcon)
-            .width(35)
-            .height(35)
+    Stack() {
+      // 背景图片
+      Image($rawfile('images/background/游戏背景.jpg'))
+        .width(360)
+        .height(792)
+        .objectFit(ImageFit.Cover);
+
+      // 返回按钮
+      Stack() {
+        Stack() {
+          Column()
+            .width(32)
+            .height(32)
+            .backgroundColor('rgba(255, 255, 255, 0.9)')
+            .borderRadius(16);
+
+          Image($rawfile('images/icon/返回.png'))
+            .width(18)
+            .height(20)
             .objectFit(ImageFit.Contain)
-            .margin({ bottom: 5 });
-          Text(`${this.viewModel.mineCount}`)
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-            .fontColor(this.provider.currentTheme.colors.textPrimary)
-            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
+            .position({ x: 7, y: 6 });
         }
-        .width(100)
-        .height(90)
-        .backgroundColor(this.provider.currentTheme.colors.cardBg)
-        .borderRadius(15)
-        .justifyContent(FlexAlign.Center)
-        .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 });
+        .width(32)
+        .height(32)
+        .position({ x: 0, y: 0 });
 
-        Blank();
-
-        // 状态显示卡片
-        if (this.viewModel.gameOver) {
-          Column() {
-            Text(this.viewModel.gameWon ? '🎉' : '💥')
-              .fontSize(32);
-            Text(this.viewModel.gameWon ? '胜利！' : '失败！')
-              .fontSize(18)
-              .fontWeight(FontWeight.Bold)
-              .fontColor(this.viewModel.gameWon ? '#FFD700' : '#FF6B6B')
+        Text('返回')
+          .width(51)
+          .height(32)
+          .fontSize(24)
+          .fontWeight(400)
+          .fontColor(Color.Black)
               .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
-              .margin({ top: 5 });
-          }
-          .width(110)
-          .height(90)
-          .backgroundColor(this.viewModel.gameWon ? '#FFFACD' : '#FFE4E1')
-          .borderRadius(15)
-          .justifyContent(FlexAlign.Center)
-          .shadow({ radius: 12, color: this.viewModel.gameWon ? '#FFD70060' : '#FF6B6B60', offsetX: 0, offsetY: 4 });
+          .textAlign(TextAlign.Start)
+          .position({ x: 42, y: 0 });
+      }
+      .width(93)
+      .height(32)
+      .position({ x: 18, y: 42 })
+      .onClick(() => {
+        if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
+          adventureService.completeStage();
         }
+        this.gameState = this.previousGameState;
+      });
 
-        Blank();
+      // 地雷剩余数量卡片
+      Stack() {
+        Column()
+          .width(91)
+          .height(92)
+          .backgroundColor('rgba(255, 255, 255, 0.85)')
+          .borderRadius(12);
 
-        // 计时器卡片
-        Column() {
-          Text('⏱️')
-            .fontSize(28)
-            .margin({ bottom: 5 });
+        // 灰太狼图标
+        Image(this.provider.currentTheme.assets.mineIcon)
+          .width(58)
+          .height(51)
+          .objectFit(ImageFit.Contain)
+          .position({ x: 17, y: 10 });
+
+        // 数量文字
+        Text(`${this.viewModel.mineCount}`)
+          .width(60)
+          .height(22)
+          .fontSize(20)
+          .fontWeight(700)
+          .lineHeight(22)
+          .fontColor(Color.Black)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+          .textAlign(TextAlign.Center)
+          .position({ x: 16, y: 62 });
+      }
+      .width(91)
+      .height(92)
+      .position({ x: 56, y: 89 });
+
+      // 计时卡片
+      Stack() {
+        Column()
+          .width(91)
+          .height(92)
+          .backgroundColor('rgba(255, 255, 255, 0.85)')
+          .borderRadius(12);
+
+        // 时钟图标
+        Image($rawfile('images/icon/时钟.png'))
+          .width(58)
+          .height(51)
+          .objectFit(ImageFit.Contain)
+          .position({ x: 17, y: 10 });
+
+        // 时间文字
           Text(this.viewModel.getFormattedTime())
-            .fontSize(16)
-            .fontWeight(FontWeight.Medium)
-            .fontColor(this.provider.currentTheme.colors.textPrimary)
-            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
-        }
-        .width(100)
-        .height(90)
-        .backgroundColor(this.provider.currentTheme.colors.cardBg)
-        .borderRadius(15)
-        .justifyContent(FlexAlign.Center)
-        .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 });
+          .width(80)
+          .height(22)
+          .fontSize(20)
+          .fontWeight(700)
+          .lineHeight(22)
+          .fontColor(Color.Black)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+          .textAlign(TextAlign.Center)
+          .position({ x: 6, y: 62 });
       }
-      .width('95%')
-      .padding({ top: 20, bottom: 15, left: 10, right: 10 })
-      .justifyContent(FlexAlign.SpaceBetween);
+      .width(91)
+      .height(92)
+      .position({ x: 212, y: 89 });
 
-      // 道具栏
-      Column() {
-        Row({ space: 15 }) {
-          // 放大镜道具
-          Column() {
-            Text('🔍')
-              .fontSize(28)
-              .margin({ bottom: 5 });
-            Text('探测')
-              .fontSize(14)
-              .fontWeight(FontWeight.Medium)
-              .fontColor(this.viewModel.selectedItem === 'magnifying_glass' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary)
-              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
-          }
-          .width(90)
-          .height(80)
+      // 放大镜道具卡片
+      Stack() {
+        Column()
+          .width(283)
+          .height(75)
           .backgroundColor(this.viewModel.selectedItem === 'magnifying_glass' ? 
-            this.provider.currentTheme.colors.primary : 
-            this.provider.currentTheme.colors.cardBg)
-          .borderRadius(15)
-          .justifyContent(FlexAlign.Center)
-          .border({
-            width: this.viewModel.selectedItem === 'magnifying_glass' ? 3 : 1.5,
-            color: this.viewModel.selectedItem === 'magnifying_glass' ? this.provider.currentTheme.colors.primary : '#E0E0E0'
-          })
-          .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 })
-          .onClick(() => {
-            this.viewModel.selectItem('magnifying_glass');
-          });
+            'rgba(100, 150, 200, 0.95)' : 'rgba(255, 255, 255, 0.85)')
+          .borderRadius(12);
 
-          // 铁拳道具
-          Column() {
-            Text('👊')
-              .fontSize(28)
-              .margin({ bottom: 5 });
-            Text('强拆')
+        // 放大镜图标
+        Image($rawfile('images/icon/放大镜.png'))
+          .width(58)
+          .height(51)
+          .objectFit(ImageFit.Contain)
+          .position({ x: 17, y: 12 });
+
+        // 数量
+        Text('×3')
+          .width(32)
+          .height(27)
+          .fontSize(24)
+          .fontWeight(700)
+          .lineHeight(26)
+          .fontColor(this.viewModel.selectedItem === 'magnifying_glass' ? Color.White : Color.Black)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+          .textAlign(TextAlign.Start)
+          .position({ x: 86, y: 13 });
+
+        // 标题
+        Text('慢羊羊的放大镜')
+          .width(147)
+          .height(22)
+          .fontSize(20)
+          .fontWeight(700)
+          .lineHeight(22)
+          .fontColor(this.viewModel.selectedItem === 'magnifying_glass' ? Color.White : Color.Black)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+          .textAlign(TextAlign.Start)
+          .position({ x: 86, y: 40 });
+
+        // 说明文字
+        Text('点击后可探测格子')
+          .width(140)
+          .height(16)
               .fontSize(14)
-              .fontWeight(FontWeight.Medium)
-              .fontColor(this.viewModel.selectedItem === 'iron_fist' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary)
-              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
-          }
-          .width(90)
-          .height(80)
-          .backgroundColor(this.viewModel.selectedItem === 'iron_fist' ? 
-            this.provider.currentTheme.colors.primary : 
-            this.provider.currentTheme.colors.cardBg)
-          .borderRadius(15)
-          .justifyContent(FlexAlign.Center)
-          .border({
-            width: this.viewModel.selectedItem === 'iron_fist' ? 3 : 1.5,
-            color: this.viewModel.selectedItem === 'iron_fist' ? this.provider.currentTheme.colors.primary : '#E0E0E0'
-          })
-          .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 })
-          .onClick(() => {
-            this.viewModel.selectItem('iron_fist');
-          });
-        }
-        .justifyContent(FlexAlign.Center);
-
-        // 功能提示
-        if (this.viewModel.selectedItem) {
-          Text(this.viewModel.selectedItem === 'magnifying_glass' ? 
-            '🔍 探测功能：点击任意格子，查看是否安全' : 
-            '👊 强拆功能：点击任意格子，无论是否地雷都直接翻开')
-            .fontSize(14)
-            .fontColor(this.provider.currentTheme.colors.primary)
-            .fontWeight(FontWeight.Medium)
-            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
-            .textAlign(TextAlign.Center)
-            .margin({ top: 10 })
-            .padding({ left: 15, right: 15, top: 8, bottom: 8 })
-            .backgroundColor(this.provider.currentTheme.colors.primary + '20')
-            .borderRadius(10);
-        }
+          .fontWeight(400)
+          .lineHeight(15)
+          .fontColor(this.viewModel.selectedItem === 'magnifying_glass' ? Color.White : 'rgba(0, 0, 0, 0.6)')
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+          .textAlign(TextAlign.Start)
+          .position({ x: 133, y: 17 });
       }
-      .width('100%')
-      .padding({ left: 10, right: 10, bottom: 15 });
+      .width(283)
+      .height(75)
+      .position({ x: 39, y: 207 })
+      .onClick(() => {
+        this.viewModel.selectItem('magnifying_glass');
+      });
 
-      // 游戏棋盘容器
+      // 棋盘容器
       Column() {
         GameBoard({ 
           viewModel: this.viewModel,
           provider: this.provider
         });
       }
-      .width('100%')
-      .layoutWeight(1)
-      .justifyContent(FlexAlign.Center)
-      .alignItems(HorizontalAlign.Center);
+      .width(308)
+      .height(336)
+      .position({ x: 26, y: 308 })
+      .clip(true);
 
-      // 底部按钮
-      Row({ space: 20 }) {
-        Button('新游戏')
-          .width(150)
-          .height(55)
-          .fontSize(20)
-          .fontWeight(FontWeight.Medium)
-          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
-          .backgroundColor(this.provider.currentTheme.colors.primary)
-          .borderRadius(15)
-          .shadow({ radius: 8, color: '#00000030', offsetX: 0, offsetY: 4 })
-          .onClick(() => {
-            this.viewModel.initBoard();
-          });
-
-        Button('返回菜单')
-          .width(150)
-          .height(55)
-          .fontSize(20)
-          .fontWeight(FontWeight.Medium)
-          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
-          .backgroundColor('#FF9800')
-          .borderRadius(15)
-          .shadow({ radius: 8, color: '#00000030', offsetX: 0, offsetY: 4 })
-          .onClick(() => {
-            if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
-              adventureService.completeStage();
-            }
-            this.gameState = this.previousGameState;
-          });
-      }
-      .width('100%')
-      .justifyContent(FlexAlign.Center)
-      .padding({ top: 20, bottom: 30 });
+      // 底部导航栏
+      this.GameNavBar();
     }
-    .width('100%')
-    .height('100%')
-    .backgroundImage(this.provider.currentTheme.assets.background)
-    .backgroundImageSize(ImageSize.Cover);
+    .width(360)
+    .height(792);
+  }
+
+  // 游戏页面底部导航栏
+  @Builder GameNavBar() {
+    Stack() {
+      // 导航容器
+      Stack() {
+        // 成就标签
+        this.GameNavTab('成就', 'images/icon/成就.png', 0, 0, 'achievements');
+
+        // 游戏标签
+        this.GameNavTab('游戏', 'images/icon/游戏.png', 119, 0, 'game');
+
+        // 设置标签
+        this.GameNavTab('设置', 'images/icon/设置.png', 238, 0, 'settings');
+      }
+      .width(350)
+      .height(47)
+      .position({ x: 5, y: 0 });
+    }
+    .width(360)
+    .height(47)
+    .position({ x: 0, y: 717 });
+  }
+
+  // 游戏页面导航标签
+  @Builder GameNavTab(text: string, icon: string, x: number, y: number, tab: string) {
+    Stack() {
+      // 图标
+      Image($rawfile(icon))
+        .width(24)
+        .height(24)
+        .objectFit(ImageFit.Contain)
+        .position({ x: 44, y: 0 });
+
+      // 文本
+      Text(text)
+        .width(112)
+        .height(19)
+        .fontSize(18)
+        .fontWeight(400)
+        .lineHeight(20)
+        .fontColor(tab === this.currentNavTab ? this.provider.currentTheme.colors.primary : Color.Black)
+        .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+        .textAlign(TextAlign.Center)
+        .position({ x: 0, y: 28 });
+    }
+    .width(112)
+    .height(47)
+    .position({ x: x, y: y })
+    .onClick(() => {
+      this.currentNavTab = tab;
+      if (tab === 'achievements') {
+        this.gameState = 'achievements';
+      } else if (tab === 'game') {
+        this.gameState = 'menu';
+      } else if (tab === 'settings') {
+        this.gameState = 'settings';
+      }
+    });
   }
 
   build() {
@@ -533,6 +579,18 @@ struct Index {
             this.viewModel = new GameViewModel(level, this.context);
             this.previousGameState = 'adventure_map';
             this.gameState = 'adventure_game';
+          },
+          onNavigate: (tab: string) => {
+            if (tab === 'achievements') {
+              this.gameState = 'achievements';
+              this.currentNavTab = 'achievements';
+            } else if (tab === 'game') {
+              this.gameState = 'menu';
+              this.currentNavTab = 'game';
+            } else if (tab === 'settings') {
+              this.gameState = 'settings';
+              this.currentNavTab = 'settings';
+            }
           }
         });
       } else if (this.gameState === 'achievements') {
@@ -541,6 +599,18 @@ struct Index {
           onBack: () => {
             this.gameState = 'menu';
             this.currentNavTab = 'game';
+          },
+          onNavigate: (tab: string) => {
+            if (tab === 'achievements') {
+              this.gameState = 'achievements';
+              this.currentNavTab = 'achievements';
+            } else if (tab === 'game') {
+              this.gameState = 'menu';
+              this.currentNavTab = 'game';
+            } else if (tab === 'settings') {
+              this.gameState = 'settings';
+              this.currentNavTab = 'settings';
+            }
           }
         });
       } else if (this.gameState === 'settings') {
@@ -549,6 +619,21 @@ struct Index {
           onBack: () => {
             this.gameState = 'menu';
             this.currentNavTab = 'game';
+          },
+          onNavigate: (tab: string) => {
+            if (tab === 'achievements') {
+              this.gameState = 'achievements';
+              this.currentNavTab = 'achievements';
+            } else if (tab === 'game') {
+              this.gameState = 'menu';
+              this.currentNavTab = 'game';
+            } else if (tab === 'settings') {
+              this.gameState = 'settings';
+              this.currentNavTab = 'settings';
+            }
+          },
+          onSelectCharacter: () => {
+            this.gameState = 'character_select';
           }
         });
       } else if (this.gameState === 'challenge_select') {
@@ -564,6 +649,18 @@ struct Index {
           onBack: () => {
             this.gameState = 'menu';
             this.currentNavTab = 'game';
+          },
+          onNavigate: (tab: string) => {
+            if (tab === 'achievements') {
+              this.gameState = 'achievements';
+              this.currentNavTab = 'achievements';
+            } else if (tab === 'game') {
+              this.gameState = 'menu';
+              this.currentNavTab = 'game';
+            } else if (tab === 'settings') {
+              this.gameState = 'settings';
+              this.currentNavTab = 'settings';
+            }
           }
         });
       } else {

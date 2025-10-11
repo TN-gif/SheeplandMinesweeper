@@ -23,17 +23,10 @@ export struct AchievementsScreen {
         .height(792)
         .objectFit(ImageFit.Cover);
 
-      // 成就1
-      this.AchievementCard(0, '小羊诞生啦！', '首次通关游戏', 35, 68);
-
-      // 成就2
-      this.AchievementCard(1, '小小勇士', '累计通关10次', 35, 215);
-
-      // 成就3
-      this.AchievementCard(2, '羊村大守护', '累计通关100次', 35, 362);
-
-      // 成就4
-      this.AchievementCard(3, '焦炭小羊', '累计被灰太狼发现10次', 35, 509);
+      // 动态渲染成就列表
+      ForEach(this.achievements, (achievement: Achievement, index: number) => {
+        this.AchievementCard(index, achievement.name, achievement.description, 35, 68 + index * 147);
+      });
 
       // 底部导航栏
       this.BottomNavBar();
@@ -130,7 +123,7 @@ export struct AchievementsScreen {
         .fontSize(18)
         .fontWeight(400)
         .lineHeight(20)
-        .fontColor(tab === 'achievements' ? this.provider.currentTheme.colors.primary : Color.Black)
+        .fontColor(tab === 'achievements' ? '#AB5C44' : Color.Black)
         .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
         .textAlign(TextAlign.Center)
         .position({ x: 0, y: 28 });

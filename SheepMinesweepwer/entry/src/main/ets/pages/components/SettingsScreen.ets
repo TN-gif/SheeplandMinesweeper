@@ -150,24 +150,25 @@ export struct SettingsScreen {
         .border({ width: 2, color: Color.Black })
         .position({ x: -2, y: -2 });
 
-      // 进度条
+      // 进度条（左对齐，响应式宽度）
       Column()
         .width(303 * value)
         .height(36)
         .backgroundColor('rgba(100, 150, 200, 1)')
-        .borderRadius(4);
+        .borderRadius(4)
+        .position({ x: 0, y: 0 });
 
-      // 百分比文字
+      // 百分比文字（黑色，居中）
       Text(`${Math.round(value * 100)}%`)
-        .width(287)
-        .height(22)
+        .width(303)
+        .height(36)
         .fontSize(20)
         .fontWeight(400)
         .lineHeight(22)
-        .fontColor('rgba(255, 255, 255, 0.9)')
+        .fontColor(Color.Black)
         .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
-        .textAlign(TextAlign.Start)
-        .position({ x: 8, y: 7 });
+        .textAlign(TextAlign.Center)
+        .padding({ top: 7 });
 
       // 透明的Slider用于交互
       Slider({
@@ -234,7 +235,7 @@ export struct SettingsScreen {
         .fontSize(18)
         .fontWeight(400)
         .lineHeight(20)
-        .fontColor(tab === 'settings' ? this.provider.currentTheme.colors.primary : Color.Black)
+        .fontColor(tab === 'settings' ? '#3E6796' : Color.Black)
         .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
         .textAlign(TextAlign.Center)
         .position({ x: 0, y: 30 });

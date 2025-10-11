@@ -21,6 +21,12 @@ export struct AdventureMapScreen {
     this.currentStageIndex = adventureService.getCurrentStageIndex();
   }
 
+  // 辅助方法：获取关卡名称
+  getStageName(stage: AdventureStage): string {
+    const level = adventureService.getLevelForStage(stage);
+    return level ? level.name : '未知关卡';
+  }
+
   build() {
     Stack() {
       // 背景图片 - 随主题变化
@@ -78,22 +84,24 @@ export struct AdventureMapScreen {
 
       // 组合1 - 关卡区域
       Stack() {
-        // 第一关 - 羊村郊外
-        this.StageCard(0, '1、羊村郊外', 0, 0);
+        // 动态渲染关卡列表（直接在参数中计算位置）
+        ForEach(this.stages, (stage: AdventureStage, index: number) => {
+          // 直接调用，位置通过三元运算符计算
+          this.StageCard(
+            index,
+            `${index + 1}、${this.getStageName(stage)}`,
+            index === 0 ? 0 : (index === 1 ? 94 : 17),
+            index === 0 ? 0 : (index === 1 ? 129 : 257)
+          );
+        });
 
-        // 第二关 - 青青草原
-        this.StageCard(1, '2、青青草原', 94, 129);
-
-        // 第三关 - 狼堡对决
-        this.StageCard(2, '3、狼堡对决', 17, 257);
-
-        // 更多按钮
+        // 更多按钮（永久灰色不可点击）
         Stack() {
-          // Dialog/BG
+          // Dialog/BG - 灰色背景
           Column()
             .width(97)
             .height(65)
-            .backgroundColor('rgba(255, 255, 255, 0.85)')
+            .backgroundColor('rgba(200, 200, 200, 0.6)')
             .borderRadius(15);
 
           Text('更多')
@@ -102,17 +110,14 @@ export struct AdventureMapScreen {
             .fontSize(36)
             .fontWeight(400)
             .lineHeight(40)
-            .fontColor(Color.Black)
+            .fontColor('#888888')
             .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
             .textAlign(TextAlign.Center)
             .position({ x: 12, y: 13 });
         }
         .width(97)
         .height(65)
-        .position({ x: 176, y: 369 })
-        .onClick(() => {
-          console.log('More stages coming soon');
-        });
+        .position({ x: 176, y: 369 });
       }
       .width(318)
       .height(434)
