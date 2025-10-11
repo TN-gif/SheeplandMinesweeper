@@ -1,6 +1,5 @@
 import { HexCell, HexUtils, AxialCoord } from '../model/HexUtils';
 import { audioManager } from '../services/AudioManager';
-import { HapticFeedbackUtils } from '../utils/HapticFeedbackUtils';
 
 @Observed
 export class HexGameViewModel {
@@ -105,7 +104,6 @@ export class HexGameViewModel {
     if (cell.isMine) {
       this.gameOver = true;
       audioManager.playSound('lose');
-      HapticFeedbackUtils.vibrate('failure');
       // 显示所有地雷
       this.revealAllMines();
       return;
@@ -150,7 +148,6 @@ export class HexGameViewModel {
       this.gameWon = true;
       this.gameOver = true;
       audioManager.playSound('win');
-      HapticFeedbackUtils.vibrate('success');
     }
   }
 

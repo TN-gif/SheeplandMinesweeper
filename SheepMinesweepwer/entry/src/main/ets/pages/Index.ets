@@ -12,6 +12,7 @@ import { adventureService } from './services/AdventureService';
 import { itemService } from './services/ItemService';
 import { ThemeProvider, themeProvider } from './theme/ThemeProvider';
 import { audioManager } from './services/AudioManager';
+import { FontManager } from './utils/FontManager';
 
 type GameState = 'character_select' | 'menu' | 'classic' | 'challenge_select' | 'challenge_game' | 'achievements' | 'adventure_map' | 'adventure_game' | 'settings';
 
@@ -22,30 +23,26 @@ struct Index {
   @State gameState: GameState = 'character_select';
   @State selectedLevel: Level | null = null;
   @State provider: ThemeProvider = themeProvider;
-  @State previousGameState: GameState = 'menu'; // 记录进入游戏前的状态
+  @State previousGameState: GameState = 'menu';
+  @State currentNavTab: string = 'game'; // 当前选中的导航标签：'achievements', 'game', 'settings'
   private context?: common.UIAbilityContext;
 
   aboutToAppear(): void {
-    // 获取UIAbility上下文
     try {
       this.context = AppStorage.get<common.UIAbilityContext>('context');
     } catch (error) {
       console.error('Failed to get context:', error);
     }
     
-    // 初始化所有服务和音频
     this.initializeServices();
   }
 
   aboutToDisappear(): void {
-    // 清理所有资源
     this.cleanupResources();
   }
 
   private async initializeServices(): Promise<void> {
-    // 初始化所有服务
     if (this.context) {
-      // 设置AudioManager的context
       audioManager.setContext(this.context);
       
       try {
@@ -66,7 +63,6 @@ struct Index {
         console.error('Failed to init ItemService:', error);
       }
       
-      // 播放背景音乐
       try {
         await audioManager.playBGM(this.provider.currentTheme.audio.bgm);
       } catch (error) {
@@ -76,14 +72,12 @@ struct Index {
   }
 
   private async cleanupResources(): Promise<void> {
-    // 释放音频资源
     try {
       await audioManager.release();
     } catch (error) {
       console.error('Failed to release audio manager:', error);
     }
     
-    // 清理所有服务
     achievementService.destroy();
     adventureService.destroy();
     itemService.destroy();
@@ -97,122 +91,220 @@ struct Index {
     }
   }
 
+  // 主页面 - 按照设计文档精确实现
   @Builder MainMenu() {
-    Scroll() {
-      Column({ space: 0 }) {
-        // 顶部标题区域
-        Column() {
-          // 角色头像
-          Image(this.provider.currentTheme.assets.avatar)
-            .width(100)
-            .height(100)
-            .borderRadius(50)
-            .border({ width: 4, color: this.provider.currentTheme.colors.primary })
-            .shadow({
-              radius: 15,
-              color: this.provider.currentTheme.colors.primary + '60',
-              offsetX: 0,
-              offsetY: 5
-            })
-            .margin({ bottom: 20 })
-            .onError(() => {
-              console.error('Failed to load avatar image');
-            });
+    Stack() {
+      // 背景图片 - 根据主题变化
+      Image($rawfile(`images/background/${this.provider.currentTheme.name}.jpg`))
+        .width(360)
+        .height(792)
+        .objectFit(ImageFit.Cover);
 
-          Text('草原大作战')
-            .fontSize(42)
-            .fontWeight(FontWeight.Bold)
-            .fontColor(this.provider.currentTheme.colors.textPrimary)
-            .textShadow({ radius: 3, color: '#00000030', offsetX: 2, offsetY: 2 })
-            .margin({ bottom: 5 });
+      // 容器 - 包含所有内容
+      Stack() {
+        // 标题文本 "草原大作战"
+        Text('草原\n大作战')
+          .width(321)
+          .height(186)
+          .fontSize(82)
+          .fontWeight(400)
+          .lineHeight(93)
+          .textAlign(TextAlign.Center)
+          .fontColor(Color.Black)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+          .backgroundColor(Color.Transparent)
+          .border({ width: 0 })
+          .position({ x: 20, y: 44 });
 
-          Text('智斗灰太狼')
-            .fontSize(24)
-            .fontWeight(FontWeight.Medium)
-            .fontColor(this.provider.currentTheme.colors.textSecondary)
-            .margin({ bottom: 30 });
-        }
-        .margin({ top: 60, bottom: 40 });
+        // 模式选择区域
+        Stack() {
+          // 挑战模式按钮
+          Stack() {
+            // 白色背景
+            Column()
+              .width(134)
+              .height(62)
+              .backgroundColor(Color.White)
+              .borderRadius(31);
 
-        // 主菜单按钮组
-        Column({ space: 20 }) {
-          this.MenuButton('挑战模式', this.provider.currentTheme.colors.primary, () => {
+            // 黑色边框矩形
+            Column()
+              .width(142)
+              .height(70)
+              .backgroundColor(Color.Transparent)
+              .borderRadius(35)
+              .border({ width: 2, color: Color.Black })
+              .position({ x: -4, y: -4 });
+
+            // 按钮文本
+            Text('挑战模式')
+              .width(112)
+              .height(30)
+              .fontSize(28)
+              .fontWeight(400)
+              .lineHeight(31)
+              .textAlign(TextAlign.Center)
+              .fontColor(Color.Black)
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+              .position({ x: 11, y: 16 });
+          }
+          .width(134)
+          .height(62)
+          .position({ x: 0, y: 0 })
+          .onClick(() => {
             this.gameState = 'challenge_select';
           });
 
-          this.MenuButton('冒险模式', this.provider.currentTheme.colors.secondary, () => {
+          // 冒险模式按钮
+          Stack() {
+            // 白色背景
+            Column()
+              .width(134)
+              .height(62)
+              .backgroundColor(Color.White)
+              .borderRadius(31);
+
+            // 黑色边框矩形
+            Column()
+              .width(142)
+              .height(70)
+              .backgroundColor(Color.Transparent)
+              .borderRadius(35)
+              .border({ width: 2, color: Color.Black })
+              .position({ x: -4, y: -4 });
+
+            // 按钮文本
+            Text('冒险模式')
+              .width(112)
+              .height(30)
+              .fontSize(28)
+              .fontWeight(400)
+              .lineHeight(31)
+              .textAlign(TextAlign.Center)
+              .fontColor(Color.Black)
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+              .position({ x: 11, y: 16 });
+          }
+          .width(134)
+          .height(62)
+          .position({ x: 174, y: 0 })
+          .onClick(() => {
             this.gameState = 'adventure_map';
           });
-
-          this.MenuButton('成就殿堂', this.provider.currentTheme.colors.accent, () => {
-            this.gameState = 'achievements';
-          });
-
-          this.MenuButton('更换角色', '#FF6B9D', () => {
-            this.gameState = 'character_select';
-          });
-
-          this.MenuButton('游戏设置', '#9C27B0', () => {
-            this.gameState = 'settings';
-          });
         }
-        .width('85%')
-        .padding({ bottom: 40 });
-      }
-      .width('100%')
-    }
-    .scrollable(ScrollDirection.Vertical)
-    .scrollBar(BarState.Auto)
-    .width('100%')
-    .height('100%')
-    .backgroundImage(this.provider.currentTheme.assets.background)
-    .backgroundImageSize(ImageSize.Cover);
-  }
+        .width(308)
+        .height(62)
+        .position({ x: 26, y: 607 });
 
-  @Builder MenuButton(text: string, bgColor: string, onClick: () => void) {
-    Stack() {
-      // 半透明背景层
-      Column()
-        .width('100%')
-        .height('100%')
-        .backgroundColor(bgColor)
-        .borderRadius(16)
-        .opacity(0.85);
-      
-      // 按钮文字
-      Button(text)
-        .width('100%')
-        .height(65)
-        .fontSize(22)
-        .fontWeight(FontWeight.Medium)
-        .backgroundColor('rgba(255, 255, 255, 0.15)')
-        .borderRadius(16)
-        .fontColor('#FFFFFF')
-        .border({ width: 2, color: '#FFFFFFAA' })
-        .onClick(onClick)
-        .stateStyles({
-          pressed: {
-            .scale({ x: 0.95, y: 0.95 })
-          },
-          normal: {
-            .scale({ x: 1, y: 1 })
+        // 底部导航栏
+        Stack() {
+          // 导航容器
+          Stack() {
+            // 成就标签
+            Stack() {
+              // 成就图标
+              Image($rawfile('images/icon/成就.png'))
+                .width(24)
+                .height(24)
+                .objectFit(ImageFit.Contain)
+                .position({ x: 44, y: 0 });
+
+              // 成就文本
+              Text('成就')
+                .width(112)
+                .height(19)
+                .fontSize(18)
+                .fontWeight(400)
+                .lineHeight(20)
+                .textAlign(TextAlign.Center)
+                .fontColor(Color.Black)
+                .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+                .position({ x: 0, y: 28 });
+            }
+            .width(112)
+            .height(47)
+            .position({ x: 0, y: 0 })
+            .onClick(() => {
+              this.currentNavTab = 'achievements';
+              this.gameState = 'achievements';
+            });
+
+            // 游戏标签
+            Stack() {
+              // 游戏图标
+              Image($rawfile('images/icon/游戏.png'))
+                .width(24)
+                .height(24)
+                .objectFit(ImageFit.Contain)
+                .position({ x: 44, y: 0 });
+
+              // 游戏文本 - 使用主题色
+              Text('游戏')
+                .width(112)
+                .height(19)
+                .fontSize(18)
+                .fontWeight(400)
+                .lineHeight(20)
+                .textAlign(TextAlign.Center)
+                .fontColor(this.currentNavTab === 'game' ? this.provider.currentTheme.colors.primary : Color.Black)
+                .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+                .position({ x: 0, y: 28 });
+            }
+            .width(112)
+            .height(47)
+            .position({ x: 119, y: 0 })
+            .onClick(() => {
+              this.currentNavTab = 'game';
+              this.gameState = 'menu';
+            });
+
+            // 设置标签
+            Stack() {
+              // 设置图标
+              Image($rawfile('images/icon/设置.png'))
+                .width(24)
+                .height(24)
+                .objectFit(ImageFit.Contain)
+                .position({ x: 44, y: 0 });
+
+              // 设置文本
+              Text('设置')
+                .width(112)
+                .height(16)
+                .fontSize(18)
+                .fontWeight(400)
+                .lineHeight(20)
+                .textAlign(TextAlign.Center)
+                .fontColor(Color.Black)
+                .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+                .position({ x: 0, y: 30 });
+            }
+            .width(112)
+            .height(47)
+            .position({ x: 238, y: 0 })
+            .onClick(() => {
+              this.currentNavTab = 'settings';
+              this.gameState = 'settings';
+            });
           }
-        })
-        .animation({ duration: 200, curve: Curve.EaseInOut });
+          .width(350)
+          .height(47)
+          .position({ x: 5, y: 0 });
+        }
+        .width(360)
+        .height(47)
+        .position({ x: 0, y: 717 });
+      }
+      .width(360)
+      .height(792);
     }
-    .width('100%')
-    .height(65)
-    .shadow({
-      radius: 12,
-      color: '#00000040',
-      offsetX: 0,
-      offsetY: 6
-    });
+    .width(360)
+    .height(792);
   }
 
   @Builder GameView() {
     Column() {
-      // 顶部状态栏 - 精美卡片设计
+      // 顶部状态栏
       Row() {
         // 地雷计数卡片
         Column() {
@@ -224,7 +316,8 @@ struct Index {
           Text(`${this.viewModel.mineCount}`)
             .fontSize(20)
             .fontWeight(FontWeight.Bold)
-            .fontColor(this.provider.currentTheme.colors.textPrimary);
+            .fontColor(this.provider.currentTheme.colors.textPrimary)
+            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
         }
         .width(100)
         .height(90)
@@ -244,6 +337,7 @@ struct Index {
               .fontSize(18)
               .fontWeight(FontWeight.Bold)
               .fontColor(this.viewModel.gameWon ? '#FFD700' : '#FF6B6B')
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
               .margin({ top: 5 });
           }
           .width(110)
@@ -264,7 +358,8 @@ struct Index {
           Text(this.viewModel.getFormattedTime())
             .fontSize(16)
             .fontWeight(FontWeight.Medium)
-            .fontColor(this.provider.currentTheme.colors.textPrimary);
+            .fontColor(this.provider.currentTheme.colors.textPrimary)
+            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
         }
         .width(100)
         .height(90)
@@ -288,7 +383,8 @@ struct Index {
             Text('探测')
               .fontSize(14)
               .fontWeight(FontWeight.Medium)
-              .fontColor(this.viewModel.selectedItem === 'magnifying_glass' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary);
+              .fontColor(this.viewModel.selectedItem === 'magnifying_glass' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary)
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
           }
           .width(90)
           .height(80)
@@ -314,7 +410,8 @@ struct Index {
             Text('强拆')
               .fontSize(14)
               .fontWeight(FontWeight.Medium)
-              .fontColor(this.viewModel.selectedItem === 'iron_fist' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary);
+              .fontColor(this.viewModel.selectedItem === 'iron_fist' ? '#FFFFFF' : this.provider.currentTheme.colors.textPrimary)
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`);
           }
           .width(90)
           .height(80)
@@ -334,7 +431,7 @@ struct Index {
         }
         .justifyContent(FlexAlign.Center);
 
-        // 功能提示（在道具下方）
+        // 功能提示
         if (this.viewModel.selectedItem) {
           Text(this.viewModel.selectedItem === 'magnifying_glass' ? 
             '🔍 探测功能：点击任意格子，查看是否安全' : 
@@ -342,6 +439,7 @@ struct Index {
             .fontSize(14)
             .fontColor(this.provider.currentTheme.colors.primary)
             .fontWeight(FontWeight.Medium)
+            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
             .textAlign(TextAlign.Center)
             .margin({ top: 10 })
             .padding({ left: 15, right: 15, top: 8, bottom: 8 })
@@ -352,7 +450,7 @@ struct Index {
       .width('100%')
       .padding({ left: 10, right: 10, bottom: 15 });
 
-      // 游戏棋盘容器 - 居中显示
+      // 游戏棋盘容器
       Column() {
         GameBoard({ 
           viewModel: this.viewModel,
@@ -371,6 +469,7 @@ struct Index {
           .height(55)
           .fontSize(20)
           .fontWeight(FontWeight.Medium)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
           .backgroundColor(this.provider.currentTheme.colors.primary)
           .borderRadius(15)
           .shadow({ radius: 8, color: '#00000030', offsetX: 0, offsetY: 4 })
@@ -383,11 +482,11 @@ struct Index {
           .height(55)
           .fontSize(20)
           .fontWeight(FontWeight.Medium)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
           .backgroundColor('#FF9800')
           .borderRadius(15)
           .shadow({ radius: 8, color: '#00000030', offsetX: 0, offsetY: 4 })
           .onClick(() => {
-            // 如果是冒险模式且游戏胜利，解锁下一关
             if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
               adventureService.completeStage();
             }
@@ -410,13 +509,14 @@ struct Index {
         CharacterSelectScreen({
           provider: this.provider,
           onConfirm: (themeId: string) => {
-            // 切换主题并播放新的背景音乐
             this.provider.setTheme(themeId);
             this.playThemeMusic();
             this.gameState = 'menu';
+            this.currentNavTab = 'game';
           },
           onBack: () => {
             this.gameState = 'menu';
+            this.currentNavTab = 'game';
           }
         });
       } else if (this.gameState === 'menu') {
@@ -424,7 +524,10 @@ struct Index {
       } else if (this.gameState === 'adventure_map') {
         AdventureMapScreen({ 
           provider: this.provider,
-          onBack: () => this.gameState = 'menu',
+          onBack: () => {
+            this.gameState = 'menu';
+            this.currentNavTab = 'game';
+          },
           onSelectLevel: (level: Level) => {
             this.selectedLevel = level;
             this.viewModel = new GameViewModel(level, this.context);
@@ -435,12 +538,18 @@ struct Index {
       } else if (this.gameState === 'achievements') {
         AchievementsScreen({ 
           provider: this.provider,
-          onBack: () => this.gameState = 'menu' 
+          onBack: () => {
+            this.gameState = 'menu';
+            this.currentNavTab = 'game';
+          }
         });
       } else if (this.gameState === 'settings') {
         SettingsScreen({
           provider: this.provider,
-          onBack: () => this.gameState = 'menu'
+          onBack: () => {
+            this.gameState = 'menu';
+            this.currentNavTab = 'game';
+          }
         });
       } else if (this.gameState === 'challenge_select') {
         LevelSelectScreen({
@@ -452,7 +561,10 @@ struct Index {
             this.previousGameState = 'challenge_select';
             this.gameState = 'challenge_game';
           },
-          onBack: () => { this.gameState = 'menu'; }
+          onBack: () => {
+            this.gameState = 'menu';
+            this.currentNavTab = 'game';
+          }
         });
       } else {
         this.GameView();

@@ -4,7 +4,6 @@ import { adventureService } from '../services/AdventureService';
 import { itemService } from '../services/ItemService';
 import { achievementService } from '../services/AchievementService';
 import { audioManager } from '../services/AudioManager';
-import { HapticFeedbackUtils } from '../utils/HapticFeedbackUtils';
 import common from '@ohos.app.ability.common';
 
 class Coordinate {
@@ -140,16 +139,14 @@ export class GameViewModel {
       this.gameWon = false;
       this.stopTimer();
       this.revealAllMines();
-      // 播放失败音效和触觉反馈
+      // 播放失败音效
       audioManager.playSound('lose');
-      HapticFeedbackUtils.vibrate('failure');
       return;
     }
 
     // 播放点击音效和触觉反馈
     if (!isAutoReveal) {
       audioManager.playSound('click');
-      HapticFeedbackUtils.vibrate('click');
     }
 
     // 如果周围没有地雷，递归翻开周围的格子
@@ -194,9 +191,8 @@ export class GameViewModel {
       this.gameOver = true;
       this.gameWon = true;
       this.stopTimer();
-      // 播放胜利音效和触觉反馈
+      // 播放胜利音效
       audioManager.playSound('win');
-      HapticFeedbackUtils.vibrate('success');
       // 记录胜利
       achievementService.recordGameWin(this.elapsedTime, true);
     }
@@ -214,7 +210,6 @@ export class GameViewModel {
       // 播放插旗音效和触觉反馈
       if (cell.isFlagged) {
         audioManager.playSound('flag');
-        HapticFeedbackUtils.vibrate('flag');
       }
     }
   }

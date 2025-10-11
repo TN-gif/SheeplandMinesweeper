@@ -2,7 +2,6 @@ import { HexGameViewModel } from '../viewModel/HexGameViewModel';
 import { HexUtils, AxialCoord, HexCell, Point } from '../model/HexUtils';
 import { themeProvider } from '../theme/ThemeProvider';
 import { audioManager } from '../services/AudioManager';
-import { HapticFeedbackUtils } from '../utils/HapticFeedbackUtils';
 
 class CanvasSize {
   width: number = 0;
@@ -106,7 +105,6 @@ export struct HexGameBoard {
       if (this.longPressCoord) {
         this.viewModel.flagCell(this.longPressCoord.q, this.longPressCoord.r);
         audioManager.playSound('flag');
-        HapticFeedbackUtils.vibrate('flag');
         this.draw();
         this.needsRedraw++; // 触发状态更新
       }
@@ -124,7 +122,6 @@ export struct HexGameBoard {
     if (this.longPressCoord && event.touches.length === 0) {
       this.viewModel.revealCell(this.longPressCoord.q, this.longPressCoord.r);
       audioManager.playSound('click');
-      HapticFeedbackUtils.vibrate('click');
       this.draw();
       this.needsRedraw++;
       this.longPressCoord = null;

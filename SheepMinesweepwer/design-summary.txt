@@ -1,0 +1,2782 @@
+--- 页面: 进入页面 ---
+
+进入页面 (artboard)
+  W: 360vp, H: 792vp
+  X: -215vp, Y: -466vp
+  Opacity: 1
+  进入页面 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 5d8d17533d92c18f7575524d1d2e3b0792e1f33b.png
+
+  容器 2 (artboard)
+    W: 296vp, H: 686vp
+    X: 32vp, Y: 54vp
+    Opacity: 1
+    容器 2 (rectangle)
+      W: 296vp, H: 686vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    请选择 你的小羊 (text)
+      W: 296vp, H: 118vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      【内容】: 请选择 你的小羊
+      【文本样式】:
+        字体: Muyao-Softbrush-Regular
+        字号: 60vp
+        颜色: rgba(0, 0, 0, 1)
+
+    容器 1 (artboard)
+      W: 282vp, H: 436vp
+      X: 7vp, Y: 155vp
+      Opacity: 1
+      容器 1 (rectangle)
+        W: 282vp, H: 436vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      喜羊羊 (symbolMaster)
+        W: 115vp, H: 116vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Mask (shapePath)
+          W: 115vp, H: 116vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+      美羊羊 (symbolMaster)
+        W: 115vp, H: 116vp
+        X: 161vp, Y: 0vp
+        Opacity: 1
+        Mask (shapePath)
+          W: 115vp, H: 116vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+      懒羊羊 (symbolMaster)
+        W: 121vp, H: 116vp
+        X: 0vp, Y: 160vp
+        Opacity: 1
+        Mask (shapePath)
+          W: 121vp, H: 116vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+      沸羊羊 (symbolMaster)
+        W: 115vp, H: 116vp
+        X: 167vp, Y: 160vp
+        Opacity: 1
+        Mask (shapePath)
+          W: 115vp, H: 116vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+      暖洋洋 (symbolMaster)
+        W: 115vp, H: 116vp
+        X: 0vp, Y: 320vp
+        Opacity: 1
+        Mask (shapePath)
+          W: 115vp, H: 116vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+      慢羊羊 (symbolMaster)
+        W: 115vp, H: 116vp
+        X: 161vp, Y: 320vp
+        Opacity: 1
+        Mask (shapePath)
+          W: 115vp, H: 116vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+
+    确认按钮 (symbolMaster)
+      W: 190vp, H: 58vp
+      X: 53vp, Y: 628vp
+      Opacity: 1
+      尺寸=Medium,类型=Emphasized,状态=Focus (artboard)
+        W: 190vp, H: 58vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        尺寸=Medium,类型=Emphasized,状态=Focus (rectangle)
+          W: 190vp, H: 58vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 纯色填充, rgba(255, 255, 255, 1)
+
+        矩形 3 (shapePath)
+          W: 198vp, H: 66vp
+          X: -4vp, Y: -4vp
+          Opacity: 1
+
+        text (text)
+          W: 124vp, H: 34vp
+          X: 33vp, Y: 12vp
+          Opacity: 1
+          【内容】: 确认选择
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 31vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+
+--- 页面: 主页面 ---
+
+喜羊羊 (artboard)
+  W: 360vp, H: 792vp
+  X: -180vp, Y: -390vp
+  Opacity: 1
+  喜羊羊 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 10192345445db378589a0d60660921c7d48286f1.png
+
+  底部导航栏 (artboard)
+    W: 360vp, H: 47vp
+    X: 0vp, Y: 717vp
+    Opacity: 1
+    底部导航栏 (rectangle)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    导航 (artboard)
+      W: 350vp, H: 47vp
+      X: 5vp, Y: 0vp
+      Opacity: 1
+      导航 (rectangle)
+        W: 350vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      成就 (artboard)
+        W: 112vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        成就 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        成就图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          成就图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 41c744686377c808f8a23b5c78cd99cdf4d25ea4.png
+
+
+        成就 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 成就
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      游戏 (artboard)
+        W: 112vp, H: 47vp
+        X: 119vp, Y: 0vp
+        Opacity: 1
+        游戏 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        游戏图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          游戏图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 2b44dff4f535f41509ac24934ee76dd3fd30b392.png
+
+
+        游戏 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 游戏
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(25, 59, 133, 1)
+
+
+      设置 (artboard)
+        W: 112vp, H: 47vp
+        X: 238vp, Y: 0vp
+        Opacity: 1
+        设置 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        设置图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          设置图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 736367861a1654c18fef10c26c2584c60f559e25.png
+
+
+        设置 (text)
+          W: 112vp, H: 16vp
+          X: 0vp, Y: 30vp
+          Opacity: 1
+          【内容】: 设置
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  模式 (artboard)
+    W: 308vp, H: 62vp
+    X: 26vp, Y: 607vp
+    Opacity: 1
+    模式 (rectangle)
+      W: 308vp, H: 62vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    挑战模式 (artboard)
+      W: 134vp, H: 62vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      挑战模式 (rectangle)
+        W: 134vp, H: 62vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      尺寸=Medium,类型=Emphasized,状态=Focus (artboard)
+        W: 134vp, H: 62vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        尺寸=Medium,类型=Emphasized,状态=Focus (rectangle)
+          W: 134vp, H: 62vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 纯色填充, rgba(255, 255, 255, 0.8999999761581421)
+
+        矩形 3 (shapePath)
+          W: 142vp, H: 70vp
+          X: -4vp, Y: -4vp
+          Opacity: 1
+
+        text (text)
+          W: 112vp, H: 30vp
+          X: 11vp, Y: 16vp
+          Opacity: 1
+          【内容】: 挑战模式
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 28vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+    冒险模式 (artboard)
+      W: 134vp, H: 62vp
+      X: 174vp, Y: 0vp
+      Opacity: 1
+      冒险模式 (rectangle)
+        W: 134vp, H: 62vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      尺寸=Medium,类型=Emphasized,状态=Focus (artboard)
+        W: 134vp, H: 62vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        尺寸=Medium,类型=Emphasized,状态=Focus (rectangle)
+          W: 134vp, H: 62vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 纯色填充, rgba(255, 255, 255, 0.8999999761581421)
+
+        矩形 3 (shapePath)
+          W: 142vp, H: 70vp
+          X: -4vp, Y: -4vp
+          Opacity: 1
+
+        text (text)
+          W: 112vp, H: 30vp
+          X: 11vp, Y: 16vp
+          Opacity: 1
+          【内容】: 冒险模式
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 28vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  草原 大作战 (text)
+    W: 321vp, H: 186vp
+    X: 20vp, Y: 44vp
+    Opacity: 1
+    【内容】: 草原 大作战 
+    【文本样式】:
+      字体: Muyao-Softbrush-Regular
+      字号: 82vp
+      颜色: rgba(0, 0, 0, 1)
+
+
+--- 页面: 挑战模式 ---
+
+喜羊羊 (artboard)
+  W: 360vp, H: 792vp
+  X: -180vp, Y: -396vp
+  Opacity: 1
+  喜羊羊 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 10192345445db378589a0d60660921c7d48286f1.png
+
+  底部导航栏 (artboard)
+    W: 360vp, H: 47vp
+    X: 0vp, Y: 717vp
+    Opacity: 1
+    底部导航栏 (rectangle)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    导航 (artboard)
+      W: 350vp, H: 47vp
+      X: 5vp, Y: 0vp
+      Opacity: 1
+      导航 (rectangle)
+        W: 350vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      成就 (artboard)
+        W: 112vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        成就 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        成就图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          成就图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 41c744686377c808f8a23b5c78cd99cdf4d25ea4.png
+
+
+        成就 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 成就
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      游戏 (artboard)
+        W: 112vp, H: 47vp
+        X: 119vp, Y: 0vp
+        Opacity: 1
+        游戏 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        游戏图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          游戏图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 2b44dff4f535f41509ac24934ee76dd3fd30b392.png
+
+
+        游戏 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 游戏
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(25, 59, 133, 1)
+
+
+      设置 (artboard)
+        W: 112vp, H: 47vp
+        X: 238vp, Y: 0vp
+        Opacity: 1
+        设置 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        设置图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          设置图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 736367861a1654c18fef10c26c2584c60f559e25.png
+
+
+        设置 (text)
+          W: 112vp, H: 16vp
+          X: 0vp, Y: 30vp
+          Opacity: 1
+          【内容】: 设置
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  容器 2 (artboard)
+    W: 306vp, H: 584vp
+    X: 27vp, Y: 92vp
+    Opacity: 1
+    容器 2 (rectangle)
+      W: 306vp, H: 584vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    挑战模式 (text)
+      W: 306vp, H: 75vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      【内容】: 挑战模式
+      【文本样式】:
+        字体: Muyao-Softbrush-Regular
+        字号: 75vp
+        颜色: rgba(0, 0, 0, 1)
+
+    容器 1 (artboard)
+      W: 291vp, H: 387vp
+      X: 8vp, Y: 107vp
+      Opacity: 1
+      容器 1 (rectangle)
+        W: 291vp, H: 387vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      初级挑战 (artboard)
+        W: 291vp, H: 115vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        初级挑战 (rectangle)
+          W: 291vp, H: 115vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        Dialog/BG (shapePath)
+          W: 291vp, H: 115vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        文字 (artboard)
+          W: 243vp, H: 75vp
+          X: 24vp, Y: 20vp
+          Opacity: 1
+          文字 (rectangle)
+            W: 243vp, H: 75vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          初级挑战 (text)
+            W: 243vp, H: 42vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            【内容】: 初级挑战
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 36vp
+              颜色: rgba(0, 0, 0, 1)
+
+          9 × 9 | 10个灰太狼 (text)
+            W: 243vp, H: 23vp
+            X: 0vp, Y: 52vp
+            Opacity: 1
+            【内容】: 9 × 9 | 10个灰太狼
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 18vp
+              颜色: rgba(0, 0, 0, 1)
+
+
+
+      中级挑战 (artboard)
+        W: 291vp, H: 115vp
+        X: 0vp, Y: 136vp
+        Opacity: 1
+        中级挑战 (rectangle)
+          W: 291vp, H: 115vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        Dialog/BG (shapePath)
+          W: 291vp, H: 115vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        文字 (artboard)
+          W: 243vp, H: 75vp
+          X: 24vp, Y: 20vp
+          Opacity: 1
+          文字 (rectangle)
+            W: 243vp, H: 75vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          中级挑战 (text)
+            W: 243vp, H: 42vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            【内容】: 中级挑战
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 36vp
+              颜色: rgba(0, 0, 0, 1)
+
+          16 × 16 | 40个灰太狼 (text)
+            W: 243vp, H: 23vp
+            X: 0vp, Y: 52vp
+            Opacity: 1
+            【内容】: 16 × 16 | 40个灰太狼
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 18vp
+              颜色: rgba(0, 0, 0, 1)
+
+
+
+      高级挑战 (artboard)
+        W: 291vp, H: 115vp
+        X: 0vp, Y: 272vp
+        Opacity: 1
+        高级挑战 (rectangle)
+          W: 291vp, H: 115vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        Dialog/BG (shapePath)
+          W: 291vp, H: 115vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        文字 (artboard)
+          W: 243vp, H: 75vp
+          X: 24vp, Y: 20vp
+          Opacity: 1
+          文字 (rectangle)
+            W: 243vp, H: 75vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          高级挑战 (text)
+            W: 243vp, H: 42vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            【内容】: 高级挑战
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 36vp
+              颜色: rgba(0, 0, 0, 1)
+
+          16 × 30 | 99个灰太狼 (text)
+            W: 243vp, H: 23vp
+            X: 0vp, Y: 52vp
+            Opacity: 1
+            【内容】: 16 × 30 | 99个灰太狼
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 18vp
+              颜色: rgba(0, 0, 0, 1)
+
+
+
+
+    确认按钮 (artboard)
+      W: 217vp, H: 58vp
+      X: 45vp, Y: 526vp
+      Opacity: 1
+      确认按钮 (rectangle)
+        W: 217vp, H: 58vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      尺寸=Medium,类型=Emphasized,状态=Focus (artboard)
+        W: 217vp, H: 58vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        尺寸=Medium,类型=Emphasized,状态=Focus (rectangle)
+          W: 217vp, H: 58vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 纯色填充, rgba(255, 255, 255, 1)
+
+        矩形 3 (shapePath)
+          W: 225vp, H: 66vp
+          X: -4vp, Y: -4vp
+          Opacity: 1
+
+        text (text)
+          W: 155vp, H: 34vp
+          X: 31vp, Y: 12vp
+          Opacity: 1
+          【内容】: 自定义模式
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 31vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  返回 (artboard)
+    W: 141vp, H: 32vp
+    X: 18vp, Y: 42vp
+    Opacity: 1
+    返回 (rectangle)
+      W: 141vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    返回组合 (artboard)
+      W: 32vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      返回组合 (rectangle)
+        W: 32vp, H: 32vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Fill: 纯色填充, rgba(255, 255, 255, 0.8999999761581421)
+
+      返回图标 (artboard)
+        W: 18vp, H: 20vp
+        X: 7vp, Y: 6vp
+        Opacity: 1
+        返回图标 (rectangle)
+          W: 18vp, H: 20vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 图片, File Name: 7ade6729c509000e9c9ec39030c32dacae42e0bb.png
+
+
+
+    返回菜单 (text)
+      W: 99vp, H: 32vp
+      X: 42vp, Y: 0vp
+      Opacity: 1
+      【内容】: 返回菜单
+      【文本样式】:
+        字体: Muyao-Softbrush-Regular
+        字号: 24vp
+        颜色: rgba(0, 0, 0, 1)
+
+
+
+--- 页面: 自定义模式 ---
+
+喜羊羊 (artboard)
+  W: 360vp, H: 792vp
+  X: -180vp, Y: -396vp
+  Opacity: 1
+  喜羊羊 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 10192345445db378589a0d60660921c7d48286f1.png
+
+  底部导航栏 (artboard)
+    W: 360vp, H: 47vp
+    X: 0vp, Y: 717vp
+    Opacity: 1
+    底部导航栏 (rectangle)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    导航 (artboard)
+      W: 350vp, H: 47vp
+      X: 5vp, Y: 0vp
+      Opacity: 1
+      导航 (rectangle)
+        W: 350vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      成就 (artboard)
+        W: 112vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        成就 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        成就图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          成就图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 41c744686377c808f8a23b5c78cd99cdf4d25ea4.png
+
+
+        成就 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 成就
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      游戏 (artboard)
+        W: 112vp, H: 47vp
+        X: 119vp, Y: 0vp
+        Opacity: 1
+        游戏 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        游戏图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          游戏图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 2b44dff4f535f41509ac24934ee76dd3fd30b392.png
+
+
+        游戏 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 游戏
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(25, 59, 133, 1)
+
+
+      设置 (artboard)
+        W: 112vp, H: 47vp
+        X: 238vp, Y: 0vp
+        Opacity: 1
+        设置 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        设置图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          设置图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 736367861a1654c18fef10c26c2584c60f559e25.png
+
+
+        设置 (text)
+          W: 112vp, H: 16vp
+          X: 0vp, Y: 30vp
+          Opacity: 1
+          【内容】: 设置
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  开始游戏 (artboard)
+    W: 217vp, H: 58vp
+    X: 72vp, Y: 613vp
+    Opacity: 1
+    开始游戏 (rectangle)
+      W: 217vp, H: 58vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    尺寸=Medium,类型=Emphasized,状态=Focus (artboard)
+      W: 217vp, H: 58vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      尺寸=Medium,类型=Emphasized,状态=Focus (rectangle)
+        W: 217vp, H: 58vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Fill: 纯色填充, rgba(255, 255, 255, 1)
+
+      矩形 3 (shapePath)
+        W: 225vp, H: 66vp
+        X: -4vp, Y: -4vp
+        Opacity: 1
+
+      text (text)
+        W: 124vp, H: 34vp
+        X: 47vp, Y: 12vp
+        Opacity: 1
+        【内容】: 开始游戏
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 31vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  容器 7 (artboard)
+    W: 291vp, H: 365vp
+    X: 35vp, Y: 192vp
+    Opacity: 1
+    容器 7 (rectangle)
+      W: 291vp, H: 365vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      Fill: 纯色填充, rgba(255, 255, 255, 0.20000000298023224)
+
+    容器 6 (artboard)
+      W: 243vp, H: 287vp
+      X: 24vp, Y: 39vp
+      Opacity: 1
+      容器 6 (rectangle)
+        W: 243vp, H: 287vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      行数 (artboard)
+        W: 243vp, H: 79vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        行数 (rectangle)
+          W: 243vp, H: 79vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        棋盘行数 (artboard)
+          W: 243vp, H: 32vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          棋盘行数 (rectangle)
+            W: 243vp, H: 32vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          棋盘行数（5-30） (text)
+            W: 243vp, H: 42vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            【内容】: 棋盘行数（5-30）
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 30vp
+              颜色: rgba(0, 0, 0, 1)
+
+
+        输入行数 (artboard)
+          W: 230vp, H: 36vp
+          X: 0vp, Y: 43vp
+          Opacity: 1
+          输入行数 (rectangle)
+            W: 230vp, H: 36vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 纯色填充, rgba(255, 255, 255, 1)
+
+          画板 7 (artboard)
+            W: 19vp, H: 24vp
+            X: 112vp, Y: 6vp
+            Opacity: 1
+            画板 7 (rectangle)
+              W: 19vp, H: 24vp
+              X: 0vp, Y: 0vp
+              Opacity: 1
+
+            Input (text)
+              W: 17vp, H: 22vp
+              X: 0vp, Y: 1vp
+              Opacity: 1
+              【内容】: 10
+              【文本样式】:
+                字体: Muyao-Softbrush-Regular
+                字号: 20vp
+                颜色: rgba(0, 0, 0, 0.8980392217636108)
+
+            cursor (shapePath)
+              W: 2vp, H: 24vp
+              X: 17vp, Y: 0vp
+              Opacity: 1
+
+
+
+
+      列数 (artboard)
+        W: 243vp, H: 79vp
+        X: 0vp, Y: 104vp
+        Opacity: 1
+        列数 (rectangle)
+          W: 243vp, H: 79vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        棋盘列数 (artboard)
+          W: 243vp, H: 32vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          棋盘列数 (rectangle)
+            W: 243vp, H: 32vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          棋盘列数（5-30） (text)
+            W: 243vp, H: 42vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            【内容】: 棋盘列数（5-30）
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 30vp
+              颜色: rgba(0, 0, 0, 1)
+
+
+        输入列数 (artboard)
+          W: 230vp, H: 36vp
+          X: 0vp, Y: 43vp
+          Opacity: 1
+          输入列数 (rectangle)
+            W: 230vp, H: 36vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 纯色填充, rgba(255, 255, 255, 1)
+
+          画板 7 (artboard)
+            W: 19vp, H: 24vp
+            X: 112vp, Y: 6vp
+            Opacity: 1
+            画板 7 (rectangle)
+              W: 19vp, H: 24vp
+              X: 0vp, Y: 0vp
+              Opacity: 1
+
+            Input (text)
+              W: 17vp, H: 22vp
+              X: 0vp, Y: 1vp
+              Opacity: 1
+              【内容】: 10
+              【文本样式】:
+                字体: Muyao-Softbrush-Regular
+                字号: 20vp
+                颜色: rgba(0, 0, 0, 0.8980392217636108)
+
+            cursor (shapePath)
+              W: 2vp, H: 24vp
+              X: 17vp, Y: 0vp
+              Opacity: 1
+
+
+
+
+      地雷数量 (artboard)
+        W: 243vp, H: 79vp
+        X: 0vp, Y: 208vp
+        Opacity: 1
+        地雷数量 (rectangle)
+          W: 243vp, H: 79vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        灰太狼数目 (artboard)
+          W: 243vp, H: 32vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          灰太狼数目 (rectangle)
+            W: 243vp, H: 32vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          灰太狼数量 (text)
+            W: 243vp, H: 42vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            【内容】: 灰太狼数量
+            【文本样式】:
+              字体: Muyao-Softbrush-Regular
+              字号: 30vp
+              颜色: rgba(0, 0, 0, 1)
+
+
+        输入地雷数量 (artboard)
+          W: 230vp, H: 36vp
+          X: 0vp, Y: 43vp
+          Opacity: 1
+          输入地雷数量 (rectangle)
+            W: 230vp, H: 36vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 纯色填充, rgba(255, 255, 255, 1)
+
+          画板 7 (artboard)
+            W: 18vp, H: 24vp
+            X: 112vp, Y: 6vp
+            Opacity: 1
+            画板 7 (rectangle)
+              W: 18vp, H: 24vp
+              X: 0vp, Y: 0vp
+              Opacity: 1
+
+            Input (text)
+              W: 16vp, H: 22vp
+              X: 0vp, Y: 1vp
+              Opacity: 1
+              【内容】: 15
+              【文本样式】:
+                字体: Muyao-Softbrush-Regular
+                字号: 20vp
+                颜色: rgba(0, 0, 0, 0.8980392217636108)
+
+            cursor (shapePath)
+              W: 2vp, H: 24vp
+              X: 16vp, Y: 0vp
+              Opacity: 1
+
+
+
+
+
+
+  自定义模式 (text)
+    W: 306vp, H: 75vp
+    X: 27vp, Y: 92vp
+    Opacity: 1
+    【内容】: 自定义模式
+    【文本样式】:
+      字体: Muyao-Softbrush-Regular
+      字号: 60vp
+      颜色: rgba(0, 0, 0, 1)
+
+  返回按钮 (artboard)
+    W: 141vp, H: 32vp
+    X: 18vp, Y: 42vp
+    Opacity: 1
+    返回按钮 (rectangle)
+      W: 141vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    返回组合 (artboard)
+      W: 32vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      返回组合 (rectangle)
+        W: 32vp, H: 32vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Fill: 纯色填充, rgba(255, 255, 255, 0.8999999761581421)
+
+      返回图标 (artboard)
+        W: 20vp, H: 19vp
+        X: 6vp, Y: 6vp
+        Opacity: 1
+        返回图标 (rectangle)
+          W: 20vp, H: 19vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 图片, File Name: 7ade6729c509000e9c9ec39030c32dacae42e0bb.png
+
+
+
+    返回挑战 (text)
+      W: 99vp, H: 32vp
+      X: 42vp, Y: 0vp
+      Opacity: 1
+      【内容】: 返回挑战
+      【文本样式】:
+        字体: Muyao-Softbrush-Regular
+        字号: 24vp
+        颜色: rgba(0, 0, 0, 1)
+
+
+
+--- 页面: 冒险模式 ---
+
+喜羊羊 (artboard)
+  W: 360vp, H: 792vp
+  X: -180vp, Y: -396vp
+  Opacity: 1
+  喜羊羊 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 10192345445db378589a0d60660921c7d48286f1.png
+
+  底部导航栏 (artboard)
+    W: 360vp, H: 47vp
+    X: 0vp, Y: 717vp
+    Opacity: 1
+    底部导航栏 (rectangle)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    导航 (artboard)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      导航 (rectangle)
+        W: 360vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      成就 (artboard)
+        W: 112vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        成就 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        成就图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          成就图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 41c744686377c808f8a23b5c78cd99cdf4d25ea4.png
+
+
+        成就 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 成就
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      游戏 (artboard)
+        W: 112vp, H: 47vp
+        X: 119vp, Y: 0vp
+        Opacity: 1
+        游戏 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        游戏图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          游戏图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 2b44dff4f535f41509ac24934ee76dd3fd30b392.png
+
+
+        游戏 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 游戏
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(25, 59, 133, 1)
+
+
+      设置 (artboard)
+        W: 112vp, H: 47vp
+        X: 238vp, Y: 0vp
+        Opacity: 1
+        设置 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        设置图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          设置图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 736367861a1654c18fef10c26c2584c60f559e25.png
+
+
+        设置 (text)
+          W: 112vp, H: 16vp
+          X: 0vp, Y: 30vp
+          Opacity: 1
+          【内容】: 设置
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  组合 1 (group)
+    W: 318vp, H: 434vp
+    X: 21vp, Y: 201vp
+    Opacity: 1
+    其他 (group)
+      W: 97vp, H: 65vp
+      X: 176vp, Y: 369vp
+      Opacity: 1
+      第三关 (group)
+        W: 97vp, H: 65vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Dialog/BG (shapePath)
+          W: 97vp, H: 65vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        更多 (text)
+          W: 74vp, H: 40vp
+          X: 12vp, Y: 13vp
+          Opacity: 1
+          【内容】: 更多
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 36vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+    第三关 (group)
+      W: 224vp, H: 65vp
+      X: 17vp, Y: 257vp
+      Opacity: 1
+      狼堡对决 (artboard)
+        W: 224vp, H: 65vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        狼堡对决 (rectangle)
+          W: 224vp, H: 65vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        Dialog/BG (shapePath)
+          W: 224vp, H: 65vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        3、狼堡对决 (text)
+          W: 196vp, H: 40vp
+          X: 16vp, Y: 13vp
+          Opacity: 1
+          【内容】: 3、狼堡对决
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 36vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+    第二关 (group)
+      W: 224vp, H: 65vp
+      X: 94vp, Y: 129vp
+      Opacity: 1
+      轻轻草原 (artboard)
+        W: 224vp, H: 65vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        轻轻草原 (rectangle)
+          W: 224vp, H: 65vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        Dialog/BG (shapePath)
+          W: 224vp, H: 65vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        2、青青草原 (text)
+          W: 198vp, H: 40vp
+          X: 16vp, Y: 13vp
+          Opacity: 1
+          【内容】: 2、青青草原
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 36vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+    第一关 (group)
+      W: 224vp, H: 65vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      羊村郊外 (artboard)
+        W: 224vp, H: 65vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        羊村郊外 (rectangle)
+          W: 224vp, H: 65vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        Dialog/BG (shapePath)
+          W: 224vp, H: 65vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        1、羊村郊外 (text)
+          W: 193vp, H: 40vp
+          X: 16vp, Y: 13vp
+          Opacity: 1
+          【内容】: 1、羊村郊外
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 36vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  冒险模式 (text)
+    W: 306vp, H: 75vp
+    X: 27vp, Y: 92vp
+    Opacity: 1
+    【内容】: 冒险模式
+    【文本样式】:
+      字体: Muyao-Softbrush-Regular
+      字号: 75vp
+      颜色: rgba(0, 0, 0, 1)
+
+  返回按钮 (artboard)
+    W: 141vp, H: 32vp
+    X: 18vp, Y: 42vp
+    Opacity: 1
+    返回按钮 (rectangle)
+      W: 141vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    3.Icon Button (artboard)
+      W: 32vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      3.Icon Button (rectangle)
+        W: 32vp, H: 32vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Fill: 纯色填充, rgba(255, 255, 255, 0.8999999761581421)
+
+      返回图标 (artboard)
+        W: 17vp, H: 18vp
+        X: 8vp, Y: 7vp
+        Opacity: 1
+        返回图标 (rectangle)
+          W: 17vp, H: 18vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 图片, File Name: 7ade6729c509000e9c9ec39030c32dacae42e0bb.png
+
+
+
+    返回菜单 (text)
+      W: 99vp, H: 32vp
+      X: 42vp, Y: 0vp
+      Opacity: 1
+      【内容】: 返回菜单
+      【文本样式】:
+        字体: Muyao-Softbrush-Regular
+        字号: 24vp
+        颜色: rgba(0, 0, 0, 1)
+
+
+
+--- 页面: 游戏界面 ---
+
+挑战模式中的关卡 (artboard)
+  W: 360vp, H: 792vp
+  X: -180vp, Y: -396vp
+  Opacity: 1
+  挑战模式中的关卡 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 366465141fa1b6fa7fa25abfc5b76ffd571016f9.png
+
+  底部导航栏 (artboard)
+    W: 360vp, H: 47vp
+    X: 0vp, Y: 717vp
+    Opacity: 1
+    底部导航栏 (rectangle)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    导航 (artboard)
+      W: 350vp, H: 47vp
+      X: 5vp, Y: 0vp
+      Opacity: 1
+      导航 (rectangle)
+        W: 350vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      成就 (artboard)
+        W: 112vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        成就 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        成就图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          成就图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          vuesax/outline/medal-star (group)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            medal-star (group)
+              W: 24vp, H: 24vp
+              X: 0vp, Y: 0vp
+              Opacity: 1
+              差集 (shapeGroup)
+                W: 16vp, H: 16vp
+                X: 4vp, Y: 1vp
+                Opacity: 1
+                Fill: 纯色填充, rgba(0, 0, 0, 0.8980392217636108)
+                矢量 1 (shapePath)
+                  W: 16vp, H: 16vp
+                  X: 0vp, Y: 0vp
+                  Opacity: 1
+
+                矢量 2 (shapePath)
+                  W: 12vp, H: 12vp
+                  X: 2vp, Y: 2vp
+                  Opacity: 1
+
+
+              差集 (shapeGroup)
+                W: 22vp, H: 10vp
+                X: 1vp, Y: 12vp
+                Opacity: 1
+                Fill: 纯色填充, rgba(0, 0, 0, 0.8980392217636108)
+                矢量 3 (shapePath)
+                  W: 22vp, H: 10vp
+                  X: 0vp, Y: 0vp
+                  Opacity: 1
+
+                矢量 4 (shapePath)
+                  W: 8vp, H: 7vp
+                  X: 2vp, Y: 2vp
+                  Opacity: 1
+
+
+              矢量 5 (shapePath)
+                W: 8vp, H: 7vp
+                X: 14vp, Y: 14vp
+                Opacity: 1
+
+              差集 (shapeGroup)
+                W: 8vp, H: 8vp
+                X: 8vp, Y: 5vp
+                Opacity: 1
+                Fill: 纯色填充, rgba(0, 0, 0, 0.8980392217636108)
+                矢量 6 (shapePath)
+                  W: 8vp, H: 8vp
+                  X: 0vp, Y: 0vp
+                  Opacity: 1
+
+                矢量 7 (shapePath)
+                  W: 5vp, H: 5vp
+                  X: 2vp, Y: 2vp
+                  Opacity: 1
+
+
+              Vector (shapePath)
+                W: 24vp, H: 24vp
+                X: 0vp, Y: 0vp
+                Opacity: 0
+
+
+
+
+        成就 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 成就
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      游戏 (artboard)
+        W: 112vp, H: 47vp
+        X: 119vp, Y: 0vp
+        Opacity: 1
+        游戏 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        游戏图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          游戏图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          图标/系统图标/组件预置用 (group)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Background (shapePath)
+              W: 24vp, H: 24vp
+              X: 0vp, Y: 0vp
+              Opacity: 0.00009999999747378752
+
+            Shape (shapeGroup)
+              W: 20vp, H: 21vp
+              X: 2vp, Y: 1vp
+              Opacity: 1
+              Fill: 纯色填充, rgba(126, 36, 36, 1)
+              矩形 (shapeGroup)
+                W: 20vp, H: 21vp
+                X: 0vp, Y: 0vp
+                Opacity: 1
+                Fill: 纯色填充, rgba(17, 31, 44, 1)
+                路径 (shapePath)
+                  W: 20vp, H: 21vp
+                  X: 0vp, Y: 0vp
+                  Opacity: 1
+
+                路径 (shapePath)
+                  W: 16vp, H: 17vp
+                  X: 2vp, Y: 2vp
+                  Opacity: 1
+
+
+              路径 6 (shapePath)
+                W: 2vp, H: 11vp
+                X: 9vp, Y: 10vp
+                Opacity: 1
+
+              路径 6 (shapePath)
+                W: 10vp, H: 7vp
+                X: 9vp, Y: 5vp
+                Opacity: 1
+
+              路径 6 (shapePath)
+                W: 10vp, H: 7vp
+                X: 1vp, Y: 5vp
+                Opacity: 1
+
+
+
+
+        游戏 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 游戏
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(126, 36, 36, 1)
+
+
+      设置 (artboard)
+        W: 112vp, H: 47vp
+        X: 238vp, Y: 0vp
+        Opacity: 1
+        设置 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        设置图标 (shapeGroup)
+          W: 21vp, H: 20vp
+          X: 46vp, Y: 0vp
+          Opacity: 1
+          Fill: 纯色填充, rgba(50, 50, 51, 1)
+          路径 (shapePath)
+            W: 21vp, H: 20vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+
+          路径 (shapePath)
+            W: 8vp, H: 8vp
+            X: 7vp, Y: 6vp
+            Opacity: 1
+
+
+        设置 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 设置
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  棋盘 (artboard)
+    W: 308vp, H: 336vp
+    X: 26vp, Y: 308vp
+    Opacity: 1
+    棋盘 (rectangle)
+      W: 308vp, H: 336vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      Fill: 纯色填充, rgba(233, 243, 219, 1)
+
+    组合 3 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 17vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+    组合 4 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 56vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+    组合 5 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 95vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+    组合 6 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 134vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+    组合 7 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 173vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+    组合 8 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 212vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+    组合 9 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 251vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+    组合 10 (group)
+      W: 290vp, H: 29vp
+      X: 9vp, Y: 290vp
+      Opacity: 1
+      矩形 2 (shapePath)
+        W: 32vp, H: 29vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 6 (shapePath)
+        W: 32vp, H: 29vp
+        X: 172vp, Y: 0vp
+        Opacity: 1
+
+      矩形 7 (shapePath)
+        W: 32vp, H: 29vp
+        X: 215vp, Y: 0vp
+        Opacity: 1
+
+      矩形 8 (shapePath)
+        W: 32vp, H: 29vp
+        X: 258vp, Y: 0vp
+        Opacity: 1
+
+      矩形 4 (shapePath)
+        W: 32vp, H: 29vp
+        X: 86vp, Y: 0vp
+        Opacity: 1
+
+      矩形 5 (shapePath)
+        W: 32vp, H: 29vp
+        X: 129vp, Y: 0vp
+        Opacity: 1
+
+      矩形 3 (shapePath)
+        W: 32vp, H: 29vp
+        X: 43vp, Y: 0vp
+        Opacity: 1
+
+
+
+  道具功能 (artboard)
+    W: 283vp, H: 75vp
+    X: 39vp, Y: 207vp
+    Opacity: 1
+    道具功能 (rectangle)
+      W: 283vp, H: 75vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      Fill: 纯色填充, rgba(255, 255, 255, 0.20000000298023224)
+
+    图标 (artboard)
+      W: 85vp, H: 51vp
+      X: 17vp, Y: 12vp
+      Opacity: 1
+      图标 (rectangle)
+        W: 85vp, H: 51vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 1 (shapePath)
+        W: 58vp, H: 51vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      ×3 (text)
+        W: 43vp, H: 43vp
+        X: 58vp, Y: 4vp
+        Opacity: 1
+        【内容】: ×3
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 24vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+    文字描述 (artboard)
+      W: 157vp, H: 51vp
+      X: 109vp, Y: 12vp
+      Opacity: 1
+      文字描述 (rectangle)
+        W: 157vp, H: 51vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      慢羊羊的放大镜 (text)
+        W: 157vp, H: 24vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        【内容】: 慢羊羊的放大镜
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 20vp
+          颜色: rgba(0, 0, 0, 1)
+
+      可查看任意格子是否安全 (text)
+        W: 157vp, H: 24vp
+        X: 0vp, Y: 27vp
+        Opacity: 1
+        【内容】: 可查看任意格子是否安全
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 14vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  计时功能 (artboard)
+    W: 91vp, H: 92vp
+    X: 212vp, Y: 89vp
+    Opacity: 1
+    计时功能 (rectangle)
+      W: 91vp, H: 92vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      Fill: 纯色填充, rgba(255, 255, 255, 0.20000000298023224)
+
+    容器 1 (artboard)
+      W: 58vp, H: 77vp
+      X: 17vp, Y: 8vp
+      Opacity: 1
+      容器 1 (rectangle)
+        W: 58vp, H: 77vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      矩形 1 (shapePath)
+        W: 58vp, H: 51vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      00:00 (text)
+        W: 63vp, H: 24vp
+        X: -2vp, Y: 53vp
+        Opacity: 1
+        【内容】: 00:00
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 20vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  地雷剩余数量 (artboard)
+    W: 91vp, H: 92vp
+    X: 56vp, Y: 89vp
+    Opacity: 1
+    地雷剩余数量 (rectangle)
+      W: 91vp, H: 92vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      Fill: 纯色填充, rgba(255, 255, 255, 0.20000000298023224)
+
+    容器 1 (artboard)
+      W: 58vp, H: 77vp
+      X: 17vp, Y: 8vp
+      Opacity: 1
+      容器 1 (rectangle)
+        W: 58vp, H: 77vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      地雷 (shapePath)
+        W: 58vp, H: 51vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      15 (text)
+        W: 58vp, H: 24vp
+        X: 0vp, Y: 53vp
+        Opacity: 1
+        【内容】: 15
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 20vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  返回按钮 (artboard)
+    W: 93vp, H: 32vp
+    X: 18vp, Y: 42vp
+    Opacity: 1
+    返回按钮 (rectangle)
+      W: 93vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    返回组合 (artboard)
+      W: 32vp, H: 32vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      返回组合 (rectangle)
+        W: 32vp, H: 32vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Fill: 纯色填充, rgba(255, 255, 255, 1)
+
+      返回图标 (artboard)
+        W: 19vp, H: 18vp
+        X: 7vp, Y: 7vp
+        Opacity: 1
+        返回图标 (rectangle)
+          W: 19vp, H: 18vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 图片, File Name: 7ade6729c509000e9c9ec39030c32dacae42e0bb.png
+
+
+
+    返回 (text)
+      W: 51vp, H: 32vp
+      X: 42vp, Y: 0vp
+      Opacity: 1
+      【内容】: 返回
+      【文本样式】:
+        字体: Muyao-Softbrush-Regular
+        字号: 24vp
+        颜色: rgba(0, 0, 0, 1)
+
+
+
+--- 页面: 设置页面 ---
+
+设置页面 (artboard)
+  W: 360vp, H: 792vp
+  X: -180vp, Y: -396vp
+  Opacity: 1
+  设置页面 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 7beaf9128c06866ddb16968cb5c66ea716a7685b.png
+
+  底部导航栏 (artboard)
+    W: 360vp, H: 47vp
+    X: 0vp, Y: 717vp
+    Opacity: 1
+    底部导航栏 (rectangle)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    导航 (artboard)
+      W: 350vp, H: 47vp
+      X: 5vp, Y: 0vp
+      Opacity: 1
+      导航 (rectangle)
+        W: 350vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      成就 (artboard)
+        W: 112vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        成就 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        成就图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          成就图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 41c744686377c808f8a23b5c78cd99cdf4d25ea4.png
+
+
+        成就 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 成就
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      游戏 (artboard)
+        W: 112vp, H: 47vp
+        X: 119vp, Y: 0vp
+        Opacity: 1
+        游戏 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        游戏图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          游戏图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 2b44dff4f535f41509ac24934ee76dd3fd30b392.png
+
+
+        游戏 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 游戏
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      设置 (artboard)
+        W: 112vp, H: 46vp
+        X: 238vp, Y: 0vp
+        Opacity: 1
+        设置 (rectangle)
+          W: 112vp, H: 46vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        设置图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          设置图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 736367861a1654c18fef10c26c2584c60f559e25.png
+
+
+        设置 (text)
+          W: 112vp, H: 16vp
+          X: 0vp, Y: 30vp
+          Opacity: 1
+          【内容】: 设置
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(62, 103, 150, 1)
+
+
+
+
+  选择小羊 (artboard)
+    W: 190vp, H: 58vp
+    X: 85vp, Y: 627vp
+    Opacity: 1
+    选择小羊 (rectangle)
+      W: 190vp, H: 58vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    尺寸=Medium,类型=Emphasized,状态=Focus (artboard)
+      W: 190vp, H: 58vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      尺寸=Medium,类型=Emphasized,状态=Focus (rectangle)
+        W: 190vp, H: 58vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        Fill: 纯色填充, rgba(255, 255, 255, 0.8999999761581421)
+
+      矩形 3 (shapePath)
+        W: 198vp, H: 66vp
+        X: -4vp, Y: -4vp
+        Opacity: 1
+
+      text (text)
+        W: 124vp, H: 34vp
+        X: 33vp, Y: 12vp
+        Opacity: 1
+        【内容】: 选择小羊
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 31vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  控制音量 (artboard)
+    W: 303vp, H: 207vp
+    X: 29vp, Y: 57vp
+    Opacity: 1
+    控制音量 (rectangle)
+      W: 303vp, H: 207vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    背景音乐 (artboard)
+      W: 303vp, H: 92vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+      背景音乐 (rectangle)
+        W: 303vp, H: 92vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      背景音乐 (text)
+        W: 303vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        【内容】: 背景音乐
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 40vp
+          颜色: rgba(0, 0, 0, 0.8980392217636108)
+
+      音量条 (artboard)
+        W: 303vp, H: 36vp
+        X: 0vp, Y: 56vp
+        Opacity: 1
+        音量条 (rectangle)
+          W: 303vp, H: 36vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 纯色填充, rgba(190, 211, 238, 1)
+
+        矩形 3 (shapePath)
+          W: 307vp, H: 40vp
+          X: -2vp, Y: -2vp
+          Opacity: 1
+
+        🔤Text (text)
+          W: 287vp, H: 22vp
+          X: 8vp, Y: 7vp
+          Opacity: 1
+          【内容】: 27%
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 20vp
+            颜色: rgba(255, 255, 255, 0.8980392217636108)
+
+        Rectangle 2 (shapePath)
+          W: 194vp, H: 36vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+
+    游戏音效 (artboard)
+      W: 303vp, H: 92vp
+      X: 0vp, Y: 115vp
+      Opacity: 1
+      游戏音效 (rectangle)
+        W: 303vp, H: 92vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      游戏音效 (text)
+        W: 303vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        【内容】: 游戏音效
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 40vp
+          颜色: rgba(0, 0, 0, 0.8980392217636108)
+
+      音量条 (artboard)
+        W: 303vp, H: 36vp
+        X: 0vp, Y: 56vp
+        Opacity: 1
+        音量条 (rectangle)
+          W: 303vp, H: 36vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+          Fill: 纯色填充, rgba(190, 211, 238, 1)
+
+        矩形 3 (shapePath)
+          W: 307vp, H: 40vp
+          X: -2vp, Y: -2vp
+          Opacity: 1
+
+        🔤Text (text)
+          W: 287vp, H: 22vp
+          X: 8vp, Y: 7vp
+          Opacity: 1
+          【内容】: 27%
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 20vp
+            颜色: rgba(255, 255, 255, 0.8980392217636108)
+
+        Rectangle 2 (shapePath)
+          W: 194vp, H: 36vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+
+
+
+
+--- 页面: 成就页面 ---
+
+成就页面 (artboard)
+  W: 360vp, H: 792vp
+  X: -180vp, Y: -396vp
+  Opacity: 1
+  成就页面 (rectangle)
+    W: 360vp, H: 792vp
+    X: 0vp, Y: 0vp
+    Opacity: 1
+    Fill: 图片, File Name: 4477758ba087ba51a5cdcec9568cede8c61c2937.png
+
+  底部导航栏 (artboard)
+    W: 360vp, H: 47vp
+    X: 0vp, Y: 717vp
+    Opacity: 1
+    底部导航栏 (rectangle)
+      W: 360vp, H: 47vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    导航 (artboard)
+      W: 350vp, H: 47vp
+      X: 5vp, Y: 0vp
+      Opacity: 1
+      导航 (rectangle)
+        W: 350vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      成就 (artboard)
+        W: 112vp, H: 47vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        成就 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        成就图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          成就图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 41c744686377c808f8a23b5c78cd99cdf4d25ea4.png
+
+
+        成就 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 成就
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(171, 92, 68, 1)
+
+
+      游戏 (artboard)
+        W: 112vp, H: 47vp
+        X: 119vp, Y: 0vp
+        Opacity: 1
+        游戏 (rectangle)
+          W: 112vp, H: 47vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        游戏图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          游戏图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 2b44dff4f535f41509ac24934ee76dd3fd30b392.png
+
+
+        游戏 (text)
+          W: 112vp, H: 19vp
+          X: 0vp, Y: 28vp
+          Opacity: 1
+          【内容】: 游戏
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+      设置 (artboard)
+        W: 112vp, H: 46vp
+        X: 238vp, Y: 0vp
+        Opacity: 1
+        设置 (rectangle)
+          W: 112vp, H: 46vp
+          X: 0vp, Y: 0vp
+          Opacity: 1
+
+        设置图标 (artboard)
+          W: 24vp, H: 24vp
+          X: 44vp, Y: 0vp
+          Opacity: 1
+          设置图标 (rectangle)
+            W: 24vp, H: 24vp
+            X: 0vp, Y: 0vp
+            Opacity: 1
+            Fill: 图片, File Name: 736367861a1654c18fef10c26c2584c60f559e25.png
+
+
+        设置 (text)
+          W: 112vp, H: 16vp
+          X: 0vp, Y: 30vp
+          Opacity: 1
+          【内容】: 设置
+          【文本样式】:
+            字体: Muyao-Softbrush-Regular
+            字号: 18vp
+            颜色: rgba(0, 0, 0, 1)
+
+
+
+
+  成就4 (artboard)
+    W: 291vp, H: 115vp
+    X: 35vp, Y: 509vp
+    Opacity: 1
+    成就4 (rectangle)
+      W: 291vp, H: 115vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    Dialog/BG (shapePath)
+      W: 291vp, H: 115vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    文字 (artboard)
+      W: 243vp, H: 75vp
+      X: 24vp, Y: 20vp
+      Opacity: 1
+      文字 (rectangle)
+        W: 243vp, H: 75vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      焦炭小羊 (text)
+        W: 243vp, H: 42vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        【内容】: 焦炭小羊
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 36vp
+          颜色: rgba(0, 0, 0, 1)
+
+      累计被灰太狼发现10次 (text)
+        W: 243vp, H: 23vp
+        X: 0vp, Y: 52vp
+        Opacity: 1
+        【内容】: 累计被灰太狼发现10次
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 18vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  成就3 (artboard)
+    W: 291vp, H: 115vp
+    X: 35vp, Y: 362vp
+    Opacity: 1
+    成就3 (rectangle)
+      W: 291vp, H: 115vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    Dialog/BG (shapePath)
+      W: 291vp, H: 115vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    文字 (artboard)
+      W: 243vp, H: 75vp
+      X: 24vp, Y: 20vp
+      Opacity: 1
+      文字 (rectangle)
+        W: 243vp, H: 75vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      羊村大守护 (text)
+        W: 243vp, H: 42vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        【内容】: 羊村大守护
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 36vp
+          颜色: rgba(0, 0, 0, 1)
+
+      累计通关100次 (text)
+        W: 243vp, H: 23vp
+        X: 0vp, Y: 52vp
+        Opacity: 1
+        【内容】: 累计通关100次
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 18vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  成就2 (artboard)
+    W: 291vp, H: 115vp
+    X: 35vp, Y: 215vp
+    Opacity: 1
+    成就2 (rectangle)
+      W: 291vp, H: 115vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    Dialog/BG (shapePath)
+      W: 291vp, H: 115vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    文字 (artboard)
+      W: 243vp, H: 75vp
+      X: 24vp, Y: 20vp
+      Opacity: 1
+      文字 (rectangle)
+        W: 243vp, H: 75vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      小小勇士 (text)
+        W: 243vp, H: 42vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        【内容】: 小小勇士
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 36vp
+          颜色: rgba(0, 0, 0, 1)
+
+      累计通关10次 (text)
+        W: 243vp, H: 23vp
+        X: 0vp, Y: 52vp
+        Opacity: 1
+        【内容】: 累计通关10次
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 18vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+  成就1 (symbolMaster)
+    W: 291vp, H: 115vp
+    X: 35vp, Y: 68vp
+    Opacity: 1
+    Dialog/BG (shapePath)
+      W: 291vp, H: 115vp
+      X: 0vp, Y: 0vp
+      Opacity: 1
+
+    文字 (artboard)
+      W: 243vp, H: 75vp
+      X: 24vp, Y: 20vp
+      Opacity: 1
+      文字 (rectangle)
+        W: 243vp, H: 75vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+
+      小羊诞生啦！ (text)
+        W: 243vp, H: 42vp
+        X: 0vp, Y: 0vp
+        Opacity: 1
+        【内容】: 小羊诞生啦！
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 36vp
+          颜色: rgba(0, 0, 0, 1)
+
+      首次通关游戏 (text)
+        W: 243vp, H: 23vp
+        X: 0vp, Y: 52vp
+        Opacity: 1
+        【内容】: 首次通关游戏
+        【文本样式】:
+          字体: Muyao-Softbrush-Regular
+          字号: 18vp
+          颜色: rgba(0, 0, 0, 1)
+
+
+
+

@@ -56,7 +56,7 @@ export const THEMES: Theme[] = [
     id: 'xiyangyang',
     name: '喜羊羊',
     colors: {
-      primary: GLOBAL_COLORS.asparagus,
+      primary: '#193B85',
       secondary: GLOBAL_COLORS.pacificCyan,
       accent: GLOBAL_COLORS.yellowGreen,
       background: '#E8F8F0',
@@ -85,7 +85,7 @@ export const THEMES: Theme[] = [
     id: 'meiyangyang',
     name: '美羊羊',
     colors: {
-      primary: '#FF91C7',
+      primary: '#9E2550',
       secondary: '#FFB6D9',
       accent: GLOBAL_COLORS.yellowGreen,
       background: '#FFF0F7',
@@ -114,7 +114,7 @@ export const THEMES: Theme[] = [
     id: 'lanyangyang',
     name: '懒羊羊',
     colors: {
-      primary: '#FFB84D',
+      primary: '#925713',
       secondary: '#FFD699',
       accent: GLOBAL_COLORS.yellowGreen,
       background: '#FFF8E6',
@@ -143,7 +143,7 @@ export const THEMES: Theme[] = [
     id: 'feiyangyang',
     name: '沸羊羊',
     colors: {
-      primary: '#8B6914',
+      primary: '#944A1B',
       secondary: '#CD950C',
       accent: GLOBAL_COLORS.yellowGreen,
       background: '#F5F0E6',
@@ -172,7 +172,7 @@ export const THEMES: Theme[] = [
     id: 'nuanyangyang',
     name: '暖羊羊',
     colors: {
-      primary: '#FF6B9D',
+      primary: '#9E2574',
       secondary: '#FF9EC5',
       accent: GLOBAL_COLORS.yellowGreen,
       background: '#FFF0F5',
@@ -201,7 +201,7 @@ export const THEMES: Theme[] = [
     id: 'manyangyang',
     name: '慢羊羊',
     colors: {
-      primary: GLOBAL_COLORS.asparagus,
+      primary: '#B77448',
       secondary: '#A8D8B9',
       accent: GLOBAL_COLORS.yellowGreen,
       background: '#F0F8F0',

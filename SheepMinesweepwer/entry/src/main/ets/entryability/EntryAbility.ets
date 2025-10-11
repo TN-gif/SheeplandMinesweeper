@@ -33,18 +33,46 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       
-      // 在 loadContent 回调中注册字体（使用同步方式）
+      // 设置沉浸式状态栏
       try {
-        font.registerFont({
-          familyName: FontManager.CUSTOM_FONT_FAMILY,
-          familySrc: $rawfile(FontManager.CUSTOM_FONT_PATH)
+        windowStage.getMainWindow((err, windowClass) => {
+          if (err && err.code) {
+            hilog.error(DOMAIN, 'testTag', 'Failed to get main window. Cause: %{public}s', JSON.stringify(err));
+            return;
+          }
+          
+          // 设置窗口全屏模式，状态栏内容延伸到状态栏区域（使用新API）
+          try {
+            windowClass.setWindowLayoutFullScreen(true);
+            hilog.info(DOMAIN, 'testTag', '设置沉浸式状态栏成功');
+          } catch (error) {
+            let err = error as BusinessError;
+            hilog.error(DOMAIN, 'testTag', '设置全屏失败 code:%{public}d msg:%{public}s',
+              err.code, err.message);
+          }
+          
+          // 设置状态栏属性
+          try {
+            let systemBarProperties: window.SystemBarProperties = {
+              statusBarColor: '#00000000',  // 透明状态栏
+              statusBarContentColor: '#000000'  // 状态栏文字为黑色
+            };
+            windowClass.setWindowSystemBarProperties(systemBarProperties);
+            hilog.info(DOMAIN, 'testTag', '设置状态栏属性成功');
+          } catch (error) {
+            let err = error as BusinessError;
+            hilog.error(DOMAIN, 'testTag', '设置状态栏属性失败 code:%{public}d msg:%{public}s',
+              err.code, err.message);
+          }
         });
-        hilog.info(DOMAIN, 'testTag', '字体注册成功: %{public}s', FontManager.CUSTOM_FONT_FAMILY);
       } catch (error) {
         let err = error as BusinessError;
-        hilog.error(DOMAIN, 'testTag', '字体注册失败 code:%{public}d msg:%{public}s', 
+        hilog.error(DOMAIN, 'testTag', '设置沉浸式状态栏失败 code:%{public}d msg:%{public}s',
           err.code, err.message);
       }
+      
+      // 在 loadContent 回调中注册字体（使用新的API）
+      this.registerCustomFont();
       
       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
     });
@@ -63,5 +91,20 @@ export default class EntryAbility extends UIAbility {
   onBackground(): void {
     // Ability has back to background
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
+  }
+
+  private async registerCustomFont(): Promise<void> {
+    try {
+      // 使用新的异步API注册字体
+      await font.registerFont({
+        familyName: FontManager.CUSTOM_FONT_FAMILY,
+        familySrc: $rawfile(FontManager.CUSTOM_FONT_PATH)
+      });
+      hilog.info(DOMAIN, 'testTag', '字体注册成功: %{public}s', FontManager.CUSTOM_FONT_FAMILY);
+    } catch (error) {
+      let err = error as BusinessError;
+      hilog.error(DOMAIN, 'testTag', '字体注册失败 code:%{public}d msg:%{public}s', 
+        err.code, err.message);
+    }
   }
 }

@@ -1,28 +1,24 @@
 /**
  * 设置界面
- * 允许用户调整音效、震动等设置
+ * 允许用户调整音效设置
  */
 import { ThemeProvider, themeProvider } from '../theme/ThemeProvider';
 import { audioManager } from '../services/AudioManager';
-import { HapticFeedbackUtils } from '../utils/HapticFeedbackUtils';
+import { FontManager } from '../utils/FontManager';
 
 @Component
 export struct SettingsScreen {
   @ObjectLink provider: ThemeProvider;
-  @State bgmEnabled: boolean = true;
-  @State soundEnabled: boolean = true;
-  @State hapticEnabled: boolean = true;
-  @State bgmVolume: number = 0.5;
-  @State soundVolume: number = 0.7;
+  @State bgmVolume: number = 0.27;
+  @State soundVolume: number = 0.27;
+  @State currentNavTab: string = 'settings';
   onBack: () => void = () => {};
+  onNavigate: (tab: string) => void = () => {};
+  onSelectCharacter: () => void = () => {};
 
   aboutToAppear(): void {
-    // 从AudioManager获取当前设置
-    this.bgmEnabled = true; // 默认值，实际应该从存储中读取
-    this.soundEnabled = true;
-    this.hapticEnabled = true;
-    this.bgmVolume = 0.5;
-    this.soundVolume = 0.7;
+    this.bgmVolume = 0.27;
+    this.soundVolume = 0.27;
   }
 
   private async playBGMSafely(): Promise<void> {
@@ -34,142 +30,221 @@ export struct SettingsScreen {
   }
 
   build() {
-    Column() {
-      // 标题
-      Text('⚙️ 游戏设置 ⚙️')
-        .fontSize(40)
-        .fontWeight(FontWeight.Bold)
-        .fontColor(this.provider.currentTheme.colors.textPrimary)
-        .margin({ top: 40, bottom: 30 })
-        .textShadow({ radius: 3, color: '#00000030', offsetX: 2, offsetY: 2 });
+    Stack() {
+      // 背景图片
+      Image($rawfile('images/background/设置页面.jpg'))
+        .width(360)
+        .height(792)
+        .objectFit(ImageFit.Cover);
 
-      // 设置选项列表
-      Column({ space: 20 }) {
-        // 背景音乐设置
-        this.SettingCard('🎵 背景音乐', () => {
-          this.bgmEnabled = !this.bgmEnabled;
-          audioManager.setBGMEnabled(this.bgmEnabled);
-          if (this.bgmEnabled) {
-            this.playBGMSafely();
-          }
-        }, this.bgmEnabled);
+      // 控制音量区域
+      Stack() {
+        // 背景音乐
+        Stack() {
+          Text('背景音乐')
+            .width(303)
+            .height(47)
+            .fontSize(40)
+            .fontWeight(400)
+            .lineHeight(44)
+            .fontColor('rgba(0, 0, 0, 0.9)')
+            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+            .textAlign(TextAlign.Start)
+            .position({ x: 0, y: 0 });
 
-        // 音效设置
-        this.SettingCard('🔊 游戏音效', () => {
-          this.soundEnabled = !this.soundEnabled;
-          audioManager.setSoundEnabled(this.soundEnabled);
-        }, this.soundEnabled);
+          // 音量条
+          this.VolumeBar(this.bgmVolume, 0, 56, (value: number) => {
+            this.bgmVolume = value;
+            audioManager.setBGMVolume(value);
+          });
+        }
+        .width(303)
+        .height(92)
+        .position({ x: 0, y: 0 });
 
-        // 触觉反馈设置
-        this.SettingCard('📳 震动反馈', () => {
-          this.hapticEnabled = !this.hapticEnabled;
-          HapticFeedbackUtils.setEnabled(this.hapticEnabled);
-          if (this.hapticEnabled) {
-            HapticFeedbackUtils.vibrate('light');
-          }
-        }, this.hapticEnabled);
+        // 游戏音效
+        Stack() {
+          Text('游戏音效')
+            .width(303)
+            .height(47)
+            .fontSize(40)
+            .fontWeight(400)
+            .lineHeight(44)
+            .fontColor('rgba(0, 0, 0, 0.9)')
+            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+            .textAlign(TextAlign.Start)
+            .position({ x: 0, y: 0 });
 
-        // 音量滑块
-        this.VolumeSlider('🎵 背景音乐音量', this.bgmVolume, (value: number) => {
-          this.bgmVolume = value;
-          audioManager.setBGMVolume(value);
-        });
-
-        this.VolumeSlider('🔊 音效音量', this.soundVolume, (value: number) => {
-          this.soundVolume = value;
-          audioManager.setSoundVolume(value);
-        });
+          // 音量条
+          this.VolumeBar(this.soundVolume, 0, 56, (value: number) => {
+            this.soundVolume = value;
+            audioManager.setSoundVolume(value);
+          });
+        }
+        .width(303)
+        .height(92)
+        .position({ x: 0, y: 115 });
       }
-      .width('90%')
-      .padding({ bottom: 40 });
+      .width(303)
+      .height(207)
+      .position({ x: 29, y: 57 });
 
-      // 返回按钮
-      Button('返回菜单')
-        .width('85%')
-        .height(55)
-        .fontSize(20)
-        .fontWeight(FontWeight.Medium)
-        .backgroundColor('#FF9800')
-        .borderRadius(15)
-        .shadow({ radius: 8, color: '#00000030', offsetX: 0, offsetY: 4 })
-        .margin({ top: 20, bottom: 30 })
-        .onClick(this.onBack);
+      // 选择小羊按钮
+      Stack() {
+        // 白色背景
+        Column()
+          .width(190)
+          .height(58)
+          .backgroundColor('rgba(255, 255, 255, 0.9)')
+          .borderRadius(29);
+
+        // 黑色边框矩形
+        Column()
+          .width(198)
+          .height(66)
+          .backgroundColor(Color.Transparent)
+          .borderRadius(33)
+          .border({ width: 2, color: Color.Black })
+          .position({ x: -4, y: -4 });
+
+        // 按钮文本
+        Text('选择小羊')
+          .width(124)
+          .height(34)
+          .fontSize(31)
+          .fontWeight(400)
+          .lineHeight(34)
+          .fontColor(Color.Black)
+          .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+          .textAlign(TextAlign.Center)
+          .position({ x: 33, y: 12 });
+      }
+      .width(190)
+      .height(58)
+      .position({ x: 85, y: 627 })
+      .onClick(this.onSelectCharacter);
+
+      // 底部导航栏
+      this.BottomNavBar();
     }
-    .width('100%')
-    .height('100%')
-    .backgroundImage(this.provider.currentTheme.assets.background)
-    .backgroundImageSize(ImageSize.Cover);
+    .width(360)
+    .height(792);
   }
 
-  @Builder
-  SettingCard(title: string, onToggle: () => void, isEnabled: boolean) {
-    Row() {
-      Text(title)
-        .fontSize(22)
-        .fontWeight(FontWeight.Medium)
-        .fontColor(this.provider.currentTheme.colors.textPrimary)
-        .layoutWeight(1);
+  // 音量条Builder
+  @Builder VolumeBar(value: number, x: number, y: number, onChange: (value: number) => void) {
+    Stack() {
+      // 背景条
+      Column()
+        .width(303)
+        .height(36)
+        .backgroundColor('rgba(190, 211, 238, 1)')
+        .borderRadius(4);
 
-      // 开关按钮
-      Button(isEnabled ? '开启' : '关闭')
-        .width(80)
+      // 边框
+      Column()
+        .width(307)
         .height(40)
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .backgroundColor(isEnabled ? 
-          this.provider.currentTheme.colors.primary : 
-          '#D0D0D0')
-        .fontColor('#FFFFFF')
-        .borderRadius(20)
-        .onClick(() => {
-          onToggle();
-        });
-    }
-    .width('100%')
-    .padding(20)
-    .backgroundColor(this.provider.currentTheme.colors.cardBg)
-    .borderRadius(15)
-    .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 });
-  }
+        .backgroundColor(Color.Transparent)
+        .borderRadius(6)
+        .border({ width: 2, color: Color.Black })
+        .position({ x: -2, y: -2 });
 
-  @Builder
-  VolumeSlider(title: string, value: number, onValueChange: (value: number) => void) {
-    Column({ space: 10 }) {
-      Row() {
-        Text(title)
-          .fontSize(20)
-          .fontWeight(FontWeight.Medium)
-          .fontColor(this.provider.currentTheme.colors.textPrimary);
-        
-        Blank();
-        
-        Text(`${Math.round(value * 100)}%`)
-          .fontSize(16)
-          .fontColor(this.provider.currentTheme.colors.textSecondary);
-      }
-      .width('100%');
+      // 进度条
+      Column()
+        .width(303 * value)
+        .height(36)
+        .backgroundColor('rgba(100, 150, 200, 1)')
+        .borderRadius(4);
 
+      // 百分比文字
+      Text(`${Math.round(value * 100)}%`)
+        .width(287)
+        .height(22)
+        .fontSize(20)
+        .fontWeight(400)
+        .lineHeight(22)
+        .fontColor('rgba(255, 255, 255, 0.9)')
+        .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+        .textAlign(TextAlign.Start)
+        .position({ x: 8, y: 7 });
+
+      // 透明的Slider用于交互
       Slider({
         value: value * 100,
         min: 0,
         max: 100,
-        step: 10,
+        step: 1,
         style: SliderStyle.OutSet
       })
-        .trackColor('#E0E0E0')
-        .selectedColor(this.provider.currentTheme.colors.primary)
-        .blockColor(this.provider.currentTheme.colors.primary)
-        .width('100%')
-        .onChange((value: number, mode: SliderChangeMode) => {
+        .width(303)
+        .height(36)
+        .backgroundColor(Color.Transparent)
+        .trackColor(Color.Transparent)
+        .selectedColor(Color.Transparent)
+        .blockColor(Color.Transparent)
+        .onChange((sliderValue: number, mode: SliderChangeMode) => {
           if (mode === SliderChangeMode.End || mode === SliderChangeMode.Moving) {
-            onValueChange(value / 100);
+            onChange(sliderValue / 100);
           }
         });
     }
-    .width('100%')
-    .padding(20)
-    .backgroundColor(this.provider.currentTheme.colors.cardBg)
-    .borderRadius(15)
-    .shadow({ radius: 8, color: '#00000020', offsetX: 0, offsetY: 4 });
+    .width(303)
+    .height(36)
+    .position({ x: x, y: y });
+  }
+
+  // 底部导航栏
+  @Builder BottomNavBar() {
+    Stack() {
+      // 导航容器
+      Stack() {
+        // 成就标签
+        this.NavTab('成就', 'images/icon/成就.png', 0, 0, 'achievements');
+
+        // 游戏标签
+        this.NavTab('游戏', 'images/icon/游戏.png', 119, 0, 'game');
+
+        // 设置标签
+        this.NavTab('设置', 'images/icon/设置.png', 238, 0, 'settings');
+      }
+      .width(350)
+      .height(47)
+      .position({ x: 5, y: 0 });
+    }
+    .width(360)
+    .height(47)
+    .position({ x: 0, y: 717 });
+  }
+
+  // 导航标签Builder
+  @Builder NavTab(text: string, icon: string, x: number, y: number, tab: string) {
+    Stack() {
+      // 图标
+      Image($rawfile(icon))
+        .width(24)
+        .height(24)
+        .objectFit(ImageFit.Contain)
+        .position({ x: 44, y: 0 });
+
+      // 文本
+      Text(text)
+        .width(112)
+        .height(16)
+        .fontSize(18)
+        .fontWeight(400)
+        .lineHeight(20)
+        .fontColor(tab === 'settings' ? this.provider.currentTheme.colors.primary : Color.Black)
+        .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+        .textAlign(TextAlign.Center)
+        .position({ x: 0, y: 30 });
+    }
+    .width(112)
+    .height(46)
+    .position({ x: x, y: y })
+    .onClick(() => {
+      this.currentNavTab = tab;
+      this.onNavigate(tab);
+    });
   }
 }
