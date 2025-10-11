@@ -8,8 +8,7 @@ const INVENTORY_KEY = 'player_inventory';
 
 class ItemService {
   private inventory: Item[] = [
-    new Item('magnifying_glass', '慢羊羊的放大镜', '探测一个格子是否安全', 3),
-    new Item('iron_fist', '沸羊羊的铁拳', '安全地砸开一个格子', 1)
+    new Item('magnifying_glass', '慢羊羊的放大镜', '探测一个格子是否安全', 3)
   ];
   private preferences: dataPreferences.Preferences | null = null;
 
@@ -63,7 +62,7 @@ class ItemService {
     return this.inventory;
   }
 
-  public useItem(itemId: 'magnifying_glass' | 'iron_fist'): boolean {
+  public useItem(itemId: 'magnifying_glass'): boolean {
     const item = this.inventory.find(i => i.id === itemId);
     if (item && item.quantity > 0) {
       item.quantity--;
@@ -71,6 +70,14 @@ class ItemService {
       return true; // Item was used successfully
     }
     return false; // Not enough items
+  }
+
+  // 重置道具数量为默认值
+  public async resetInventory(): Promise<void> {
+    this.inventory = [
+      new Item('magnifying_glass', '慢羊羊的放大镜', '探测一个格子是否安全', 3)
+    ];
+    await this.saveInventory();
   }
 
   // 清理资源

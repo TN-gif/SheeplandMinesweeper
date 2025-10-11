@@ -19,7 +19,6 @@ export interface ThemeAssets {
   flagIcon: Resource;     // 旗帜图标（捕狼夹）
   grassIcon: Resource;    // 草地图标
   landIcon: Resource;     // 土地图标
-  signIcon: Resource;     // 路牌图标
   background: Resource;   // 背景图片
 }
 
@@ -70,7 +69,6 @@ export const THEMES: Theme[] = [
       flagIcon: $rawfile('images/icon/捕兽夹.png'),
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
-      signIcon: $rawfile('images/icon/路牌.png'),
       background: $rawfile('images/background/喜羊羊.jpg'),
     },
     audio: {
@@ -99,7 +97,6 @@ export const THEMES: Theme[] = [
       flagIcon: $rawfile('images/icon/捕兽夹.png'),
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
-      signIcon: $rawfile('images/icon/路牌.png'),
       background: $rawfile('images/background/美羊羊.jpg'),
     },
     audio: {
@@ -128,7 +125,6 @@ export const THEMES: Theme[] = [
       flagIcon: $rawfile('images/icon/捕兽夹.png'),
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
-      signIcon: $rawfile('images/icon/路牌.png'),
       background: $rawfile('images/background/懒羊羊.jpg'),
     },
     audio: {
@@ -157,7 +153,6 @@ export const THEMES: Theme[] = [
       flagIcon: $rawfile('images/icon/捕兽夹.png'),
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
-      signIcon: $rawfile('images/icon/路牌.png'),
       background: $rawfile('images/background/沸羊羊.jpg'),
     },
     audio: {
@@ -186,7 +181,6 @@ export const THEMES: Theme[] = [
       flagIcon: $rawfile('images/icon/捕兽夹.png'),
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
-      signIcon: $rawfile('images/icon/路牌.png'),
       background: $rawfile('images/background/暖羊羊.jpg'),
     },
     audio: {
@@ -215,7 +209,6 @@ export const THEMES: Theme[] = [
       flagIcon: $rawfile('images/icon/捕兽夹.png'),
       grassIcon: $rawfile('images/icon/草地.png'),
       landIcon: $rawfile('images/icon/土地.png'),
-      signIcon: $rawfile('images/icon/路牌.png'),
       background: $rawfile('images/background/慢羊羊.jpg'),
     },
     audio: {

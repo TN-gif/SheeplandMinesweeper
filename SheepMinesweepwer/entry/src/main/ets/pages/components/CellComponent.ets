@@ -19,6 +19,7 @@ export struct CellComponent {
           .height('100%')
           .objectFit(ImageFit.Cover)
           .borderRadius(4)
+          .draggable(false)  // 关闭拖拽，避免阻止长按手势
           .onError(() => {
             console.error('Failed to load cell background image');
           });
@@ -29,6 +30,7 @@ export struct CellComponent {
           .height('100%')
           .objectFit(ImageFit.Cover)
           .borderRadius(4)
+          .draggable(false)  // 关闭拖拽，避免阻止长按手势
           .onError(() => {
             console.error('Failed to load cell background image');
           });
@@ -46,6 +48,7 @@ export struct CellComponent {
           .height('100%')
           .objectFit(ImageFit.Cover)
           .borderRadius(4)
+          .draggable(false)  // 关闭拖拽，避免阻止长按手势
           .onError(() => {
             console.error('Failed to load cell background image');
           });
@@ -59,6 +62,7 @@ export struct CellComponent {
             .width('70%')
             .height('70%')
             .objectFit(ImageFit.Contain)
+            .draggable(false)  // 关闭拖拽，避免阻止长按手势
             .onError(() => {
               console.error('Failed to load mine icon');
             });
@@ -76,6 +80,7 @@ export struct CellComponent {
           .width('60%')
           .height('60%')
           .objectFit(ImageFit.Contain)
+          .draggable(false)  // 关闭拖拽，避免阻止长按手势
           .onError(() => {
             console.error('Failed to load flag icon');
           });

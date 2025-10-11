@@ -25,6 +25,7 @@ struct Index {
   @State provider: ThemeProvider = themeProvider;
   @State previousGameState: GameState = 'menu';
   @State currentNavTab: string = 'game'; // 当前选中的导航标签：'achievements', 'game', 'settings'
+  @State magnifyingGlassCount: number = 3;  // 放大镜数量
   private context?: common.UIAbilityContext;
 
   aboutToAppear(): void {
@@ -59,6 +60,10 @@ struct Index {
       
       try {
         await itemService.init(this.context);
+        // 重置道具数量为默认值（修复本地存储中数量为0的问题）
+        await itemService.resetInventory();
+        // 初始化道具数量显示
+        this.refreshItemCount();
       } catch (error) {
         console.error('Failed to init ItemService:', error);
       }
@@ -68,6 +73,15 @@ struct Index {
       } catch (error) {
         console.error('Failed to play BGM:', error);
       }
+    }
+  }
+
+  // 刷新道具数量（每次都重新赋值以确保UI更新）
+  private refreshItemCount(): void {
+    const inventory = itemService.getInventory();
+    const magnifyingGlass = inventory.find(item => item.id === 'magnifying_glass');
+    if (magnifyingGlass) {
+      this.magnifyingGlassCount = magnifyingGlass.quantity;
     }
   }
 
@@ -427,8 +441,8 @@ struct Index {
           .objectFit(ImageFit.Contain)
           .position({ x: 17, y: 12 });
 
-        // 数量
-        Text('×3')
+        // 数量 - 动态绑定
+        Text(`×${this.magnifyingGlassCount}`)
           .width(32)
           .height(27)
           .fontSize(24)
@@ -474,7 +488,10 @@ struct Index {
       Column() {
         GameBoard({ 
           viewModel: this.viewModel,
-          provider: this.provider
+          provider: this.provider,
+          onAfterAction: () => {
+            this.refreshItemCount();
+          }
         });
       }
       .width(308)

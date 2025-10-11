@@ -24,7 +24,7 @@ export class GameViewModel {
   board: Cell[][] = [];
   gameOver: boolean = false;
   gameWon: boolean = false;
-  selectedItem: 'magnifying_glass' | 'iron_fist' | null = null;
+  selectedItem: 'magnifying_glass' | null = null;
   tempRevealedCell: Coordinate | null = null;
   
   // 计时器相关
@@ -93,7 +93,7 @@ export class GameViewModel {
     }
   }
 
-  selectItem(itemId: 'magnifying_glass' | 'iron_fist'): void {
+  selectItem(itemId: 'magnifying_glass'): void {
     if (this.selectedItem === itemId) {
       this.selectedItem = null;
     } else {
@@ -261,6 +261,11 @@ export class GameViewModel {
       return;
     }
 
+    if (!this.isValid(x, y) || this.gameOver) {
+      this.selectedItem = null;
+      return;
+    }
+
     const cell = this.board[x][y];
     
     if (cell.isRevealed) {
@@ -269,47 +274,40 @@ export class GameViewModel {
       return;
     }
 
-    // 保存道具类型，然后立即清空，避免递归调用
+    // 第一次点击时生成地雷（确保第一次点击安全）
+    if (this.isFirstClick) {
+      this.isFirstClick = false;
+      this.placeMines(x, y);
+      this.calculateAdjacentMines();
+      // 开始计时器
+      this.startTimer();
+    }
+
+    // 保存道具类型
     const itemType = this.selectedItem;
+    
+    // 尝试消耗道具
+    const itemUsed = itemService.useItem(itemType);
+    
+    if (!itemUsed) {
+      // 道具数量不足，无法使用
+      this.selectedItem = null;
+      return;
+    }
+
+    // 清空选中状态
     this.selectedItem = null;
 
-    switch (itemType) {
-      case 'magnifying_glass':
-        // 放大镜：临时显示格子状态1.5秒
-        cell.isRevealed = true;
-        this.tempRevealedCell = new Coordinate(x, y);
-        setTimeout(() => {
-          if (this.tempRevealedCell) {
-            this.board[this.tempRevealedCell.x][this.tempRevealedCell.y].isRevealed = false;
-            this.tempRevealedCell = null;
-          }
-        }, 1500);
-        audioManager.playSound('click');
-        break;
-
-      case 'iron_fist':
-        // 铁拳：强制安全翻开，移除地雷
-        if (cell.isMine) {
-          cell.isMine = false;
-          this.mineCount--;
-          this.recalculateAdjacentMinesAround(x, y);
-        }
-        this.revealCell(x, y, true);
-        audioManager.playSound('flag');
-        break;
-    }
-  }
-
-  private recalculateAdjacentMinesAround(x: number, y: number): void {
-    for (let i = -1; i <= 1; i++) {
-      for (let j = -1; j <= 1; j++) {
-        const newX = x + i;
-        const newY = y + j;
-        if (this.isValid(newX, newY)) {
-          this.calculateAdjacentMinesForCell(newX, newY);
-        }
+    // 放大镜：临时显示格子状态1.5秒
+    cell.isRevealed = true;
+    this.tempRevealedCell = new Coordinate(x, y);
+    setTimeout(() => {
+      if (this.tempRevealedCell) {
+        this.board[this.tempRevealedCell.x][this.tempRevealedCell.y].isRevealed = false;
+        this.tempRevealedCell = null;
       }
-    }
+    }, 1500);
+    audioManager.playSound('click');
   }
 
   private isValid(x: number, y: number): boolean {
@@ -359,6 +357,19 @@ export class GameViewModel {
     const minutes = Math.floor(this.elapsedTime / 60);
     const seconds = this.elapsedTime % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // 获取剩余地雷数量
+  getMinesRemaining(): number {
+    let flagCount = 0;
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
+        if (this.board[i][j].isFlagged) {
+          flagCount++;
+        }
+      }
+    }
+    return this.mineCount - flagCount;
   }
 
   // 清理资源

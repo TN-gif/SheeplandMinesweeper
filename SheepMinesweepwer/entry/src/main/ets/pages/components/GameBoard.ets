@@ -10,6 +10,7 @@ export struct GameBoard {
   @State boardScale: number = 1.0;
   @State boardOffsetX: number = 0;
   @State boardOffsetY: number = 0;
+  onAfterAction: () => void = () => {};  // 每次操作后的回调
   private panOption: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.All });
   
   // 固定格子大小（9x9模式下的标准大小）
@@ -35,9 +36,18 @@ export struct GameBoard {
               CellComponent({
                 cell: cell,
                 provider: this.provider,
-                onReveal: (x: number, y: number): void => this.viewModel.revealCell(x, y),
-                onFlag: (x: number, y: number): void => this.viewModel.flagCell(x, y),
-                onChord: (x: number, y: number): void => this.viewModel.chordCell(x, y)
+                onReveal: (x: number, y: number): void => {
+                  this.viewModel.revealCell(x, y);
+                  this.onAfterAction();
+                },
+                onFlag: (x: number, y: number): void => {
+                  this.viewModel.flagCell(x, y);
+                  this.onAfterAction();
+                },
+                onChord: (x: number, y: number): void => {
+                  this.viewModel.chordCell(x, y);
+                  this.onAfterAction();
+                }
               });
             }
             .width(this.CELL_SIZE)
