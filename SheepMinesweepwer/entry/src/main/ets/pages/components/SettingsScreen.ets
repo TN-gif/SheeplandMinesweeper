@@ -17,8 +17,10 @@ export struct SettingsScreen {
   onSelectCharacter: () => void = () => {};
 
   aboutToAppear(): void {
-    this.bgmVolume = 0.27;
-    this.soundVolume = 0.27;
+    // ✅ 从 audioManager 读取实际音量值，确保显示同步
+    this.bgmVolume = audioManager.getBGMVolume();
+    this.soundVolume = audioManager.getSoundVolume();
+    console.log(`[SETTINGS] 加载音量设置: BGM=${this.bgmVolume}, Sound=${this.soundVolume}`);
   }
 
   private async playBGMSafely(): Promise<void> {
@@ -52,11 +54,67 @@ export struct SettingsScreen {
             .textAlign(TextAlign.Start)
             .position({ x: 0, y: 0 });
 
-          // 音量条
-          this.VolumeBar(this.bgmVolume, 0, 56, (value: number) => {
-            this.bgmVolume = value;
-            audioManager.setBGMVolume(value);
-          });
+          // 背景音乐音量条（直接内联）
+          Stack() {
+            // 背景条
+            Column()
+              .width(303)
+              .height(36)
+              .backgroundColor('rgba(190, 211, 238, 1)')
+              .borderRadius(4);
+
+            // 边框
+            Column()
+              .width(307)
+              .height(40)
+              .backgroundColor(Color.Transparent)
+              .borderRadius(6)
+              .border({ width: 2, color: Color.Black })
+              .position({ x: -2, y: -2 });
+
+            // 进度条（响应式宽度）
+            Column()
+              .width(303 * this.bgmVolume)
+              .height(36)
+              .backgroundColor('rgba(100, 150, 200, 1)')
+              .borderRadius(4)
+              .position({ x: 0, y: 0 });
+
+            // 百分比文字
+            Text(`${Math.round(this.bgmVolume * 100)}%`)
+              .width(303)
+              .height(36)
+              .fontSize(20)
+              .fontWeight(400)
+              .lineHeight(22)
+              .fontColor(Color.Black)
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+              .textAlign(TextAlign.Center)
+              .padding({ top: 7 });
+
+            // Slider（放在最上层）
+            Slider({
+              value: this.bgmVolume * 100,
+              min: 0,
+              max: 100,
+              step: 1,
+              style: SliderStyle.OutSet
+            })
+              .width(303)
+              .height(36)
+              .trackColor(Color.Transparent)
+              .selectedColor(Color.Transparent)
+              .blockColor('rgba(100, 150, 200, 0.5)') // 半透明滑块，便于定位
+              .showTips(false)
+              .onChange((sliderValue: number, mode: SliderChangeMode) => {
+                console.log(`[VOLUME_BGM] 音量变化: ${sliderValue}%, 模式: ${mode}`);
+                this.bgmVolume = sliderValue / 100;
+                audioManager.setBGMVolume(this.bgmVolume);
+              });
+          }
+          .width(303)
+          .height(36)
+          .position({ x: 0, y: 56 });
         }
         .width(303)
         .height(92)
@@ -75,11 +133,67 @@ export struct SettingsScreen {
             .textAlign(TextAlign.Start)
             .position({ x: 0, y: 0 });
 
-          // 音量条
-          this.VolumeBar(this.soundVolume, 0, 56, (value: number) => {
-            this.soundVolume = value;
-            audioManager.setSoundVolume(value);
-          });
+          // 游戏音效音量条（直接内联）
+          Stack() {
+            // 背景条
+            Column()
+              .width(303)
+              .height(36)
+              .backgroundColor('rgba(190, 211, 238, 1)')
+              .borderRadius(4);
+
+            // 边框
+            Column()
+              .width(307)
+              .height(40)
+              .backgroundColor(Color.Transparent)
+              .borderRadius(6)
+              .border({ width: 2, color: Color.Black })
+              .position({ x: -2, y: -2 });
+
+            // 进度条（响应式宽度）
+            Column()
+              .width(303 * this.soundVolume)
+              .height(36)
+              .backgroundColor('rgba(100, 150, 200, 1)')
+              .borderRadius(4)
+              .position({ x: 0, y: 0 });
+
+            // 百分比文字
+            Text(`${Math.round(this.soundVolume * 100)}%`)
+              .width(303)
+              .height(36)
+              .fontSize(20)
+              .fontWeight(400)
+              .lineHeight(22)
+              .fontColor(Color.Black)
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+              .textAlign(TextAlign.Center)
+              .padding({ top: 7 });
+
+            // Slider（放在最上层）
+            Slider({
+              value: this.soundVolume * 100,
+              min: 0,
+              max: 100,
+              step: 1,
+              style: SliderStyle.OutSet
+            })
+              .width(303)
+              .height(36)
+              .trackColor(Color.Transparent)
+              .selectedColor(Color.Transparent)
+              .blockColor('rgba(100, 150, 200, 0.5)') // 半透明滑块，便于定位
+              .showTips(false)
+              .onChange((sliderValue: number, mode: SliderChangeMode) => {
+                console.log(`[VOLUME_SOUND] 音量变化: ${sliderValue}%, 模式: ${mode}`);
+                this.soundVolume = sliderValue / 100;
+                audioManager.setSoundVolume(this.soundVolume);
+              });
+          }
+          .width(303)
+          .height(36)
+          .position({ x: 0, y: 56 });
         }
         .width(303)
         .height(92)
@@ -131,69 +245,7 @@ export struct SettingsScreen {
     .height(792);
   }
 
-  // 音量条Builder
-  @Builder VolumeBar(value: number, x: number, y: number, onChange: (value: number) => void) {
-    Stack() {
-      // 背景条
-      Column()
-        .width(303)
-        .height(36)
-        .backgroundColor('rgba(190, 211, 238, 1)')
-        .borderRadius(4);
-
-      // 边框
-      Column()
-        .width(307)
-        .height(40)
-        .backgroundColor(Color.Transparent)
-        .borderRadius(6)
-        .border({ width: 2, color: Color.Black })
-        .position({ x: -2, y: -2 });
-
-      // 进度条（左对齐，响应式宽度）
-      Column()
-        .width(303 * value)
-        .height(36)
-        .backgroundColor('rgba(100, 150, 200, 1)')
-        .borderRadius(4)
-        .position({ x: 0, y: 0 });
-
-      // 百分比文字（黑色，居中）
-      Text(`${Math.round(value * 100)}%`)
-        .width(303)
-        .height(36)
-        .fontSize(20)
-        .fontWeight(400)
-        .lineHeight(22)
-        .fontColor(Color.Black)
-        .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
-        .textAlign(TextAlign.Center)
-        .padding({ top: 7 });
-
-      // 透明的Slider用于交互
-      Slider({
-        value: value * 100,
-        min: 0,
-        max: 100,
-        step: 1,
-        style: SliderStyle.OutSet
-      })
-        .width(303)
-        .height(36)
-        .backgroundColor(Color.Transparent)
-        .trackColor(Color.Transparent)
-        .selectedColor(Color.Transparent)
-        .blockColor(Color.Transparent)
-        .onChange((sliderValue: number, mode: SliderChangeMode) => {
-          if (mode === SliderChangeMode.End || mode === SliderChangeMode.Moving) {
-            onChange(sliderValue / 100);
-          }
-        });
-    }
-    .width(303)
-    .height(36)
-    .position({ x: x, y: y });
-  }
+  // 注：原VolumeBar Builder已废弃，改为直接内联以支持响应式状态更新
 
   // 底部导航栏
   @Builder BottomNavBar() {

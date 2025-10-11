@@ -23,10 +23,25 @@ export struct AchievementsScreen {
         .height(792)
         .objectFit(ImageFit.Cover);
 
-      // 动态渲染成就列表
-      ForEach(this.achievements, (achievement: Achievement, index: number) => {
-        this.AchievementCard(index, achievement.name, achievement.description, 35, 68 + index * 147);
-      });
+      // 可滚动的成就列表容器
+      Scroll() {
+        Column({ space: 32 }) {
+          // 动态渲染成就列表
+          ForEach(this.achievements, (achievement: Achievement, index: number) => {
+            this.AchievementCard(index, achievement.name, achievement.description);
+          });
+        }
+        .width(360)
+        .padding({ left: 35, right: 35, top: 20, bottom: 20 });
+      }
+      .scrollable(ScrollDirection.Vertical)
+      .scrollBar(BarState.Auto)
+      .scrollBarColor('#888888')
+      .scrollBarWidth(4)
+      .edgeEffect(EdgeEffect.Spring)
+      .width(360)
+      .height(649) // 从顶部到底部导航栏之间的高度 (792 - 47导航栏 - 96顶部留空)
+      .position({ x: 0, y: 68 });
 
       // 底部导航栏
       this.BottomNavBar();
@@ -36,7 +51,7 @@ export struct AchievementsScreen {
   }
 
   // 成就卡片Builder
-  @Builder AchievementCard(index: number, title: string, description: string, x: number, y: number) {
+  @Builder AchievementCard(index: number, title: string, description: string) {
     // 在@Builder中不能使用const声明，需要直接访问数组
     if (index < this.achievements.length) {
       Stack() {
@@ -78,8 +93,7 @@ export struct AchievementsScreen {
         .position({ x: 24, y: 20 });
       }
       .width(291)
-      .height(115)
-      .position({ x: x, y: y });
+      .height(115);
     }
   }
 

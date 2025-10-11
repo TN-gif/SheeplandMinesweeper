@@ -36,6 +36,12 @@ struct Index {
     }
     
     this.initializeServices();
+    
+    // 在选择小羊界面播放主页面背景音乐
+    if (this.gameState === 'character_select') {
+      console.log('[INIT] 选择小羊界面，开始播放主页面BGM');
+      this.playMainBGM();
+    }
   }
 
   aboutToDisappear(): void {
@@ -44,7 +50,12 @@ struct Index {
 
   private async initializeServices(): Promise<void> {
     if (this.context) {
-      audioManager.setContext(this.context);
+      console.log('[INIT] 开始初始化音频服务');
+      // ✅ 等待音频管理器初始化完成（包括加载保存的音量设置）
+      await audioManager.setContext(this.context);
+      
+      // 检测音频设备（简化版）
+      audioManager.checkAudioDevices();
       
       try {
         await achievementService.init(this.context);
@@ -69,9 +80,11 @@ struct Index {
       }
       
       try {
+        console.log('[INIT] 尝试播放BGM');
         await audioManager.playBGM(this.provider.currentTheme.audio.bgm);
+        console.log('[INIT] BGM播放指令完成');
       } catch (error) {
-        console.error('Failed to play BGM:', error);
+        console.error('[INIT] BGM播放失败:', error);
       }
     }
   }
@@ -102,6 +115,26 @@ struct Index {
       await audioManager.playBGM(this.provider.currentTheme.audio.bgm);
     } catch (error) {
       console.error('Failed to play theme music:', error);
+    }
+  }
+
+  // 播放主页面背景音乐
+  private async playMainBGM(): Promise<void> {
+    try {
+      console.log('[BGM] 切换到主页面背景音乐');
+      await audioManager.playBGM('music/Background/主页面背景音乐.mp3');
+    } catch (error) {
+      console.error('[BGM] 播放主页面BGM失败:', error);
+    }
+  }
+
+  // 播放游戏页面背景音乐
+  private async playGameBGM(): Promise<void> {
+    try {
+      console.log('[BGM] 切换到游戏页面背景音乐');
+      await audioManager.playBGM('music/Background/游戏页面背景音乐.mp3');
+    } catch (error) {
+      console.error('[BGM] 播放游戏页面BGM失败:', error);
     }
   }
 
@@ -360,7 +393,9 @@ struct Index {
         if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
           adventureService.completeStage();
         }
+        // 点击返回按钮，切换回主页面BGM
         this.gameState = this.previousGameState;
+        this.playMainBGM();
       });
 
       // 地雷剩余数量卡片
@@ -501,9 +536,104 @@ struct Index {
 
       // 底部导航栏
       this.GameNavBar();
+
+      // 游戏结束弹窗
+      if (this.viewModel.gameOver) {
+        this.GameOverDialog();
+      }
     }
     .width(360)
     .height(792);
+  }
+
+  // 游戏结束弹窗
+  @Builder GameOverDialog() {
+    // 半透明背景遮罩
+    Stack() {
+      Column()
+        .width(360)
+        .height(792)
+        .backgroundColor('rgba(0, 0, 0, 0.5)');
+
+      // 弹窗内容 - 参考白色按钮设计
+      Stack() {
+        // 白色背景
+        Column()
+          .width(280)
+          .height(180)
+          .backgroundColor(Color.White)
+          .borderRadius(31);
+
+        // 黑色边框
+        Column()
+          .width(288)
+          .height(188)
+          .backgroundColor(Color.Transparent)
+          .borderRadius(35)
+          .border({ width: 2, color: Color.Black })
+          .position({ x: -4, y: -4 });
+
+        // 文字内容
+        Column({ space: 20 }) {
+          // 消息文本
+          Text(this.viewModel.gameWon ? '我一会再回来的！' : '没关系，你是最棒的小羊！')
+            .fontSize(28)
+            .fontWeight(400)
+            .fontColor(Color.Black)
+            .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+            .textAlign(TextAlign.Center)
+            .width('100%')
+            .lineHeight(40);
+
+          // 确定按钮
+          Stack() {
+            // 白色背景
+            Column()
+              .width(120)
+              .height(52)
+              .backgroundColor(Color.White)
+              .borderRadius(26);
+
+            // 黑色边框
+            Column()
+              .width(128)
+              .height(60)
+              .backgroundColor(Color.Transparent)
+              .borderRadius(30)
+              .border({ width: 2, color: Color.Black })
+              .position({ x: -4, y: -4 });
+
+            // 按钮文本
+            Text('确定')
+              .fontSize(24)
+              .fontWeight(400)
+              .fontColor(Color.Black)
+              .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
+              .textAlign(TextAlign.Center);
+          }
+          .width(120)
+          .height(52)
+          .onClick(() => {
+            // 如果是冒险模式且游戏胜利，完成关卡
+            if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
+              adventureService.completeStage();
+            }
+            // 返回上一级菜单，切换回主页面BGM
+            this.gameState = this.previousGameState;
+            this.playMainBGM();
+          });
+        }
+        .width(240)
+        .justifyContent(FlexAlign.Center)
+        .alignItems(HorizontalAlign.Center);
+      }
+      .width(280)
+      .height(180)
+      .position({ x: 40, y: 306 });
+    }
+    .width(360)
+    .height(792)
+    .position({ x: 0, y: 0 });
   }
 
   // 游戏页面底部导航栏
@@ -573,7 +703,8 @@ struct Index {
           provider: this.provider,
           onConfirm: (themeId: string) => {
             this.provider.setTheme(themeId);
-            this.playThemeMusic();
+            // 确认后回到主界面，播放主页面BGM
+            this.playMainBGM();
             this.gameState = 'menu';
             this.currentNavTab = 'game';
           },
@@ -596,6 +727,8 @@ struct Index {
             this.viewModel = new GameViewModel(level, this.context);
             this.previousGameState = 'adventure_map';
             this.gameState = 'adventure_game';
+            // 进入冒险游戏，播放游戏页面BGM
+            this.playGameBGM();
           },
           onNavigate: (tab: string) => {
             if (tab === 'achievements') {
@@ -662,6 +795,8 @@ struct Index {
             this.viewModel = new GameViewModel(level, this.context);
             this.previousGameState = 'challenge_select';
             this.gameState = 'challenge_game';
+            // 进入挑战游戏，播放游戏页面BGM
+            this.playGameBGM();
           },
           onBack: () => {
             this.gameState = 'menu';

@@ -71,8 +71,12 @@ export default class EntryAbility extends UIAbility {
           err.code, err.message);
       }
       
-      // 在 loadContent 回调中注册字体（使用新的API）
-      this.registerCustomFont();
+      // 在 loadContent 回调中注册字体
+      this.registerCustomFont().then(() => {
+        hilog.info(DOMAIN, 'testTag', '字体注册流程完成');
+      }).catch(() => {
+        hilog.error(DOMAIN, 'testTag', '字体注册流程失败');
+      });
       
       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
     });
@@ -95,7 +99,7 @@ export default class EntryAbility extends UIAbility {
 
   private async registerCustomFont(): Promise<void> {
     try {
-      // 使用新的异步API注册字体
+      // 使用标准 API 注册字体
       await font.registerFont({
         familyName: FontManager.CUSTOM_FONT_FAMILY,
         familySrc: $rawfile(FontManager.CUSTOM_FONT_PATH)
