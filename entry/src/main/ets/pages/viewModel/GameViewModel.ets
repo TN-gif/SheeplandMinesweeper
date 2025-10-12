@@ -64,6 +64,9 @@ export class GameViewModel {
   /** 是否获胜 */
   gameWon: boolean = false;
   
+  /** 是否显示游戏结束弹窗（延迟显示，给玩家时间查看地雷） */
+  showGameOverDialog: boolean = false;
+  
   /** 当前选中的道具ID */
   selectedItem: 'magnifying_glass' | null = null;
   
@@ -113,6 +116,7 @@ export class GameViewModel {
     this.board = [];
     this.gameOver = false;
     this.gameWon = false;
+    this.showGameOverDialog = false;
     this.elapsedTime = 0;
     this.startTime = 0;
     this.isFirstClick = true;
@@ -272,6 +276,10 @@ export class GameViewModel {
       this.revealAllMines();
       // 播放失败音效
       audioManager.playSound('lose');
+      // 延迟2秒显示弹窗，让玩家有时间查看地雷分布
+      setTimeout(() => {
+        this.showGameOverDialog = true;
+      }, 2000);
       return;
     }
 
@@ -297,15 +305,20 @@ export class GameViewModel {
   /**
    * 翻开所有地雷格子
    * 
-   * 游戏失败时调用，显示所有地雷位置并添加震动动画。
+   * 游戏结束时调用，显示所有地雷位置。
+   * 失败时添加震动动画，成功时不震动。
+   * 
+   * @param {boolean} [withShake=true] - 是否添加震动效果（默认true用于失败情况）
    */
-  private revealAllMines(): void {
+  private revealAllMines(withShake: boolean = true): void {
     for (let i: number = 0; i < this.rows; i++) {
       for (let j: number = 0; j < this.cols; j++) {
         const cell: Cell = this.board[i][j];
         if (cell.isMine) {
           cell.isRevealed = true;
-          cell.shake = true;
+          if (withShake) {
+            cell.shake = true;
+          }
         }
       }
     }
@@ -333,9 +346,15 @@ export class GameViewModel {
       this.gameOver = true;
       this.gameWon = true;
       this.stopTimer();
+      // 显示所有地雷位置，让玩家查看（成功时不震动）
+      this.revealAllMines(false);
       // 播放胜利音效和记录成就
       audioManager.playSound('win');
       achievementService.recordGameWin(this.elapsedTime, true);
+      // 延迟2秒显示弹窗，让玩家有时间查看地雷分布
+      setTimeout(() => {
+        this.showGameOverDialog = true;
+      }, 2000);
     }
   }
 
@@ -590,5 +609,6 @@ export class GameViewModel {
     this.stopTimer();
     this.selectedItem = null;
     this.tempRevealedCell = null;
+    this.showGameOverDialog = false;
   }
 }

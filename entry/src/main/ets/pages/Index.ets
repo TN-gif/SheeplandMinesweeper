@@ -670,8 +670,8 @@ struct Index {
       // 游戏界面的底部导航栏
       this.GameNavBar();
 
-      // 游戏结束弹窗：显示胜利或失败消息
-      if (this.viewModel.gameOver) {
+      // 游戏结束弹窗：显示胜利或失败消息（延迟显示，给玩家时间查看地雷）
+      if (this.viewModel.showGameOverDialog) {
         this.GameOverDialog();
       }
     }
