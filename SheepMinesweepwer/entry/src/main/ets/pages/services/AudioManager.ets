@@ -1,6 +1,17 @@
 /**
- * 音频管理器
- * 负责播放背景音乐和音效
+ * 音频管理器（单例模式）
+ * 
+ * 统一管理应用中的所有音频播放，包括：
+ * - 背景音乐（BGM）的播放、切换和循环
+ * - 音效（点击、插旗、胜利、失败）的播放
+ * - 音量控制和持久化存储
+ * - 资源的正确加载和释放
+ * 
+ * 设计要点：
+ * - 使用单例模式确保全局唯一的音频管理器
+ * - BGM支持无缝切换和循环播放
+ * - 音量设置会自动保存到本地，下次启动时恢复
+ * - 正确处理AVPlayer状态机，避免状态错误
  */
 import media from '@ohos.multimedia.media';
 import common from '@ohos.app.ability.common';
@@ -10,20 +21,47 @@ import preferences from '@ohos.data.preferences';
 
 export class AudioManager {
   private static instance: AudioManager;
+  
+  /** BGM播放器实例 */
   private bgmPlayer: media.AVPlayer | null = null;
+  
+  /** 音效播放器实例 */
   private soundPlayer: media.AVPlayer | null = null;
-  private bgmVolume: number = 0.27; // 默认27%
-  private soundVolume: number = 0.27; // 默认27%
+  
+  /** BGM音量（0.0-1.0），默认27% */
+  private bgmVolume: number = 0.27;
+  
+  /** 音效音量（0.0-1.0），默认27% */
+  private soundVolume: number = 0.27;
+  
+  /** BGM是否启用 */
   private bgmEnabled: boolean = true;
+  
+  /** 音效是否启用 */
   private soundEnabled: boolean = true;
+  
+  /** 应用上下文，用于访问资源管理器 */
   private context?: common.UIAbilityContext;
+  
+  /** 当前BGM的文件描述符引用 */
   private currentBGMFd: resourceManager.RawFileDescriptor | null = null;
+  
+  /** 当前音效的文件描述符引用 */
   private currentSoundFd: resourceManager.RawFileDescriptor | null = null;
-  private currentBGMPath: string = ''; // 跟踪当前播放的BGM路径
-  private preferencesStore: preferences.Preferences | null = null; // 数据持久化存储
+  
+  /** 当前正在播放的BGM路径，用于避免重复播放 */
+  private currentBGMPath: string = '';
+  
+  /** 数据持久化存储实例，用于保存音量设置 */
+  private preferencesStore: preferences.Preferences | null = null;
 
   private constructor() {}
 
+  /**
+   * 获取AudioManager的单例实例
+   * 
+   * @returns {AudioManager} 音频管理器实例
+   */
   static getInstance(): AudioManager {
     if (!AudioManager.instance) {
       AudioManager.instance = new AudioManager();
@@ -32,16 +70,25 @@ export class AudioManager {
   }
 
   /**
-   * 设置Context（必须在使用前调用）
+   * 设置应用上下文并初始化音频系统
+   * 
+   * 必须在使用音频功能前调用此方法。
+   * 会自动加载上次保存的音量设置。
+   * 
+   * @param {common.UIAbilityContext} context - 应用上下文
+   * @returns {Promise<void>} 初始化完成的Promise
    */
   async setContext(context: common.UIAbilityContext): Promise<void> {
     this.context = context;
-    // 初始化数据持久化存储
+    // 初始化数据持久化存储，加载上次保存的音量设置
     await this.initPreferences();
   }
 
   /**
-   * 初始化数据持久化
+   * 初始化数据持久化存储
+   * 
+   * 创建preferences实例并加载保存的音量设置。
+   * 如果是首次启动，会使用默认音量值。
    */
   private async initPreferences(): Promise<void> {
     try {
@@ -62,7 +109,11 @@ export class AudioManager {
   }
 
   /**
-   * 加载保存的音量设置
+   * 从本地存储加载音量设置
+   * 
+   * 读取上次保存的BGM和音效音量值。
+   * 如果没有保存的值，使用默认值0.27。
+   * 音量值会被限制在0.0-1.0范围内。
    */
   private async loadVolumeSettings(): Promise<void> {
     try {
@@ -86,7 +137,10 @@ export class AudioManager {
   }
 
   /**
-   * 保存音量设置到持久化存储
+   * 保存音量设置到本地存储
+   * 
+   * 将当前的BGM和音效音量持久化到磁盘。
+   * 确保用户的音量偏好在应用重启后保持。
    */
   private async saveVolumeSettings(): Promise<void> {
     try {
@@ -122,16 +176,34 @@ export class AudioManager {
   }
 
   /**
-   * 检测音频设备（简化版）
+   * 检测音频设备可用性
+   * 
+   * 简化实现，仅输出日志。
+   * 原因：避免使用可能不稳定的设备检测API，依赖系统自动处理。
    */
   checkAudioDevices(): void {
-    // 简化：仅输出日志，不实际检测设备
-    // 避免使用可能不存在的 API
     console.log('[AUDIO_DEBUG] 音频系统初始化中...');
   }
 
   /**
    * 播放背景音乐
+   * 
+   * 智能切换BGM，避免重复播放相同音乐。
+   * 支持循环播放和音量控制。
+   * 
+   * 技术要点：
+   * - 使用AVPlayer状态机正确处理异步状态变化
+   * - 在initialized状态调用prepare()
+   * - 在prepared状态设置循环和开始播放
+   * - 使用文件描述符方式加载rawfile资源
+   * 
+   * @param {string} resourcePath - 音乐文件在rawfile中的相对路径
+   * @returns {Promise<void>} 播放操作完成的Promise
+   * 
+   * @example
+   * ```
+   * await audioManager.playBGM('music/Background/主页面背景音乐.mp3');
+   * ```
    */
   async playBGM(resourcePath: string): Promise<void> {
     if (!this.bgmEnabled || !this.context) {
@@ -252,10 +324,10 @@ export class AudioManager {
       console.log('[BGM_DEBUG] fdSrc已设置，触发状态变化到initialized...');
       console.log('[BGM_DEBUG] 等待状态机自动处理 initialized → prepared → playing');
       
-      // ❌ 不要在这里调用 prepare()！
-      // AVPlayer 状态变化是异步的，必须在 stateChange 的 'initialized' 事件中调用
-      // prepare() 已移至 stateChange 的 'initialized' 分支
-      // loop 设置已移至 'prepared' 分支
+      // 注意：不要在这里调用 prepare()
+      // 原因：AVPlayer状态变化是异步的，必须在stateChange的'initialized'事件中调用
+      // prepare()已移至stateChange的'initialized'分支
+      // loop设置已移至'prepared'分支
     } catch (err) {
       let error = err as Error;
       console.error(`[BGM_DEBUG] 播放BGM失败: ${error.message}`, error);
@@ -264,6 +336,17 @@ export class AudioManager {
 
   /**
    * 播放音效
+   * 
+   * 播放短音效（点击、插旗、胜利、失败）。
+   * 每次播放会创建新的播放器实例，支持快速连续播放。
+   * 
+   * @param {string} soundType - 音效类型：'click' | 'flag' | 'win' | 'lose'
+   * @returns {Promise<void>} 播放操作完成的Promise
+   * 
+   * @example
+   * ```
+   * await audioManager.playSound('click'); // 播放点击音效
+   * ```
    */
   async playSound(soundType: 'click' | 'flag' | 'win' | 'lose'): Promise<void> {
     if (!this.soundEnabled || !this.context) {
@@ -377,7 +460,7 @@ export class AudioManager {
       };
       console.log('[SOUND_DEBUG] fdSrc已设置，触发状态变化到initialized...');
       console.log('[SOUND_DEBUG] 等待状态机自动处理 initialized → prepared → playing');
-      // ❌ 不要在这里调用 prepare()！由 stateChange 监听器自动处理
+      // 注意：不要在这里调用prepare()，由stateChange监听器自动处理
     } catch (err) {
       let error = err as Error;
       console.error(`[SOUND_DEBUG] 播放音效失败: ${error.message}`, error);
@@ -385,7 +468,12 @@ export class AudioManager {
   }
 
   /**
-   * 停止BGM
+   * 停止背景音乐
+   * 
+   * 安全地停止并释放BGM播放器。
+   * 会根据播放器状态选择合适的停止方式。
+   * 
+   * @returns {Promise<void>} 停止操作完成的Promise
    */
   async stopBGM(): Promise<void> {
     if (this.bgmPlayer) {
@@ -409,13 +497,18 @@ export class AudioManager {
 
   /**
    * 设置BGM音量
+   * 
+   * 动态调整背景音乐音量，立即生效并保存到本地。
+   * 音量值会被限制在0.0-1.0范围内。
+   * 
+   * @param {number} volume - 音量值（0.0-1.0）
    */
   setBGMVolume(volume: number): void {
-    // 限制音量范围在 0.0-1.0 之间
+    // 限制音量范围在0.0-1.0之间
     this.bgmVolume = Math.max(0, Math.min(1, volume));
     console.log(`[VOLUME] 设置BGM音量: ${this.bgmVolume}`);
     
-    // ✅ 实际应用到AVPlayer（使用setVolume方法）
+    // 如果BGM正在播放，立即应用新音量
     if (this.bgmPlayer) {
       try {
         this.bgmPlayer.setVolume(this.bgmVolume);
@@ -427,19 +520,23 @@ export class AudioManager {
       console.warn(`[VOLUME] BGM播放器未初始化，音量将在下次播放时应用`);
     }
     
-    // ✅ 保存到持久化存储
+    // 保存到本地存储，下次启动时恢复
     this.saveVolumeSettings();
   }
 
   /**
    * 设置音效音量
+   * 
+   * 动态调整音效音量，立即生效并保存到本地。
+   * 音量值会被限制在0.0-1.0范围内。
+   * 
+   * @param {number} volume - 音量值（0.0-1.0）
    */
   setSoundVolume(volume: number): void {
-    // 限制音量范围在 0.0-1.0 之间
+    // 限制音量范围在0.0-1.0之间
     this.soundVolume = Math.max(0, Math.min(1, volume));
     console.log(`[VOLUME] 设置音效音量: ${this.soundVolume}`);
     
-    // ✅ 实际应用到AVPlayer（使用setVolume方法）
     // 音效播放器在每次播放时创建，所以这里保存值即可，创建时会应用
     if (this.soundPlayer) {
       try {
@@ -450,23 +547,27 @@ export class AudioManager {
       }
     }
     
-    // ✅ 保存到持久化存储
+    // 保存到本地存储，下次启动时恢复
     this.saveVolumeSettings();
   }
 
   /**
-   * 启用/禁用BGM
+   * 启用或禁用BGM播放
+   * 
+   * @param {boolean} enabled - true=启用，false=禁用
    */
   setBGMEnabled(enabled: boolean): void {
     this.bgmEnabled = enabled;
     if (!enabled) {
-      // 调用异步停止BGM方法（错误已在方法内部处理）
+      // 禁用时立即停止BGM播放
       this.stopBGMAsync();
     }
   }
 
   /**
-   * 异步停止BGM（用于避免Promise.catch的unknown类型问题）
+   * 异步停止BGM的包装方法
+   * 
+   * 用于在同步方法中安全调用异步停止操作。
    */
   private async stopBGMAsync(): Promise<void> {
     try {
@@ -477,14 +578,21 @@ export class AudioManager {
   }
 
   /**
-   * 启用/禁用音效
+   * 启用或禁用音效播放
+   * 
+   * @param {boolean} enabled - true=启用，false=禁用
    */
   setSoundEnabled(enabled: boolean): void {
     this.soundEnabled = enabled;
   }
 
   /**
-   * 释放资源
+   * 释放所有音频资源
+   * 
+   * 停止并释放BGM和音效播放器。
+   * 应在应用退出时调用以避免资源泄漏。
+   * 
+   * @returns {Promise<void>} 释放操作完成的Promise
    */
   async release(): Promise<void> {
     try {
