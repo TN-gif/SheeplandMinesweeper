@@ -89,7 +89,7 @@ export struct AdventureMapScreen {
           // 直接调用，位置通过三元运算符计算
           this.StageCard(
             index,
-            `${index + 1}、${this.getStageName(stage)}`,
+            `${index + 1}.${this.getStageName(stage)}`,
             index === 0 ? 0 : (index === 1 ? 94 : 17),
             index === 0 ? 0 : (index === 1 ? 129 : 257)
           );
@@ -143,15 +143,15 @@ export struct AdventureMapScreen {
           .borderRadius(15);
 
         Text(title)
-          .width(196)
+          .width(224)
           .height(40)
           .fontSize(36)
           .fontWeight(400)
           .lineHeight(40)
           .fontColor(index <= this.currentStageIndex ? Color.Black : '#888888')
           .fontFamily(`${FontManager.getFontFamily()}, ${FontManager.getFallbackFont()}`)
-          .textAlign(TextAlign.Start)
-          .position({ x: 16, y: 13 });
+          .textAlign(TextAlign.Center)
+          .position({ x: 0, y: 13 });
       }
       .width(224)
       .height(65)

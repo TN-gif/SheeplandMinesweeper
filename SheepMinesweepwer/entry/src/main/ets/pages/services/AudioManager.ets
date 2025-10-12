@@ -307,7 +307,7 @@ export class AudioManager {
           soundPath = 'music/Sound_Effects/欢呼声.mp3';
           break;
         case 'lose':
-          soundPath = 'music/Sound_Effects/羊叫声.mp3';
+          soundPath = 'music/Sound_Effects/游戏失败.mp3';
           break;
       }
       

@@ -4,6 +4,7 @@ import { adventureService } from '../services/AdventureService';
 import { itemService } from '../services/ItemService';
 import { achievementService } from '../services/AchievementService';
 import { audioManager } from '../services/AudioManager';
+import { Solver } from '../utils/Solver';
 import common from '@ohos.app.ability.common';
 
 class Coordinate {
@@ -69,19 +70,56 @@ export class GameViewModel {
     }
   }
 
+  /**
+   * 生成地雷布局（带可解性验证）
+   * 确保生成的棋盘可以在不猜测的情况下解开
+   */
   private placeMines(firstClickX: number, firstClickY: number): void {
-    let minesPlaced: number = 0;
-    while (minesPlaced < this.mineCount) {
-      const x: number = Math.floor(Math.random() * this.rows);
-      const y: number = Math.floor(Math.random() * this.cols);
+    const maxAttempts: number = 50; // 最多尝试50次生成可解棋盘
+    let attempt: number = 0;
+    let isSolvable: boolean = false;
+    
+    while (attempt < maxAttempts && !isSolvable) {
+      attempt++;
       
-      // 确保第一次点击的位置和周围8格不是地雷
-      const isSafeZone: boolean = Math.abs(x - firstClickX) <= 1 && Math.abs(y - firstClickY) <= 1;
-      
-      if (!this.board[x][y].isMine && !isSafeZone) {
-        this.board[x][y].isMine = true;
-        minesPlaced++;
+      // 清除之前的地雷
+      for (let i: number = 0; i < this.rows; i++) {
+        for (let j: number = 0; j < this.cols; j++) {
+          this.board[i][j].isMine = false;
+          this.board[i][j].adjacentMines = 0;
+        }
       }
+      
+      // 随机放置地雷
+      let minesPlaced: number = 0;
+      while (minesPlaced < this.mineCount) {
+        const x: number = Math.floor(Math.random() * this.rows);
+        const y: number = Math.floor(Math.random() * this.cols);
+        
+        // 确保第一次点击的位置和周围8格不是地雷
+        const isSafeZone: boolean = Math.abs(x - firstClickX) <= 1 && Math.abs(y - firstClickY) <= 1;
+        
+        if (!this.board[x][y].isMine && !isSafeZone) {
+          this.board[x][y].isMine = true;
+          minesPlaced++;
+        }
+      }
+      
+      // 计算周围地雷数
+      this.calculateAdjacentMines();
+      
+      // 验证可解性
+      isSolvable = Solver.solve(this.board, this.rows, this.cols, this.mineCount, firstClickX, firstClickY);
+      
+      if (!isSolvable && attempt < maxAttempts) {
+        console.log(`[GameViewModel] 第${attempt}次生成的棋盘不可解，重新生成...`);
+      }
+    }
+    
+    if (!isSolvable) {
+      console.warn(`[GameViewModel] 尝试${maxAttempts}次后仍未生成可解棋盘，使用当前布局`);
+    } else {
+      console.log(`[GameViewModel] 成功生成可解棋盘（尝试${attempt}次）`);
     }
   }
 

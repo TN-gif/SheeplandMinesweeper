@@ -10,6 +10,9 @@ export struct GameBoard {
   @State boardScale: number = 1.0;
   @State boardOffsetX: number = 0;
   @State boardOffsetY: number = 0;
+  // 累积偏移量（用于记录上一次拖拽结束后的位置）
+  private accumulatedOffsetX: number = 0;
+  private accumulatedOffsetY: number = 0;
   onAfterAction: () => void = () => {};  // 每次操作后的回调
   private panOption: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.All });
   
@@ -87,19 +90,25 @@ export struct GameBoard {
           .onActionEnd((event: GestureEvent) => {
             console.log('Pinch end: boardScale = ' + this.boardScale);
           }),
-        // 拖拽手势
+        // 拖拽手势（累积偏移量，避免跳动）
         PanGesture(this.panOption)
           .onActionStart((event: GestureEvent) => {
-            console.log('Pan start');
+            console.log('Pan start: 起始位置已记录');
           })
           .onActionUpdate((event: GestureEvent) => {
             if (event) {
-              this.boardOffsetX = event.offsetX;
-              this.boardOffsetY = event.offsetY;
+              // 当前位置 = 累积偏移量 + 本次拖拽偏移量
+              this.boardOffsetX = this.accumulatedOffsetX + event.offsetX;
+              this.boardOffsetY = this.accumulatedOffsetY + event.offsetY;
             }
           })
           .onActionEnd((event: GestureEvent) => {
-            console.log('Pan end');
+            // 拖拽结束时，保存累积偏移量
+            if (event) {
+              this.accumulatedOffsetX += event.offsetX;
+              this.accumulatedOffsetY += event.offsetY;
+              console.log(`Pan end: 累积偏移量 (${this.accumulatedOffsetX}, ${this.accumulatedOffsetY})`);
+            }
           })
       )
     );

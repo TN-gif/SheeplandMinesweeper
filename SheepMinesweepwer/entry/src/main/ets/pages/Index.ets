@@ -389,9 +389,17 @@ struct Index {
       .width(93)
       .height(32)
       .position({ x: 18, y: 42 })
-      .onClick(() => {
+      .onClick(async () => {
         if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
           adventureService.completeStage();
+        }
+        // 重置道具数量（退出游戏时重置）
+        try {
+          await itemService.resetInventory();
+          this.refreshItemCount();
+          console.log('[GameBack] 道具数量已重置');
+        } catch (error) {
+          console.error('[GameBack] 重置道具失败:', error);
         }
         // 点击返回按钮，切换回主页面BGM
         this.gameState = this.previousGameState;
@@ -576,7 +584,7 @@ struct Index {
         // 文字内容
         Column({ space: 20 }) {
           // 消息文本
-          Text(this.viewModel.gameWon ? '我一会再回来的！' : '没关系，你是最棒的小羊！')
+          Text(this.viewModel.gameWon ? '灰太狼被弹飞啦！' : '没关系，你是最棒的小羊！')
             .fontSize(28)
             .fontWeight(400)
             .fontColor(Color.Black)
@@ -613,10 +621,18 @@ struct Index {
           }
           .width(120)
           .height(52)
-          .onClick(() => {
+          .onClick(async () => {
             // 如果是冒险模式且游戏胜利，完成关卡
             if (this.previousGameState === 'adventure_map' && this.viewModel.gameWon) {
               adventureService.completeStage();
+            }
+            // 重置道具数量（每局游戏结束后都重置）
+            try {
+              await itemService.resetInventory();
+              this.refreshItemCount();
+              console.log('[GameOver] 道具数量已重置');
+            } catch (error) {
+              console.error('[GameOver] 重置道具失败:', error);
             }
             // 返回上一级菜单，切换回主页面BGM
             this.gameState = this.previousGameState;
@@ -722,7 +738,15 @@ struct Index {
             this.gameState = 'menu';
             this.currentNavTab = 'game';
           },
-          onSelectLevel: (level: Level) => {
+          onSelectLevel: async (level: Level) => {
+            // 重置道具数量（开始新游戏时重置）
+            try {
+              await itemService.resetInventory();
+              this.refreshItemCount();
+              console.log('[NewGame] 冒险模式：道具数量已重置');
+            } catch (error) {
+              console.error('[NewGame] 重置道具失败:', error);
+            }
             this.selectedLevel = level;
             this.viewModel = new GameViewModel(level, this.context);
             this.previousGameState = 'adventure_map';
@@ -790,7 +814,15 @@ struct Index {
         LevelSelectScreen({
           context: this.context,
           provider: this.provider,
-          onSelectLevel: (level: Level) => {
+          onSelectLevel: async (level: Level) => {
+            // 重置道具数量（开始新游戏时重置）
+            try {
+              await itemService.resetInventory();
+              this.refreshItemCount();
+              console.log('[NewGame] 挑战模式：道具数量已重置');
+            } catch (error) {
+              console.error('[NewGame] 重置道具失败:', error);
+            }
             this.selectedLevel = level;
             this.viewModel = new GameViewModel(level, this.context);
             this.previousGameState = 'challenge_select';

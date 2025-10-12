@@ -76,7 +76,7 @@ export const THEMES: Theme[] = [
       clickSound: 'music/Sound_Effects/羊叫声.mp3',
       flagSound: 'music/Sound_Effects/插旗声.mp3',
       winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      loseSound: 'music/Sound_Effects/游戏失败.mp3',
     },
   },
   {
@@ -104,7 +104,7 @@ export const THEMES: Theme[] = [
       clickSound: 'music/Sound_Effects/羊叫声.mp3',
       flagSound: 'music/Sound_Effects/插旗声.mp3',
       winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      loseSound: 'music/Sound_Effects/游戏失败.mp3',
     },
   },
   {
@@ -132,7 +132,7 @@ export const THEMES: Theme[] = [
       clickSound: 'music/Sound_Effects/羊叫声.mp3',
       flagSound: 'music/Sound_Effects/插旗声.mp3',
       winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      loseSound: 'music/Sound_Effects/游戏失败.mp3',
     },
   },
   {
@@ -160,7 +160,7 @@ export const THEMES: Theme[] = [
       clickSound: 'music/Sound_Effects/羊叫声.mp3',
       flagSound: 'music/Sound_Effects/插旗声.mp3',
       winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      loseSound: 'music/Sound_Effects/游戏失败.mp3',
     },
   },
   {
@@ -188,7 +188,7 @@ export const THEMES: Theme[] = [
       clickSound: 'music/Sound_Effects/羊叫声.mp3',
       flagSound: 'music/Sound_Effects/插旗声.mp3',
       winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      loseSound: 'music/Sound_Effects/游戏失败.mp3',
     },
   },
   {
@@ -216,7 +216,7 @@ export const THEMES: Theme[] = [
       clickSound: 'music/Sound_Effects/羊叫声.mp3',
       flagSound: 'music/Sound_Effects/插旗声.mp3',
       winSound: 'music/Sound_Effects/欢呼声.mp3',
-      loseSound: 'music/Sound_Effects/羊叫声.mp3',
+      loseSound: 'music/Sound_Effects/游戏失败.mp3',
     },
   },
 ];
