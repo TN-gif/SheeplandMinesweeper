@@ -22,13 +22,5 @@
     "cols": 30,
     "mines": 99,
     "isUnlocked": true
-  },
-  {
-    "levelId": "challenge_expert",
-    "name": "专家挑战",
-    "rows": 20,
-    "cols": 24,
-    "mines": 130,
-    "isUnlocked": true
   }
 ]
